@@ -14,12 +14,7 @@ import { RiArrowUpSFill } from 'react-icons/ri'
 import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri"
 /* 
   MÓDULOS
-  Dashboard
-  Inventario (sub módulos --> compras ventas)
-  caja
-  Usuarios
-  Reportes
-  Config (sub módulos --> menu, proveedores clientes)
+  
   */
 
 export const SidebarData = [
@@ -51,17 +46,17 @@ export const SidebarData = [
   } */
  {
     title: "Clientes",
-    path: "/",
+    path: "/clientes",
     icon: <AiFillHome />,
   },
   {
     title: "Préstamos",
-    path: "/cash-box",
+    path: "/prestamos",
     icon: <FaCashRegister />,
   },
   {
-    title: "Pagos clientes",
-    path: "/users",
+    title: "Pagos",
+    path: "/pagos",
     icon: <FaUserCog />,
   },
   {
@@ -94,7 +89,7 @@ export const SidebarData = [
       },
       {
         title: "Usuarios",
-        path: "/providers",
+        path: "/usuarios",
         icon: <BiFoodMenu />,
         class: "nav-subItem",
       }

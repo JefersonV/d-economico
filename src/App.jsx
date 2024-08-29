@@ -6,6 +6,10 @@ import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import useAuthStore from "./providers/User";
+import Customers from "./pages/Customers";
+import Prestamos from "./pages/Prestamos";
+import Pagos from "./pages/Pagos";
+import Usuarios from "./pages/Usuarios";
 
 function App() {
   const [pageTitle, setPageTitle] = useState("");
@@ -99,6 +103,26 @@ function App() {
                 element={<Home setTitle={setTitle} />}
               />
               {/* Colocar las demas */}
+              <Route
+                path="/clientes"
+                element={<Customers setTitle={setTitle} />}
+              />
+
+              <Route
+                path="/prestamos"
+                element={<Prestamos setTitle={setTitle} />}
+              />
+
+              <Route
+                path="/pagos"
+                element={<Pagos setTitle={setTitle} />}
+              />
+
+              <Route
+                path="/usuarios"
+                element={<Usuarios setTitle={setTitle} />}
+              />
+              
             </Route>
             {/* */}
 
