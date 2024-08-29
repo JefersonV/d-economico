@@ -5,7 +5,7 @@
   celeste #cf5448 #05b1ff*/
   --font-poppins: "Poppins";
   --subitem-sidebar: #dbdada;
-  --color-sidebar: #000000;
+  --color-sidebar: #002c65;
   --border-sidebar: #ccc;
   --border-sidebar2: #05b1ff;
   --bg-sidebar: #f2f2f2;
@@ -16,7 +16,8 @@
   --sidebar-height-open: 50px;
   --logo-image: 75px;
   --logo-image-close: 50px;
-  --margin-header: 4.5em;
+  --margin-header: 1em;
+  // --margin-header: 4.5em;👀👀
   /* responsive */
   --sidebar-width-open--tablet: 215px;
   --sidebar-width-close--tablet: 60px;
@@ -42,7 +43,12 @@ div {
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: visible;
+  /* width: 100%; */
+}
+
+#root {
+  width: inherit;
 }
 
 .wrapper {
@@ -83,9 +89,9 @@ main {
   align-items: center;
   padding-right: 1.2em;
   width: 100vw;
-  position: fixed;
+  /* position: fixed;
   z-index: 50;
-  top: 0;
+  top: 0; */
   &-avatar {
     object-fit: cover;
   }

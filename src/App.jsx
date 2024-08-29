@@ -13,7 +13,7 @@ function App() {
 
   //Traemos los datos que necesitemos del estado global
   const datosUsuario = useAuthStore((state) => ({
-    isAuth: false,
+    isAuth: true,
     rol: "Administrador",
   }));
 

@@ -103,7 +103,7 @@ function Login() {
                     type="button"
                     onClick={toggleShowPassword}
                   >
-                    {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                    {showPassword ? <AiFillEye /> :  <AiFillEyeInvisible />}
                   </button>
                 </div>
               </div>
