@@ -35,7 +35,7 @@ const SwalDelete = ({ idUsuario, actualizarListaUsuario }) => {
   
   const getUsuarioData = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5173/api/Account/${id}`, {
+      const response = await fetch(`http://localhost:5103/api/Account/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
           'Content-Type': 'application/json'
@@ -51,11 +51,13 @@ const SwalDelete = ({ idUsuario, actualizarListaUsuario }) => {
     }
   };
   
-  getUsuarioData(idUsuario)
+  useEffect(() => {
+    getUsuarioData(idUsuario)
+  }, []);
 
   const providerDelete = async (id) => {
       try {
-        const response = await fetch(`http://localhost:5173/api/Account/${id}`, {
+        const response = await fetch(`http://localhost:5103/api/Account/${id}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${localStorage.token}`,

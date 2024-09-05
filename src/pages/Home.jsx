@@ -13,7 +13,7 @@ export default function Home(props) {
     <>
 			<div className={isOpen ? "wrapper" : "side"} >
 				<div className="container">
-					<div className="row justify-content-center">
+					<div className="row justify-content-center flex-wrap">
 						<div className="col-5 ">
 							<div className="card text-center">
 								<div className="card-header">

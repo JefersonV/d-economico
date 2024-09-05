@@ -1,16 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.cdnfonts.com/css/segoe-ui-4');
 
 :root {
 	  /* #6abac3 #8C3C35 
   celeste #cf5448 #05b1ff*/
+  --font-segoue: "Segoe UI";
   --font-poppins: "Poppins";
   --subitem-sidebar: #dbdada;
   --color-sidebar: #002c65;
   --border-sidebar: #ccc;
   --border-sidebar2: #05b1ff;
   --bg-sidebar: #f2f2f2;
-
-  --border-menu: #59C3C3;
+  // #043b8b #59C3C3
+  --border-menu: #004dc1;
   --sidebar-width-open: 250px;
   --sidebar-width-close: 70px;
   --sidebar-height-open: 50px;
@@ -41,6 +43,15 @@ span,
 div {
   font-family: var(--font-poppins), sans-serif;
 }
+
+span {
+  font-family: var(--font-segoue), sans-serif;
+}
+
+/* h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}	 */
 
 body {
   overflow-x: visible;
@@ -98,13 +109,14 @@ main {
   &-info-user span {
     color: white;
     float: right;
-    font-size: .9em;
+    font-size: .8em;
     font-family: var(--font-poppins);
     margin-right: .5em;
   }
 }
 
 .header .page-title {
+  font-size: .75em;
   color: var(--color-sidebar);
   margin-left: .5em;
   margin-bottom: 0;
@@ -209,6 +221,19 @@ aside .top_section .logo-restaurante-close {
   /*   border-left: 4px solid var(--border-sidebar2); */
   border-left: 5.5px solid var(--border-menu);
 }
+
+.link:target {
+  background: var(--border-sidebar);
+  color: var(--color-sidebar);
+  /* color: #000; */
+  transition: all 0.5s;
+  border-radius: 0.5em;
+  /* background-color: var(--item-selected); */
+  overflow: hidden;
+  /*   border-left: 4px solid var(--border-sidebar2); */
+  border-left: 5.5px solid var(--border-menu);
+}
+
 
 /*------- Widgets del dashboard ------- */
 /* #link-1, #link-2, #link-3, #link-4 {
@@ -376,7 +401,12 @@ input[type="number"]:focus {
   outline: none;
 }
 
-
+table thead tr th {
+  font-size: .9em;
+}
+table tbody tr td {
+  font-size: .9em;
+}
 
 /* Breakpoint tablet horizontal */
 @media screen and (max-width: 1024px) {
@@ -392,10 +422,10 @@ input[type="number"]:focus {
   }
   /* Estilos para todas las tablas */
   table thead tr th {
-    font-size: .9em;
+    font-size: .8em;
   }
   table tbody tr td {
-    font-size: .9em;
+    font-size: .8em;
   }
   #btn-observaciones {
     font-size: .8em;
@@ -450,7 +480,7 @@ input[type="number"]:focus {
   }
   
   .header .page-title {
-    font-size: .7em;
+    font-size: .5em;
   }
   
   .header .header-avatar {

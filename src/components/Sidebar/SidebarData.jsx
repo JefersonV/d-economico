@@ -8,6 +8,7 @@ import { VscGraph } from "react-icons/vsc"
 import { GrConfigure } from "react-icons/gr"
 import { BiFoodMenu } from "react-icons/bi"
 import { FiTruck } from "react-icons/fi"
+import { FaRegUserCircle } from "react-icons/fa";
 import { RiArrowDownSFill } from 'react-icons/ri'
 import { RiArrowUpSFill } from 'react-icons/ri'
 /* Arrows */
@@ -47,7 +48,7 @@ export const SidebarData = [
  {
     title: "Clientes",
     path: "/clientes",
-    icon: <AiFillHome />,
+    icon: <FaRegUserCircle />,
   },
   {
     title: "Préstamos",

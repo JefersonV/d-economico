@@ -17,8 +17,8 @@ function App() {
 
   //Traemos los datos que necesitemos del estado global
   const datosUsuario = useAuthStore((state) => ({
-    isAuth: true,
-    rol: "Administrador",
+    isAuth: state.isAuth,
+    rol: state.rol,
   }));
 
   //Traemos el método para cambiar los valores del estado

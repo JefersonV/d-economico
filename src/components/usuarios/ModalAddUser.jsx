@@ -28,7 +28,7 @@ function ModalAdd(props) {
         'El nombre debe tener un máximo de 25 caracteres y solo puede contener letras y espacios';
     }
     if (!valores.contrasenia) {
-      errores.contrasenia = 'Por favor ingresa una contrasenia';
+      errores.contrasenia = 'Por favor ingresa una contraseña';
     }
     if (!valores.idTipoUsuario) {
       errores.idTipoUsuario = 'Por favor selecciona un tipo de usuario';
@@ -42,7 +42,7 @@ function ModalAdd(props) {
     bodyProvider.idTipoUsuario = valores.idTipoUsuario;
 
     try {
-      const response = await fetch('http://localhost:5173/api/Account/register', {
+      const response = await fetch('http://localhost:5103/api/Account/register', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.token}`,
@@ -105,9 +105,11 @@ function ModalAdd(props) {
             {({ values, handleSubmit, handleChange, handleBlur, errors, touched }) => (
               <Form className="formulario" onSubmit={handleSubmit}>
                 <FormGroup row>
-                  <Label for="input-nombre" sm={2}>
-                    Nombre
-                  </Label>
+                  <Col sm={10}>
+                    <Label for="input-nombre" sm={2}>
+                      Nombre
+                    </Label>
+                  </Col>
                   <Col sm={10}>
                     <Input
                       type="text"
@@ -125,10 +127,13 @@ function ModalAdd(props) {
                   </Col>
                 </FormGroup>
                 <FormGroup row>
+
+                <Col sm={10}>
                   <Label for="input-contrasenia" sm={2}>
                     Contraseña
                   </Label>
-                  <Col sm={8}>
+                </Col>
+                  <Col sm={10}>
                     <Input
                       type={mostrarContrasenia ? 'text' : 'password'}
                       id="input-contrasenia"
@@ -151,9 +156,11 @@ function ModalAdd(props) {
                   </Col>
                 </FormGroup>
                 <FormGroup row>
-                  <Label for="select-tipo-usuario" sm={2}>
+                <Col sm={10}>
+                  <Label for="select-tipo-usuario" sm={6}>
                     Tipo de usuario
                   </Label>
+                </Col>
                   <Col sm={10}>
                     <Input
                       type="select"

@@ -19,11 +19,16 @@ function Users(props) {
   const getData = async () => {
     try {
       // https://jsonplaceholder.typicode.com/comments
-      const response = await fetch("http://localhost:5173/api/Account", {
+      const response = await fetch("http://localhost:5103/api/Account", {
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
         },
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const json = await response.json();
       setDataApi(json);
       console.log(json);
