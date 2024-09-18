@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react'
 import { useStore } from '../providers/GlobalProvider'
+import Searchbar from '../components/Searchbar';
+import { Button, Pagination } from "reactstrap";
+import { FaRegAddressCard } from "react-icons/fa";
+import TableClient from '../components/Clientes/TableClient';
+import PagComponent from '../components/PagComponent';
+import { Link } from 'react-router-dom';
 
 function Customers(props) {
   const isOpen = useStore((state) => state.sidebar);
@@ -11,7 +17,31 @@ function Customers(props) {
   return (
     <>
       <div className={isOpen ? "wrapper" : "side"}>
-        <h1>Clientes ...</h1>
+        <div className="container">
+          <div className="row justify-content-center mt-4">
+            <div className="col-4">
+              <Searchbar placeholder="criterios.."/>
+            </div>
+            <div className="col-4">
+              <Link color="primary" to="/multiple">
+                <FaRegAddressCard /> Agregar Cliente
+              </Link>
+            </div>
+
+          </div>
+
+          <div className="row">
+            <div className="col">
+              <TableClient />
+            </div>
+          </div>
+
+          <div className="row justify-content-center">
+            <div className="col">
+              <PagComponent />
+            </div>
+          </div>
+        </div>
 
       </div>
     </>

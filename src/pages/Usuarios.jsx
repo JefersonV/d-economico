@@ -63,7 +63,7 @@ function Users(props) {
       <div className="container-fluid mt-4">
       <div className="row">
           <div className="col-6">
-            <Searchbar searcher={searcher} />
+            <Searchbar searcher={searcher} placeholder="Nombre" />
           </div>
           <div className="col-6">
             <ModalAddUser actualizarListaUsuario={getData} />

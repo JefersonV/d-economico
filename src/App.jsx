@@ -10,6 +10,7 @@ import Customers from "./pages/Customers";
 import Prestamos from "./pages/Prestamos";
 import Pagos from "./pages/Pagos";
 import Usuarios from "./pages/Usuarios";
+import CustomersMulti from "./pages/CustomersMulti";
 
 function App() {
   const [pageTitle, setPageTitle] = useState("");
@@ -109,6 +110,10 @@ function App() {
               />
 
               <Route
+                path="/mutliple"
+                element={<CustomersMulti setTitle={setTitle} />}
+              />
+<Route
                 path="/prestamos"
                 element={<Prestamos setTitle={setTitle} />}
               />

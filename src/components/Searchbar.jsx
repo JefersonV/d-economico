@@ -14,7 +14,7 @@ export default function Searchbar(props) {
         <Input
           id="exampleSearch"
           name="search"
-          placeholder="nombre ..."
+          placeholder={props.placeholder}
           type="search"
           onChange={props.searcher}
         />
