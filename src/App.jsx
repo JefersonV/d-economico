@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./styles/App.scss";
 import Login from "./pages/Login";
-import Sidebar from "./components/sidebar/Sidebar";
+import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { ProtectedRoute } from "./components/ProtectedRoute";

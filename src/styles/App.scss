@@ -100,6 +100,7 @@ main {
   align-items: center;
   padding-right: 1.2em;
   width: 100vw;
+  position: relative;
   /* position: fixed;
   z-index: 50;
   top: 0; */
@@ -130,6 +131,15 @@ main {
   color: black;
 }
 
+/* .arrow-nav--sidebar {
+  font-size: 1.5em;
+  padding: 0 .2em;
+  border-radius: 50%;
+  border: 1px solid var(--border-sidebar);
+  position: absolute;
+  right: -.5em;
+  z-index: 100000;
+} */
 
 .sidebar {
   background: var(--bg-sidebar);

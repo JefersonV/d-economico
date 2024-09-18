@@ -7,6 +7,7 @@ import { MdLogout } from "react-icons/md";
 import { useStore, useSubItem } from "../../providers/GlobalProvider";
 import logoDE from '../../assets/images/logo-de.png';
 import "../../styles/App.scss";
+import { Link } from "react-router-dom";
 
 function Sidebar(props) {
   const { children, pageTitle } = props;
@@ -59,11 +60,13 @@ function Sidebar(props) {
             {/* Sidebar completa o incompleta  */}
             {/* isOpen === true -> se mostrará el h1 por defecto, de lo contrario se oculta */}
             <div className="logo">
-              <figure className="m-0">
+              <Link to="/" className="m-0">
                 <img style={{ width: isOpen ? "145px" : "50px" }} className="logo-microfinanciera" width="20px" src={logoDE} alt="Logo microfinanciera" />
-              </figure>
+              </Link>
+
               {/* <p className="logo-text-right m-0" style={{ display: isOpen ? "block" : "none"}}> <br /> </p> */}
             </div>
+            
           </section>
           {/* Items de la sidebar */}
           {SidebarData.map((item, index) => {
