@@ -28,7 +28,7 @@ function TabsForms() {
             className={activeTab === '1' ? 'active' : ''}
             onClick={() => toggle('1')}
           >
-            Tab1
+            Cliente
           </NavLink>
         </NavItem>
         <NavItem>
@@ -36,7 +36,7 @@ function TabsForms() {
             className={activeTab === '2' ? 'active' : ''}
             onClick={() => toggle('2')}
           >
-            More Tabs
+            Fiador
           </NavLink>
         </NavItem>
         <NavItem>
@@ -44,7 +44,7 @@ function TabsForms() {
             className={activeTab === '3' ? 'active' : ''}
             onClick={() => toggle('3')}
           >
-            Tab3
+            Referencias
           </NavLink>
         </NavItem>
         <NavItem>
@@ -52,7 +52,7 @@ function TabsForms() {
             className={activeTab === '4' ? 'active' : ''}
             onClick={() => toggle('4')}
           >
-            Tab4
+            Documentación
           </NavLink>
         </NavItem>
       </Nav>

@@ -44,6 +44,13 @@ div {
   font-family: var(--font-poppins), sans-serif;
 }
 
+label {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: .9em !important;
+  // color: var(--color-sidebar);
+  font-weight: bold;
+}
+
 span {
   font-family: var(--font-segoue), sans-serif;
 }
@@ -412,7 +419,7 @@ input[type="number"]:focus {
 }
 
 table thead tr th {
-  font-size: .9em;
+  font-size: .8em;
 }
 table tbody tr td {
   font-size: .9em;

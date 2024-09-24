@@ -14,12 +14,12 @@ import CustomersMulti from "./pages/CustomersMulti";
 
 function App() {
   const [pageTitle, setPageTitle] = useState("");
-  //const [isAuth, setIsAuth] = useState(false) // Estado para controlar si el usuario está autenticado
+  const [isAuth, setIsAuth] = useState(true) // Estado para controlar si el usuario está autenticado
 
   //Traemos los datos que necesitemos del estado global
   const datosUsuario = useAuthStore((state) => ({
-    isAuth: state.isAuth,
-    rol: state.rol,
+    isAuth: true,
+    rol: "Administrador",
   }));
 
   //Traemos el método para cambiar los valores del estado
@@ -110,7 +110,7 @@ function App() {
               />
 
               <Route
-                path="/mutliple"
+                path="/multiple"
                 element={<CustomersMulti setTitle={setTitle} />}
               />
 <Route

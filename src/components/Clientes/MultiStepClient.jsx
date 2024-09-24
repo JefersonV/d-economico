@@ -1,10 +1,10 @@
 import React from 'react'
-import MultiStep from './MultiStep'
+import CustomizedStepper from './CustomizedStepper'
 
 function MultiStepClient() {
   return (
     <>
-      <MultiStep />
+      <CustomizedStepper />
     </>
   )
 }
