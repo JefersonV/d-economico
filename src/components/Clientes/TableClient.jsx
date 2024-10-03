@@ -5,7 +5,7 @@ import { BsFillTrashFill } from "react-icons/bs";
 import ModalEditUser from "../usuarios/ModalEditUser";
 import SwalDelete from "../usuarios/SwalDeleteUser";
 import ModalInfoUser from '../usuarios/ModalInfoUser';
-import TabsForms from '../Clientes/TabsForms';
+import TabsForms from './Tabs/TabsForms';
 import ModalEditTab from "./ModalEditTab";
 
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
@@ -50,7 +50,7 @@ function TableClient(props) {
                 </tr>
               </thead>
               <tbody>
-                {props.data?.length == 0 ? (
+                {props.dataApi?.length == 0 ? (
                   <tr>
                     <td colSpan="5" className="text-center">No hay usuarios registrados</td>
                   </tr>
@@ -61,7 +61,7 @@ function TableClient(props) {
                     <td scope="row">{index + 1}</td>
                     <td>{data?.nombre}</td>
                     <td>{data?.profesion}</td>
-                    <td>{data?.telefono} <br/>{data.telefono2}</td>
+                    <td>{data?.telefono}</td>
                     {/* Renderizado condicional */}
                     <td>
                       {data?.fiadorIdfiador === null ? 
@@ -140,7 +140,9 @@ function TableClient(props) {
                         idUsuario={data.idUsuario}
                         actualizarListaUsuario={actualizarListaUsuario}
                       /> */}
-                      <ModalEditTab />
+                      <ModalEditTab title="Editar información del cliente" 
+                      idCliente={data?.idcliente} 
+                      actualizarListaCliente={props.actualizarListaCliente}/>
                       {/* <SwalDelete 
                         idUsuario={data.idUsuario} 
                         actualizarListaUsuario={actualizarListaUsuario} 

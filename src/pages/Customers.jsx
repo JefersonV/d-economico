@@ -27,7 +27,7 @@ function Customers(props) {
       const response = await fetch(`${URL_API}/Cliente`);
       const data = await response.json();
       setDataApi(data); 
-      console.log(data);
+      // console.log(data);
       if (response.ok) {
         console.log("response.ok")
         console.log(response.ok)
@@ -41,9 +41,9 @@ function Customers(props) {
   useEffect(() => {
     setTimeout(() => {
       getData();
+      console.log(dataApi)
     }, 1000);
   }, []);
-
 
   return (
     <div>
@@ -72,7 +72,7 @@ function Customers(props) {
       </div>
       <div className="row">
         <div className="col">
-          <TableClient dataApi={dataApi} />
+          <TableClient dataApi={dataApi} actualizarListaCliente={getData}/>
         </div>
       </div>
       <div className="row justify-content-center">

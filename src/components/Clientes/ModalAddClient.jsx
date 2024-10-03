@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Col, Input } from 'reactstrap';
 import { Formik, Form } from 'formik';
 import { BiEditAlt, BiFoodMenu } from 'react-icons/bi';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import Swal from 'sweetalert2';
 import '../../styles/Formulario.scss';
 
@@ -11,22 +10,8 @@ function ModalAddClient() {
   const toggle = () => setModal(!modal);
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
-  const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
-
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
-    /* const bodyCliente = {
-    nombre: '',
-    apellido: '',
-    direccion: '',
-    telefono: '',
-    telefono2: '',
-    ingresos: '',
-    egresos: '',
-    profesion: '',
-    sexo: '',
-    usuarioIdusuario: 3,
-  } */
   /* Validaciones de los campos */
   const validate = (valores) => {
     let errores = {};
@@ -36,9 +21,7 @@ function ModalAddClient() {
       errores.nombre =
       'El nombre debe tener un máximo de 25 caracteres, solo puede contener letras y espacios, y no puede tener dos espacios seguidos';
     }
-    if (!valores.apellido) {
-      errores.apellido = 'Por favor ingresa un apellido';
-    } else if (!/^(?!.*\s{2})[a-zA-ZÀ-ÿ\s]{1,25}$/.test(valores.apellido)) {
+    if (valores.apellido && !/^(?!.*\s{2})[a-zA-ZÀ-ÿ\s]{1,25}$/.test(valores.apellido)) {
       errores.apellido = 'El apellido debe tener un máximo de 25 caracteres, solo puede contener letras y espacios, y no puede tener dos espacios seguidos';
     }
 
@@ -78,13 +61,16 @@ function ModalAddClient() {
       errores.profesion = 'La profesión debe tener un máximo de 50 caracteres, solo puede contener letras y espacios, y no puede tener dos espacios seguidos';
     }
 
-    if (!valores.idTipoUsuario) {
+    /* if (!valores.idTipoUsuario) {
       errores.idTipoUsuario = 'Por favor selecciona un tipo de usuario';
-    }
+    } */
 
     if (!valores.sexo) {
       errores.sexo = 'Por favor selecciona un sexo';
     }
+
+    // console.log(errores)
+
     return errores;
   };
 
@@ -94,33 +80,25 @@ function ModalAddClient() {
       nombre: valores.nombre,
       apellido: valores.apellido,
       direccion: valores.direccion,
-      telefono: valores.telefono,
-      telefono2: valores.telefono2,
-      sexo: valores.sexo,
+      telefono: parseInt(valores.telefono, 10),
+      telefono2: parseInt(valores.telefono2, 10),
+      
       // dpi: valores.dpi;
-      ingresos: valores.ingresos,
-      egresos: valores.egresos,
+      ingresos: parseInt(valores.ingresos, 10),
+      egresos: parseInt(valores.egresos, 10),
       profesion: valores.profesion,
+      sexo: valores.sexo,
+      usuarioIdusuario: 3
     }
-    // console.log(bodyCliente);
+    console.log(bodyCliente);
     try {
-      const response = await fetch('https://localhost:5103/api/Cliente', {
+      const response = await fetch(`${VITE_BACKEND_URL}/Cliente`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(bodyCliente)
       });
-
-      /* if (response.status === 400) {
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'El nombre de usuario ya está registrado',
-          showConfirmButton: false,
-          timer: 2000
-        });
-      } */
 
       if (response.ok) {
         Swal.fire({
@@ -148,7 +126,7 @@ function ModalAddClient() {
       <Button color="danger" outline onClick={toggle}>
         <BiEditAlt /> Nuevo Cliente 
       </Button>
-      <Modal isOpen={modal} fade={false} toggle={toggle} centered={true} size='lg'>
+      <Modal isOpen={modal} fade={false} toggle={toggle} centered={true} size='xl'>
         <ModalHeader toggle={toggle}>
           <BiFoodMenu size={30} /> Ingreso de nuevo Cliente
         </ModalHeader>
@@ -170,12 +148,12 @@ function ModalAddClient() {
             validate={validate}
             onSubmit={handleSubmit}
           >
-            {({ values, handleChange, handleBlur, handleSubmit, errors, touched }) => (
+            {({ values, handleSubmit, handleChange, handleBlur, errors, touched }) => (
               <Form className="formulario" onSubmit={handleSubmit}>
                 <FormGroup row>
                   <Col sm={6}>
                     <Label for="input-nombre" sm={2}>
-                        Nombre
+                      Nombre
                     </Label>
                     <Input
                       type="text"
@@ -188,7 +166,7 @@ function ModalAddClient() {
                       onBlur={handleBlur}
                       /* Validación de campo */
                       valid={touched.nombre && !errors.nombre && values.nombre.length > 0}
-                      /* validar en caso de */
+                      /* invalidar en caso de */
                       invalid={touched.nombre && !!errors.nombre}
                     />
                     {/* Mensaje de error si aplica*/}
@@ -287,8 +265,8 @@ function ModalAddClient() {
                       invalid={touched.sexo && !!errors.sexo}
                     >
                       <option value="" disabled>Seleccione una opción</option>
-                      <option value="1">Masculino</option>
-                      <option value="2">Femenino</option>
+                      <option value="Masculino">Masculino</option>
+                      <option value="Femenino">Femenino</option>
                     </Input>
                     {touched.sexo && errors.sexo && <div className="error">{errors.sexo}</div>}
                   </Col>
@@ -394,7 +372,7 @@ function ModalAddClient() {
                   </Col> */}
                   
                 </FormGroup>
-                
+                {console.log(errors)}
                 <Button type="submit" color="primary" outline>
                   Registrar
                 </Button>

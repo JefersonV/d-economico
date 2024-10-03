@@ -12,8 +12,9 @@ import {
   CardText,
   Button
 } from 'reactstrap';
+import TabEditItem1 from './TabEditItem1';
 
-function TabsForms() {
+function TabsForms(props) {
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
@@ -56,11 +57,17 @@ function TabsForms() {
           </NavLink>
         </NavItem>
       </Nav>
+      {/* Contenido de las tabs */}
       <TabContent activeTab={activeTab}>
         <TabPane tabId="1">
           <Row>
             <Col sm="12">
-              <h4>Tab 1 Contents</h4>
+              <Card body>
+                {/* Tab 1 */}
+                <TabEditItem1 idCliente={props.idCliente} 
+                actualizarListaCliente={props.actualizarListaCliente}/>
+                
+              </Card>
             </Col>
           </Row>
         </TabPane>

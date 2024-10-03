@@ -13,8 +13,8 @@ import {
 import { Formik, ErrorMessage } from "formik";
 import Swal from "sweetalert2";
 import { BiEditAlt, BiHide, BiShow } from "react-icons/bi";
-import { TbTruck } from "react-icons/tb";
-import TabsForms from './TabsForms';
+import { RiAccountPinCircleFill } from "react-icons/ri";
+import TabsForms from './Tabs/TabsForms';
 
 function ModalEditTab(props) {
 
@@ -25,10 +25,11 @@ function ModalEditTab(props) {
       <BiEditAlt size={22} onClick={toggleModal} />
       <Modal isOpen={modal} fade={false} toggle={toggleModal} centered={true} size='lg'>
         <ModalHeader toggle={toggleModal}>
-          <TbTruck size={30} /> {props.title}
+          <RiAccountPinCircleFill size={30}/> {props.title}
         </ModalHeader>
         <ModalBody>
-          <TabsForms />
+          {/* Componente tabs */}
+          <TabsForms idCliente={props.idCliente} actualizarListaCliente={props.actualizarListaCliente}/>
 
         </ModalBody>
 
