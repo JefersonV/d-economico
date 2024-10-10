@@ -60,11 +60,11 @@ export const SidebarData = [
     path: "/pagos",
     icon: <FaUserCog />,
   },
-  {
+  /* {
     title: "Calculadora",
     path: "/reports",
     icon: <VscGraph />,
-  },
+  }, */
   {
     title: "Capital",
     path: "/reports",
@@ -83,7 +83,7 @@ export const SidebarData = [
     iconOpened: <RiArrowUpSFill />,
     subNav: [
       {
-        title: "Dias de gracia",
+        title: "Políticas",
         path: "/menu",
         icon: <BiFoodMenu />,
         class: "nav-subItem",

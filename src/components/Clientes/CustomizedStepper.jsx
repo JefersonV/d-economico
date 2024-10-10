@@ -6,50 +6,21 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CustomerStep1 from './CustomerStep1';
+import CustomerStep2 from './CustomerStep2';
+import CustomerStep3 from './CustomerStep3';
 
 const steps = [
-  { label: 'Select master blaster campaign settings', content: <CustomerStep1 /> },
-  { label: 'Create an ad group', content: <Form2 /> },
-  { label: 'Create an ad', content: <Form3 /> },
+  // Aquí se agregan más pasos si es necesario
+  { label: 'Registra al cliente, o búscalo si es uno existente', content: <CustomerStep1 /> },
+  { label: 'Registra al fiador o búscalo si ex uno existente', content: <CustomerStep2 /> },
+  { label: 'Registra las referencias', content: <CustomerStep3 /> },
 ];
-
-function Form1() {
-  // Define tu formulario aquí
-  return (
-    <form>
-      {/* Campos del primer formulario */}
-      <label htmlFor="field1">Field 1:</label>
-      <input type="text" id="field1" name="field1" />
-    </form>
-  );
-}
-
-function Form2() {
-  // Define tu segundo formulario aquí
-  return (
-    <form>
-      {/* Campos del segundo formulario */}
-      <label htmlFor="field2">Field 2:</label>
-      <input type="text" id="field2" name="field2" />
-    </form>
-  );
-}
-
-function Form3() {
-  // Define tu tercer formulario aquí
-  return (
-    <form>
-      {/* Campos del tercer formulario */}
-      <label htmlFor="field3">Field 3:</label>
-      <input type="text" id="field3" name="field3" />
-    </form>
-  );
-}
 
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
+  /* Definir pasos opcionales */
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -122,7 +93,7 @@ export default function HorizontalLinearStepper() {
               </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                 <Box sx={{ flex: '1 1 auto' }} />
-                <Button onClick={handleReset}>Reset</Button>
+                <Button onClick={handleReset}>Reiniciar</Button>
               </Box>
             </React.Fragment>
           ) : (
@@ -137,16 +108,16 @@ export default function HorizontalLinearStepper() {
                   onClick={handleBack}
                   sx={{ mr: 1 }}
                 >
-                  Back
+                  Atrás
                 </Button>
                 <Box sx={{ flex: '1 1 auto' }} />
                 {isStepOptional(activeStep) && (
                   <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                    Skip
+                    Omitir
                   </Button>
                 )}
                 <Button onClick={handleNext}>
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                  {activeStep === steps.length - 1 ? 'Finalizado' : 'Siguiente'}
                 </Button>
               </Box>
             </React.Fragment>

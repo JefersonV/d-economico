@@ -29,8 +29,8 @@ function Customers(props) {
       setDataApi(data); 
       // console.log(data);
       if (response.ok) {
-        console.log("response.ok")
-        console.log(response.ok)
+        // console.log("response.ok")
+        // console.log(response.ok)
         setIsLoading(false);
       }
     } catch (error) {
@@ -41,7 +41,7 @@ function Customers(props) {
   useEffect(() => {
     setTimeout(() => {
       getData();
-      console.log(dataApi)
+      // console.log(dataApi)
     }, 1000);
   }, []);
 

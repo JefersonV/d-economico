@@ -16,12 +16,6 @@ function TabEditItem1(props) {
     direccion: "",
     telefono: "",
     telefono2: "",
-    // dpi: "",
-    ingresos: "",
-    egresos: "",
-    profesion: "",
-    sexo: "",
-    usuarioIdusuario: 3,
   });
 
   const getclienteData = async (id) => {
@@ -29,9 +23,9 @@ function TabEditItem1(props) {
       const response = await fetch(`${VITE_BACKEND_URL}/Cliente/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.token}`,
+            // Authorization: `Bearer ${localStorage.token}`,
             "Content-Type": "application/json",
-          },
+          }, 
         }
       );
       const clienteData = await response.json();
@@ -42,13 +36,6 @@ function TabEditItem1(props) {
         apellido: clienteData.apellido || "",
         direccion: clienteData.direccion || "",
         telefono: clienteData.telefono || "",
-        telefono2: clienteData.telefono2 || "",
-        // dpi: clienteData.dpi || "",
-        ingresos: clienteData.ingresos || "",
-        egresos: clienteData.egresos || "",
-        profesion: clienteData.profesion || "",
-        sexo: clienteData.sexo || "",
-        usuarioIdusuario: 3,
       });
     } catch (error) {
       console.log("Error Message: " + error.ErrorMessage);
@@ -58,24 +45,18 @@ function TabEditItem1(props) {
   useEffect(() => {
     if (props.idCliente) {
       getclienteData(props.idCliente);
+      
     }
   }, [props.idCliente]);
 
   const handleSubmit = async (values, { resetForm }) => {
 
     /* Para la solicitud put */
-    const bodyCliente = {
+    const bodyFiador = {
       nombre: values.nombre || "",
       apellido: values.apellido || "",
       direccion: values.direccion || "",
       telefono: values.telefono || "",
-      telefono2: values.telefono2 || "",
-      ingresos: values.ingresos || "",
-      egresos: values.egresos || "",
-      profesion: values.profesion || "",
-      // dpi: values.dpi || "",
-      sexo: values.sexo || "",
-      usuarioIdusuario: values.usuarioIdusuario || 3,
     };
 
     cambiarFormularioEnviado(true);
@@ -83,10 +64,10 @@ function TabEditItem1(props) {
     resetForm();
 
     try {
-      const response = await fetch(`${VITE_BACKEND_URL}/Cliente/${props.idCliente}`,
+      const response = await fetch(`${VITE_BACKEND_URL}/Fiador/${props.idCliente}`,
         {
           method: "PUT",
-          body: JSON.stringify(bodyCliente),
+          body: JSON.stringify(bodyFiador),
           headers: {
             // Authorization: `Bearer ${localStorage.token}`,
             "Content-Type": "application/json",
@@ -143,35 +124,6 @@ function TabEditItem1(props) {
       errores.telefono = 'El teléfono debe tener entre 8 y 10 dígitos';
     }
 
-    /* if (!valores.telefono2) {
-      errores.telefono2 = 'Por favor ingresa un número de teléfono';
-    } else  */if (valores.telefono2 && !/^\d{8,10}$/.test(valores.telefono2)) {
-      errores.telefono2 = 'El teléfono debe tener entre 8 y 10 dígitos';
-    }
-
-    if (!valores.ingresos) {
-      errores.ingresos = 'Por favor ingresa un monto';
-    } else if (!/^\d+(\.\d{1,2})?$/.test(valores.ingresos)) {
-      errores.ingresos = 'El ingreso debe ser un número válido con hasta dos decimales';
-    }
-
-    if (!valores.egresos) {
-      errores.egresos = 'Por favor ingresa un monto';
-    } else if (!/^\d+(\.\d{1,2})?$/.test(valores.egresos)) {
-      errores.egresos = 'El egreso debe ser un número válido con hasta dos decimales';
-    }
-
-    if (!valores.profesion) {
-      errores.profesion = 'Por favor ingresa una profesión';
-    } else if (!/^(?!.*\s{2})[a-zA-ZÀ-ÿ\s]{1,50}$/.test(valores.profesion)) {
-      errores.profesion = 'La profesión debe tener un máximo de 50 caracteres, solo puede contener letras y espacios, y no puede tener dos espacios seguidos';
-    }
-
-    if (!valores.sexo) {
-      errores.sexo = 'Por favor selecciona un sexo';
-    }
-
-
     return errores;
   };
 
@@ -183,12 +135,6 @@ function TabEditItem1(props) {
           apellido: data.apellido || "",
           direccion: data.direccion || "",
           telefono: data.telefono || "",
-          telefono2: data.telefono2 || "",
-          ingresos: data.ingresos || "",
-          egresos: data.egresos || "",
-          profesion: data.profesion || "",
-          sexo: data.sexo || "",
-          usuarioIdusuario: 3,
         }}
         /* props de validación y envío */
         enableReinitialize={true}
@@ -267,7 +213,7 @@ function TabEditItem1(props) {
 
             <FormGroup row>
               <Col sm={6}>
-                <Label for="input-telefono" sm={6}>Teléfono 1</Label>
+                <Label for="input-telefono" sm={6}>Teléfono</Label>
                 <Input
                   type="text"
                   id="input-telefono"
@@ -282,128 +228,8 @@ function TabEditItem1(props) {
                 />
                 {touched.telefono && errors.telefono && <div className="error">{errors.telefono}</div>}
               </Col>
-
-              <Col sm={6}>
-                <Label for="input-telefono2" sm={6}>Teléfono 2</Label>
-                <Input
-                  type="text"
-                  id="input-telefono2"
-                  name="telefono2"
-                  value={values.telefono2}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  valid={touched.telefono2 && !errors.telefono2 && values.telefono2.length > 0}
-                  invalid={touched.telefono2 && !!errors.telefono2}
-                />
-                {touched.telefono2 && errors.telefono2 && <div className="error">{errors.telefono2}</div>}
-              </Col>
             </FormGroup>
 
-            <FormGroup row>
-              <Col sm={6}>
-                <Label for="select-sexo" sm={6}>
-                  Sexo
-                </Label>
-                <Input
-                  type="select"
-                  id="select-sexo"
-                  name="sexo"
-                  value={values.sexo}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  valid={touched.sexo && !errors.sexo && values.sexo.length > 0}
-                  invalid={touched.sexo && !!errors.sexo}
-                >
-                  <option value="" disabled>Seleccione una opción</option>
-                  <option value="Masculino">Masculino</option>
-                  <option value="Femenino">Femenino</option>
-                </Input>
-                {touched.sexo && errors.sexo && <div className="error">{errors.sexo}</div>}
-              </Col>
-              {/* 
-              <Col sm={6}>
-                <Label for="input-dpi" sm={6}>
-                Número de DPI
-              </Label>
-
-              <Input
-                type="number"
-                id="input-dpi"
-                name="dpi"
-                value={values.dpi}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                valid={touched.contrasenia && !errors.contrasenia && values.contrasenia.length > 0}
-                invalid={touched.contrasenia && !!errors.contrasenia} 
-              />
-              </Col> */}
-                {/* {touched.nombre && errors.nombre && <div className="error">{errors.nombre}</div>} */}
-                {/* {touched.contrasenia && errors.contrasenia && <div className="error">{errors.contrasenia}</div>} */}
-
-            </FormGroup>
-
-            <FormGroup row>
-              <Col sm={6}>
-                <Label for="input-ingresos" sm={6}>
-                  Ingreso mensual
-                </Label>
-                <Input
-                  type="text"
-                  id="input-ingresos"
-                  name="ingresos"
-                  autoComplete="off" 
-                  value={values.ingresos}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  valid={touched.ingresos && !errors.ingresos && values.ingresos.length > 0}
-                  invalid={touched.ingresos && !!errors.ingresos}
-                />
-                {touched.ingresos && errors.ingresos && <div className="error">{errors.ingresos}</div>}
-              </Col>
-
-              <Col sm={6}>
-              <Label for="input-egresos" sm={6}>
-                Egreso mensual
-              </Label>
-
-              <Input
-                type="text"
-                id="input-egresos"
-                name="egresos"
-                value={values.egresos}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                valid={touched.egresos && !errors.egresos && values.egresos.length > 0}
-                invalid={touched.egresos && !!errors.egresos}
-              />
-              {touched.egresos && errors.egresos && <div className="error">{errors.egresos}</div>}
-              </Col>
-
-            </FormGroup>
-
-            <FormGroup row>
-              <Col sm={6}>
-                <Label for="input-profesion" sm={2}>
-                  Profesion
-                </Label>
-
-                <Input
-                  type="text"
-                  id="input-profesion"
-                  name="profesion"
-                  placeholder=""
-                  autoComplete="off"
-                  value={values.profesion}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  valid={touched.profesion && !errors.profesion && values.profesion.length > 0}
-                  invalid={touched.profesion && !!errors.profesion}
-                />
-                {touched.profesion && errors.profesion && <div className="error">{errors.profesion}</div>}
-              </Col>
-              
-            </FormGroup>
-            {/* {console.log(errors)} */}
             <Button
               color="primary"
               type="submit"

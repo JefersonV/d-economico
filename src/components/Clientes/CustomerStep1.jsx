@@ -2,32 +2,10 @@ import React, { useState, useEffect } from 'react'
 import Searchbar from '../Searchbar'
 import { Button } from "reactstrap";	
 import ModalAddClient from './ModalAddClient';
+import Badge from "./Badge"
+// import "../../styles/Badge.scss";
 
 function CustomerStep1() {
-
-  /* Componente Badge */
-  function Badge() {
-    // Define tu formulario aquí
-    return (
-      <>
-        <div className="row">
-          <div className="col-4">
-            <figure>
-              <img src="Imagen de ayuda" alt="imagen del badge estática" />
-            </figure>
-          </div>
-          <div className="col-8">
-            <p>Fecha registro: </p>
-            <p>Dirección: </p>
-            <p>Teléfono: </p>
-            <p>Ingreso mensual: </p>
-            <p>Egreso: </p>
-            <p>Referencias de la visita: </p>
-          </div>
-        </div>
-      </>
-    );
-  }
 
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
   const [dataApi, setDataApi] = useState([])
@@ -64,18 +42,17 @@ function CustomerStep1() {
     <>
       <div className="container-fluid justify-content-center m-auto">
         <div className="row">
-          <div className="col-6">
+          <div className="col-12 col-md-6">
             {/* Falta en onchange de los props*/}
             <Searchbar placeholder="nombre del cliente.."/>
           </div>
-          <div className="col-6">
+          <div className="col-12 col-md-6">
             <ModalAddClient />
           </div>
           {/* Badge */}
           <Badge />
         </div>
       </div>
-      <h1>Customer Step 1</h1>
     </>
   )
 }

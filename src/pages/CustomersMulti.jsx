@@ -7,7 +7,7 @@ function CustomersMulti(props) {
 	useEffect(() => {
 		/* isOpen (globalstate) -> para que el contenido se ajuste según el ancho de la sidebar (navegación) */
 		// Para establecer en el módulo en el que nos encontramos
-		props.setTitle("Inicio");
+		props.setTitle("Requisitos del cliente");
 	}, []);
   return (
     <>

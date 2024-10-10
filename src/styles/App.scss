@@ -44,9 +44,13 @@ div {
   font-family: var(--font-poppins), sans-serif;
 }
 
+.blue-txt {
+  color: var(--color-sidebar);
+}
+
 label {
   font-family: var(--font-poppins), sans-serif;
-  font-size: .9em !important;
+  font-size: .9em;
   // color: var(--color-sidebar);
   font-weight: bold;
 }
@@ -563,22 +567,35 @@ table tbody tr td {
     .table-cash-item--bruto {
       display: none;
     }
+    span, .MuiStepLabel-label {
+      font-size: 10px;
+    }
   }
   
 }
 
-// @media screen and (max-width: 576px) {
-//   .wrapper {
-//     margin-left: var(--margin-add--tablet);
-//   }
-//   .side {
-//     margin-left: var(--margin-add--tablet);
-//   }
-//   .nav-icon-close {
-//     margin-left: .5em;
-//   }
+@media screen and (max-width: 576px) {
+  /* .wrapper {
+    margin-left: var(--margin-add--tablet);
+  }
+  .side {
+    margin-left: var(--margin-add--tablet);
+  }
+  .nav-icon-close {
+    margin-left: .5em;
+  }
 
-//   .sidebarClose {
-//     display: none;
-//   }
-// }
+  .sidebarClose {
+    display: none;
+  } */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span {
+    font-size: .5em;
+  }
+}

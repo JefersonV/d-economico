@@ -13,7 +13,7 @@ function ModalAddClient() {
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
   /* Validaciones de los campos */
-  const validate = (valores) => {
+  const validate = (valores) => { 
     let errores = {};
     if (!valores.nombre) {
       errores.nombre = 'Por favor ingresa un nombre';
@@ -144,6 +144,7 @@ function ModalAddClient() {
               sexo: '',
               usuarioIdusuario: 3,
             }}
+            
             /* props de validación y envío */
             validate={validate}
             onSubmit={handleSubmit}
@@ -372,7 +373,7 @@ function ModalAddClient() {
                   </Col> */}
                   
                 </FormGroup>
-                {console.log(errors)}
+                {/* {console.log(errors)} */}
                 <Button type="submit" color="primary" outline>
                   Registrar
                 </Button>

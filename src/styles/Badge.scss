@@ -1,6 +1,13 @@
 .badge {
   background-color: transparent;
   color:black;
+  border: 1px solid #eee;
+  border-radius: 1em;
+  padding: 1em;
+
+  &-left {
+    
+  }
   &-right-container {
     
   }
