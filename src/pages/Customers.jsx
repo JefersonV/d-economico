@@ -7,6 +7,7 @@ import TableClient from '../components/Clientes/TableClient';
 import PagComponent from '../components/PagComponent';
 import { Link } from 'react-router-dom';
 import CustomizedSteppers from '../components/Clientes/CustomizedStepper';
+import useDebounce from '../hooks/useDebounce';
 
 function Customers(props) {
   const isOpen = useStore((state) => state.sidebar);
@@ -45,6 +46,32 @@ function Customers(props) {
     }, 1000);
   }, []);
 
+  const [searchValue, setSearchValue] = useState("");
+
+  const debouncedInputValue = useDebounce(searchValue, 1000);
+
+  const [dataSearch, setDataSearch] = useState([]);
+
+  const handleSearch = e => {
+
+    setSearchValue(e.target.value);
+  }
+
+  const searchClientDataApi = async () => {
+    try {
+      const response = await fetch(`${URL_API}/Cliente/search?nombre=${searchValue}`);
+      const resultadoBusqueda = await response.json();
+      setDataSearch(resultadoBusqueda);
+      console.log(resultadoBusqueda);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    searchClientDataApi();
+  }, [debouncedInputValue]);
+
   return (
     <div>
     {isLoading ? 
@@ -62,7 +89,12 @@ function Customers(props) {
     <div className="container-fluid">
       <div className="row justify-content-center mt-4">
         <div className="col-4">
-          <Searchbar placeholder="nombre del cliente.."/>
+          <Searchbar 
+            placeholder="nombre del cliente.."
+            onChange={handleSearch}
+            value={searchValue}
+            name="search"
+            />
         </div>
         <div className="col-4">
           <Link color="primary" to="/multiple">
@@ -72,7 +104,10 @@ function Customers(props) {
       </div>
       <div className="row">
         <div className="col">
-          <TableClient dataApi={dataApi} actualizarListaCliente={getData}/>
+          <TableClient 
+          dataApi={dataApi} 
+          actualizarListaCliente={getData} 
+          busqueda={dataSearch}/>
         </div>
       </div>
       <div className="row justify-content-center">

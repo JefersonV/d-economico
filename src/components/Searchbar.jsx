@@ -16,7 +16,8 @@ export default function Searchbar(props) {
           name="search"
           placeholder={props.placeholder}
           type="search"
-          onChange={props.searcher}
+          onChange={props.onChange}
+          value={props.value}
         />
       </InputGroup>
     </FormGroup>

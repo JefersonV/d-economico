@@ -50,7 +50,11 @@ function TableClient(props) {
                 </tr>
               </thead>
               <tbody>
-                {props.dataApi?.length == 0 ? (
+                {props.busqueda?.length === 0 || props.busqueda === null || props.busqueda === undefined ? (
+                  <tr>
+                    <td colSpan="5" className="text-center">No se encontró el cliente</td>
+                  </tr>
+                ) : props.dataApi?.length === 0 ? (
                   <tr>
                     <td colSpan="5" className="text-center">No hay usuarios registrados</td>
                   </tr>
@@ -97,8 +101,7 @@ function TableClient(props) {
                        Listo
                       </Badge> 
                       }
-                    </td>
-                    
+                    </td>  
                     <td>
                       {data?.clienteReferenciaspers.length == 0 ? 
                         <Badge
