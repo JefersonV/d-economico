@@ -1,14 +1,47 @@
-.badge {
-  background-color: transparent;
+.badges {
+  // background-color: transparent;
+  margin: 0 auto;
+  padding: 0;
   color:black;
-  border: 1px solid #eee;
-  border-radius: 1em;
-  padding: 1em;
-
+  border: 1px solid #dcdcdc;
+  border-radius: 1.5em;
+  width: 800px !important;
+  display: flex !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  overflow: hidden;
+  // padding: 1.5em;
+  word-wrap: break-word;
+    white-space: normal;
   &-left {
+    /* border: 1px solid #eee;
+    border-radius: 1em; */
+    align-self: center;
     
   }
-  &-right-container {
-    
+  &-right {
+    word-wrap: break-word;
+   /*  position: relative;
+    z-index: 1000; */
+    border-radius: 1.5em;
+    // right: -1em;
+    color: white;
+    background-color: #183459;
+    align-self: center;
+    padding: 1em 0;
+    p {
+      font-size: .8em;
+      margin: 1em;
+      text-align: left;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .badge {
+    width: 100%;
+    &-left {
+      display: none;
+    }
   }
 }

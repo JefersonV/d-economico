@@ -34,7 +34,6 @@ function ModalEditTab(props) {
         </ModalBody>
 
         <ModalFooter>
-
           <Button color="primary" onClick={toggleModal}>
             Guardar
           </Button>

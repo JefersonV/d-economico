@@ -19,7 +19,6 @@ function CustomersMulti(props) {
             </div>
           </div>
         </container>
-        test
       </div>
     </>
   )

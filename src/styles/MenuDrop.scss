@@ -18,23 +18,9 @@
     font-weight: 600;
     color: cadetblue;
   }
- /*  .thumbnail {
-  width: auto;
-  height: 100%;
-  display: flex;
-  flex: 0.4;
+
+@media screen and (max-width: 1024px) {
+  .DataContainer {
+    font-size: .9em;
   }
-  
-  .thumbnail img {
-  width: auto;
-  height: 100%;
-  } */
-  
- 
-  
-/*   .rating {
-  color: #a1a1a1;
-  font-size: 16px;
-  display: flex;
-  flex: 0.2;
-  } */
+}

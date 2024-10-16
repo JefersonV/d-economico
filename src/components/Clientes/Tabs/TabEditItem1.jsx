@@ -320,25 +320,6 @@ function TabEditItem1(props) {
                 </Input>
                 {touched.sexo && errors.sexo && <div className="error">{errors.sexo}</div>}
               </Col>
-              {/* 
-              <Col sm={6}>
-                <Label for="input-dpi" sm={6}>
-                Número de DPI
-              </Label>
-
-              <Input
-                type="number"
-                id="input-dpi"
-                name="dpi"
-                value={values.dpi}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                valid={touched.contrasenia && !errors.contrasenia && values.contrasenia.length > 0}
-                invalid={touched.contrasenia && !!errors.contrasenia} 
-              />
-              </Col> */}
-                {/* {touched.nombre && errors.nombre && <div className="error">{errors.nombre}</div>} */}
-                {/* {touched.contrasenia && errors.contrasenia && <div className="error">{errors.contrasenia}</div>} */}
 
             </FormGroup>
 

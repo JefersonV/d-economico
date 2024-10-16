@@ -8,6 +8,9 @@ import PagComponent from '../components/PagComponent';
 import { Link } from 'react-router-dom';
 import CustomizedSteppers from '../components/Clientes/CustomizedStepper';
 import useDebounce from '../hooks/useDebounce';
+import "../styles/button.css";
+import { MdPersonAddAlt1 } from "react-icons/md";
+import Loader from '../components/Loader';
 
 function Customers(props) {
   const isOpen = useStore((state) => state.sidebar);
@@ -44,25 +47,34 @@ function Customers(props) {
       getData();
       // console.log(dataApi)
     }, 1000);
-  }, []);
+  }, []); 
 
+  // estado para el valor de búsqueda del input
   const [searchValue, setSearchValue] = useState("");
-
-  const debouncedInputValue = useDebounce(searchValue, 1000);
-
+  // hook de debounce
+  const debouncedInputValue = useDebounce(searchValue, 1200);
+  // estado para los datos de la búsqueda que trae la api
   const [dataSearch, setDataSearch] = useState([]);
 
+  // función para manejar el cambio en el input de búsqueda
   const handleSearch = e => {
-
     setSearchValue(e.target.value);
   }
 
   const searchClientDataApi = async () => {
     try {
-      const response = await fetch(`${URL_API}/Cliente/search?nombre=${searchValue}`);
-      const resultadoBusqueda = await response.json();
-      setDataSearch(resultadoBusqueda);
-      console.log(resultadoBusqueda);
+      // buscar cliente por nombre
+      // asegura que el valor de búsqueda no esté vacío
+      if (debouncedInputValue) {
+        const response = await fetch(`${URL_API}/Cliente/search?nombre=${searchValue}`);
+        const resultadoBusqueda = await response.json();
+        // pasa los datos de la búsqueda al estado
+        setDataSearch(resultadoBusqueda);
+        // console.log(resultadoBusqueda);
+      } else {
+        setDataSearch([]);
+      }
+        
     } catch (error) {
       console.error(error);
     }
@@ -78,17 +90,15 @@ function Customers(props) {
       <div className={isOpen ? "wrapper" : "side"}>
         <div className="container-fluid">
           <div className="row justify-content-center mt-4">
-            <Spinner color="secondary">
-              Loading...
-            </Spinner>
+            <Loader />
           </div>
         </div>
       </div>
     :
     <div className={isOpen ? "wrapper" : "side"}>
     <div className="container-fluid">
-      <div className="row justify-content-center mt-4">
-        <div className="col-4">
+      <div className="row mt-4">
+        <div className="col-12 col-md-6">
           <Searchbar 
             placeholder="nombre del cliente.."
             onChange={handleSearch}
@@ -96,22 +106,38 @@ function Customers(props) {
             name="search"
             />
         </div>
-        <div className="col-4">
-          <Link color="primary" to="/multiple">
-            <FaRegAddressCard /> Agregar Cliente
-          </Link>
+        <div className="col-12 col-md-6">
+          <nav>
+            <Link to="/clientes/requisitos">
+              <button className="button" style={{ "--clr": "#004dc1" }}>
+                  <span class="button-decor"></span>
+                  <div class="button-content">
+                      <div class="button__icon">
+                        <MdPersonAddAlt1 color="white" size={20}/>
+                      </div>
+                      <span class="button__text">Requisitos cliente</span>
+                  </div>
+              </button>
+            </Link>
+
+          </nav>
         </div>
       </div>
       <div className="row">
-        <div className="col">
+        <div className="col-12">
           <TableClient 
           dataApi={dataApi} 
-          actualizarListaCliente={getData} 
-          busqueda={dataSearch}/>
+          actualizarListaCliente={getData}
+          /* Resultado de la busqueda */ 
+          busqueda={dataSearch}
+          /* Valor de la busqueda */
+          busquedaTyping={searchValue}
+          />
+          
         </div>
       </div>
-      <div className="row justify-content-center">
-        <div className="col">
+      <div className="row">
+        <div className="col d-flex justify-content-center">
           <PagComponent />
         </div>
       </div>
@@ -120,8 +146,6 @@ function Customers(props) {
   }
   </div>
   );
-
-
 }
 
 export default Customers

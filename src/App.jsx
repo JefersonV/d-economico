@@ -11,6 +11,7 @@ import Prestamos from "./pages/Prestamos";
 import Pagos from "./pages/Pagos";
 import Usuarios from "./pages/Usuarios";
 import CustomersMulti from "./pages/CustomersMulti";
+import NewPrestamo from "./components/Prestamos/NewPrestamo";
 
 function App() {
   const [pageTitle, setPageTitle] = useState("");
@@ -110,13 +111,15 @@ function App() {
               />
 
               <Route
-                path="/multiple"
+                path="/clientes/requisitos"
                 element={<CustomersMulti setTitle={setTitle} />}
               />
-<Route
+              <Route
                 path="/prestamos"
                 element={<Prestamos setTitle={setTitle} />}
               />
+              <Route path="prestamos/new" 
+              element={<NewPrestamo setTitle={setTitle} />} />
 
               <Route
                 path="/pagos"

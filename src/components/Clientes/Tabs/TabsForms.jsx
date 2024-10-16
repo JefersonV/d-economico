@@ -13,6 +13,7 @@ import {
   Button
 } from 'reactstrap';
 import TabEditItem1 from './TabEditItem1';
+import TabEditItem2 from './TabEditItem2';
 
 function TabsForms(props) {
   const [activeTab, setActiveTab] = useState('1');
@@ -73,22 +74,9 @@ function TabsForms(props) {
         </TabPane>
         <TabPane tabId="2">
           <Row>
-            <Col sm="6">
+            <Col sm="12">
               <Card body>
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>
-                  With supporting text below as a natural lead-in to additional content.
-                </CardText>
-                <Button>Go somewhere</Button>
-              </Card>
-            </Col>
-            <Col sm="6">
-              <Card body>
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>
-                  With supporting text below as a natural lead-in to additional content.
-                </CardText>
-                <Button>Go somewhere</Button>
+                <TabEditItem2 />
               </Card>
             </Col>
           </Row>

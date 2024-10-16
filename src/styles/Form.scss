@@ -1,0 +1,21 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // height: 100vh;
+  flex: 1 1 auto;
+}
+
+.form-top {
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 2em 1.5em;
+  // text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 1.2em;
+  border-top: 5px solid #004dc1;
+  overflow: hidden;
+  margin-right: 1em;
+  // width: 45%;
+}
+

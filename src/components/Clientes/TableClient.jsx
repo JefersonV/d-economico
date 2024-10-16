@@ -7,6 +7,7 @@ import SwalDelete from "../usuarios/SwalDeleteUser";
 import ModalInfoUser from '../usuarios/ModalInfoUser';
 import TabsForms from './Tabs/TabsForms';
 import ModalEditTab from "./ModalEditTab";
+import { TbError404 } from "react-icons/tb";
 
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
 
@@ -15,6 +16,29 @@ function TableClient(props) {
   const { actualizarListaUsuario } = props
   const toggle = () => setModal(!modal);
   const showModal = () => setModal(!modal);
+  // console.info(props.busqueda)
+  
+  // data que se renderiza, basado en si es la busqueda o la data original
+  const [dataToRender, setDataToRender] = useState([]);
+  
+  useEffect(() => {
+    // Si hay búsqueda activa y tiene resultados
+    if (props.busquedaTyping && props.busqueda.length > 0) {
+      setDataToRender(props.busqueda);
+    // Si se hizo una búsqueda pero no arrojó resultados
+    } else if (props.busquedaTyping && props.busqueda.length === 0) {
+      setDataToRender([]);
+    // Si no hay búsqueda activa (busqueda es null o undefined), mostrar la data original
+    } else if (!props.busquedaTyping && props.dataApi?.data?.length > 0) {
+      setDataToRender(props.dataApi.data);
+    } else {
+      // Caso final: ni búsqueda ni data original
+      setDataToRender([]);
+    }
+  
+    // Para depurar la longitud actual de los datos a renderizar
+    console.info("Data a renderizar cliente:", dataToRender?.length);
+  }, [props.busqueda, props.dataApi]);
 
   return (
     <>
@@ -50,115 +74,60 @@ function TableClient(props) {
                 </tr>
               </thead>
               <tbody>
-                {props.busqueda?.length === 0 || props.busqueda === null || props.busqueda === undefined ? (
-                  <tr>
-                    <td colSpan="5" className="text-center">No se encontró el cliente</td>
-                  </tr>
-                ) : props.dataApi?.length === 0 ? (
-                  <tr>
-                    <td colSpan="5" className="text-center">No hay usuarios registrados</td>
-                  </tr>
-                ) : (
-                  props.dataApi?.data?.map((data, index) => (
-                  <tr key={index}>
-                    
-                    <td scope="row">{index + 1}</td>
-                    <td>{data?.nombre}</td>
-                    <td>{data?.profesion}</td>
-                    <td>{data?.telefono}</td>
-                    {/* Renderizado condicional */}
-                    <td>
-                      {data?.fiadorIdfiador === null ? 
-                      <Badge
-                        color="danger"
-                        pill
-                        text-color="white"
-                      >
-                        Pendiente
-                      </Badge> 
-                      : 
-                      <Badge
-                       color="success"
-                       pill
-                      >
-                       Listo
-                      </Badge>  }
-                    </td>
-                    <td>
-                      {data?.clienteReferenciasfams.length === 0 ? 
-                      <Badge
-                       color="danger"
-                       pill
-                       text-color="white"
-                      >
-                       Pendiente
-                      </Badge> 
-                      : 
-                       <Badge
-                       color="success"
-                       pill
-                      >
-                       Listo
-                      </Badge> 
-                      }
-                    </td>  
-                    <td>
-                      {data?.clienteReferenciaspers.length == 0 ? 
-                        <Badge
-                        color="danger"
-                        pill
-                        text-color="white"
-                        >
-                        Pendiente
-                        </Badge>
-                      :
-                        <Badge
-                          color="success"
-                          pill
-                          >
-                          Listo
-                        </Badge> 
-                      }
-                    </td>
-                    <td>
-                    {data?.requisitosDocsIdrequisitosDocs === null ? 
-                      <Badge
-                       color="danger"
-                       pill
-                       text-color="white"
-                      >
-                       Pendiente
-                      </Badge> 
-                      : 
-                       <Badge
-                       color="success"
-                       pill
-                       >
-                       Listo
-                     </Badge> 
-                    }
-                    </td>  
-                    <td>
-                      {/* <ModalEditUser
-                        idUsuario={data.idUsuario}
-                        actualizarListaUsuario={actualizarListaUsuario}
-                      /> */}
-                      <ModalEditTab title="Editar información del cliente" 
-                      idCliente={data?.idcliente} 
-                      actualizarListaCliente={props.actualizarListaCliente}/>
-                      {/* <SwalDelete 
-                        idUsuario={data.idUsuario} 
-                        actualizarListaUsuario={actualizarListaUsuario} 
-                      />
-                      <ModalInfoUser>
-                        idUsuario={data.idUsuario}
-
-                      </ModalInfoUser> */}
-                   
-                    </td>
-                  </tr>
-                  )
-                ))}
+              {dataToRender.length === 0 ? (
+                <tr>
+                  <td colSpan="9" className="text-center">
+                    {props.busquedaTyping && props.busqueda.length === 0
+                      ? "No se encontró el cliente" 
+                      : "No se encontraron clientes con los criterios especificados en la búsqueda"} <TbError404 size={25} color="red"/>
+                  </td>
+                </tr>
+              )
+               : (
+                  dataToRender.map((data, index) => (
+                    <tr key={index}>
+                      <td scope="row">{index + 1}</td>
+                      <td>{data?.nombre} {data?.apellido}</td>
+                      <td>{data?.profesion}</td>
+                      <td>{data?.telefono}</td>
+                      <td>
+                        {data?.fiadorIdfiador === null ? (
+                          <Badge color="danger" pill>Pendiente</Badge>
+                        ) : (
+                          <Badge color="success" pill>Listo</Badge>
+                        )}
+                      </td>
+                      <td>
+                        {data?.clienteReferenciasfams.length === 0 ? (
+                          <Badge color="danger" pill>Pendiente</Badge>
+                        ) : (
+                          <Badge color="success" pill>Listo</Badge>
+                        )}
+                      </td>
+                      <td>
+                        {data?.clienteReferenciaspers.length === 0 ? (
+                          <Badge color="danger" pill>Pendiente</Badge>
+                        ) : (
+                          <Badge color="success" pill>Listo</Badge>
+                        )}
+                      </td>
+                      <td>
+                        {data?.requisitosDocsIdrequisitosDocs === null ? (
+                          <Badge color="danger" pill>Pendiente</Badge>
+                        ) : (
+                          <Badge color="success" pill>Listo</Badge>
+                        )}
+                      </td>
+                      <td>
+                        <ModalEditTab
+                          title="Editar información del cliente"
+                          idCliente={data?.idcliente}
+                          actualizarListaCliente={props.actualizarListaCliente}
+                        />
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </Table>
           </div>
