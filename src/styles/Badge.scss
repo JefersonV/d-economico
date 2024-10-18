@@ -17,7 +17,17 @@
     /* border: 1px solid #eee;
     border-radius: 1em; */
     align-self: center;
-    
+    .username {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 1em;
+      text-align: center;
+    }
+    svg {
+      display: block;
+      margin: 0 auto;
+      align-self: center;
+    }
   }
   &-right {
     word-wrap: break-word;
@@ -30,7 +40,7 @@
     align-self: center;
     padding: 1em 0;
     p {
-      font-size: .8em;
+      font-size: .85em;
       margin: 1em;
       text-align: left;
     }

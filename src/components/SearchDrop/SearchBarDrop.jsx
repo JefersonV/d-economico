@@ -23,15 +23,6 @@ function SearchBarDrop(props) {
   
   const isEmpty = !props.clienteData || props.clienteData.length === 0;
 
-  const changeHandler = (e) => {
-    e.preventDefault();
-    // Si el elemento está vacío o solo contiene espacios en blanco
-    if (e.target.value.trim() === "") props.setNoDataCliente(false);
-
-    setSearchQuery(e.target.value);
-    // console.log('Search Query: ', typeof e.target.value)
-  };
-
   const expandContainer = () => {
     setExpanded(true);
   };
@@ -51,32 +42,13 @@ function SearchBarDrop(props) {
     // Si se le da por fuera del SearchContent
     if (isClickedOutside) collapseContainer();
   }, [isClickedOutside]);
-
-  // Filtrado
-  //searchQuery anterior valor del input de búsqueda
-  //serachValueInput valor actual del input de búsqueda
-  // const valueInput = props.searchValueInput;
-  /* const filtradoCliente = !props.searchValueInput ? props.clienteData
-  // Si se ha ingresado información al input, que la compare a los criterios y los filtre
-  : props.clienteData.filter((item) =>
-    item.nombre?.toLowerCase().includes(props.searchValueInput.toLocaleLowerCase() ||
-    parseInt(item.index).toLocaleLowerCase().includes(props.searchValueInput.toLocaleLowerCase()))
-  ) */
   
-    const filtradoCliente = props.clienteData && props.clienteData.length > 0
-    ? props.clienteData.filter((item) =>
-        item.nombre?.toLowerCase().includes(props.searchValueInput.toLowerCase()) ||
-        item.index?.toString().includes(props.searchValueInput)
-      )
-    : [];
-
-  /* const filtradoCliente = !props.searchValueInput
-  //Cliente data es el array de clientes encontrados
-  ? props.clienteData
-  : props.clienteData.filter((item) =>
-    item.nombre?.toLowerCase().includes(props.searchValueInput.toLowerCase()) ||
-    item.index?.toString().includes(props.searchValueInput)
-  ); */
+  const filtradoCliente = props.clienteData && props.clienteData.length > 0
+  ? props.clienteData.filter((item) =>
+      item.nombre?.toLowerCase().includes(props.searchValueInput.toLowerCase()) ||
+      item.index?.toString().includes(props.searchValueInput)
+    )
+  : [];
 
   // Si el array filtrado está vacío, actualizar noDataCliente a true
   useEffect(() => {
@@ -168,6 +140,7 @@ function SearchBarDrop(props) {
                 telefono={item?.telefono}
                 index={index}
                 id={item?.idcliente}
+                fechaRegistro={item?.fechaRegistro}
               />
             ))}
           </div>

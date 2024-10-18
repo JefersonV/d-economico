@@ -110,12 +110,12 @@ function Customers(props) {
           <nav>
             <Link to="/clientes/requisitos">
               <button className="button" style={{ "--clr": "#004dc1" }}>
-                  <span class="button-decor"></span>
-                  <div class="button-content">
-                      <div class="button__icon">
+                  <span className="button-decor"></span>
+                  <div className="button-content">
+                      <div className="button__icon">
                         <MdPersonAddAlt1 color="white" size={20}/>
                       </div>
-                      <span class="button__text">Requisitos cliente</span>
+                      <span className="button__text">Requisitos cliente</span>
                   </div>
               </button>
             </Link>

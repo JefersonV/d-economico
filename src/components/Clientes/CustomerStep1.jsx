@@ -31,9 +31,9 @@ function CustomerStep1() {
     setSearchValue(e.target.value);
   }
 
-  useEffect(() => {
-    console.info(isLoading)
-  }, [searchValue])
+  // useEffect(() => {
+  //   console.info(isLoading)
+  // }, [searchValue])
 
   // buscador fetch api
   const searchClientDataApi = async () => {
@@ -46,7 +46,7 @@ function CustomerStep1() {
         // pasa los datos de la búsqueda al estado
         setDataSearch(resultadoBusqueda);
         if(response.ok) { 
-
+          // estado del loader
           setIsLoading(true);
         }
         console.log(resultadoBusqueda)
@@ -68,11 +68,6 @@ function CustomerStep1() {
   // Item seleccionado prop de <SearchBarDrop />
   const [itemSelected, setItemSelected] = useState(null);
 
-  // console.log(itemSelected)
-  const [noDataMenu, setNoDataMenu] = useState(false);
-  // data del cliente
-  const [clienteEncontrado, setClienteEncontrado] = useState([])
-
   // esto va  en la solicitud fetch
   const [noDataCliente, setNoDataCliente] = useState(false);
 
@@ -80,9 +75,10 @@ function CustomerStep1() {
   const [clienteSelected, setClienteSelected] = useState([]);
 
   // Identifica el item de <searchbardrop> seleccionado -> prop al componente nieto :v
+  let selectedItem = [];
   const setItemSelectedList = (id) => {
     // Busca el item que coincida entre dataSearch e ItemSelected
-    const selectedItem = dataSearch.find((item) => item.idcliente === id);
+    selectedItem = dataSearch.find((item) => item.idcliente === id);
     
     if (!selectedItem) return; // Si no se encuentra el item, no hacer nada
 
@@ -90,7 +86,7 @@ function CustomerStep1() {
     setItemSelected(id);
     // Reemplaza con el nuevo item seleccionado
     setClienteSelected([selectedItem]); 
-
+ 
     console.log('Cliente seleccionado:', selectedItem);
   };
   
@@ -98,35 +94,40 @@ function CustomerStep1() {
     <>
       <div className="container-fluid m-auto">
         <div className="d-flex justify-content-center row">
-          <div className="col-12 col-md-6">
-            {/* Falta en onchange de los props*/}
-            <Searchbar 
-              placeholder="nombre del cliente.."
-              onChange={handleSearch}
-              value={searchValue}
-              name="search"
-            /> 
-            {/* {dataSearch.length > 0 && (
-              <SearchResults data={dataSearch} />   
-            )} */}
+          <div className="col-12 col-md-6 col-sm-7">
+            
             <SeachBarDrop 
               itemSelected={itemSelected}
               setItemSelectedList={setItemSelectedList}
+              /* Data search = la data encontrada en la api */
               clienteData={dataSearch}
               setNoDataCliente={setNoDataCliente}
               noDataCliente={noDataCliente}
+              /* Estado del input */
               searchValueInput={searchValue}
               setSearchValueInput={setSearchValue}
               handleSearch={handleSearch}
               isLoadingSearch={isLoading}
             />
-            {/* <div class="results">s</div> */}
+
           </div>
-          <div className="col-12 col-md-6 mb-4">
+          <div className="col-12 col-md-6 col-sm-5 mb-4">
             <ModalAddClient />
           </div>
           {/* Badge */}
-          <Badge /> 
+          <div className="mt-4">
+            <Badge 
+              // Usar optional chaining para evitar errores
+              nombre={clienteSelected[0]?.nombre} 
+              fecha={clienteSelected[0]?.fechaRegistro}
+              direccion={clienteSelected[0]?.direccion}
+              telefono={clienteSelected[0]?.telefono}
+              ingreso={clienteSelected[0]?.ingresos}
+              egreso={clienteSelected[0]?.egresos}
+              referencias={clienteSelected[0]?.profesion}
+            /> 
+
+          </div>
         </div>
       </div>
     </>
