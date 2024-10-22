@@ -41,8 +41,28 @@ function Customers(props) {
   }
 
   useEffect(() => {
+    getDataPrestamos();
+    console.info(dataPrestamosApi)
+  }, [])
+
+  /* useEffect(() => {
     searchClientDataApi();
-  }, [debouncedInputValue]);
+  }, [debouncedInputValue]); */
+
+  const [dataPrestamosApi, setDataPrestamosApi] = useState([]);	
+
+  const getDataPrestamos = async () => {
+    try {
+      const response = await fetch(`${URL_API}/Prestamo`);
+      const dataApi = await response.json();
+      setDataPrestamosApi(dataApi);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  
+
   return (
     <>
       <div className={isOpen ? "wrapper" : "side"}>
@@ -59,7 +79,7 @@ function Customers(props) {
             <div className="col-12 col-md-6">
               <nav>
                 <Link color="primary" to="/prestamos/new">
-                  <button className="learn-more">
+                  <button className="button-v2">
                     <span className="circle" aria-hidden="true">
                       <span className="icon arrow"></span>
                     </span>
@@ -74,7 +94,9 @@ function Customers(props) {
           </div>
           <div className="row">
             <div className="col-12">
-              <TablePrestamos />
+              <TablePrestamos 
+                dataPrestamosApi={dataPrestamosApi}
+              />
             </div>
           </div>
           <div className="row">

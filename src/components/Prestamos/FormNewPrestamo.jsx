@@ -3,6 +3,7 @@ import "../../styles/Form.scss"
 import { Form, Formik } from 'formik'	
 import { Label, Input } from 'reactstrap'
 import { Link } from 'react-router-dom'
+import SearchBarDrop from "../SearchDrop/SearchBarDrop"
 
 function FormNewPrestamo() {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -38,6 +39,32 @@ function FormNewPrestamo() {
   const handleSubmit = async (valores, { resetForm }) => {
     const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
   } 
+
+  // ***** Lógica de la busqueda -------------
+  // Item seleccionado prop de <SearchBarDrop />
+  const [itemSelected, setItemSelected] = useState(null);
+
+  // esto va  en la solicitud fetch
+  const [noDataCliente, setNoDataCliente] = useState(false);
+
+  // Estado para identificar al cliente seleccionado
+  const [clienteSelected, setClienteSelected] = useState([]);
+
+  // Identifica el item de <searchbardrop> seleccionado -> prop al componente nieto :v
+  let selectedItem = [];
+  const setItemSelectedList = (id) => {
+    // Busca el item que coincida entre dataSearch e ItemSelected
+    selectedItem = dataSearch.find((item) => item.idcliente === id);
+    
+    if (!selectedItem) return; // Si no se encuentra el item, no hacer nada
+
+    // Establece el item seleccionado y reemplaza el cliente seleccionado anterior
+    setItemSelected(id);
+    // Reemplaza con el nuevo item seleccionado
+    setClienteSelected([selectedItem]); 
+ 
+    console.log('Cliente seleccionado:', selectedItem);
+  };
   return (
     <>
       <Formik
@@ -71,8 +98,21 @@ function FormNewPrestamo() {
                 </div>
 
                 <div className="form-group">
-                  <Label htmlFor="searchCliente">Cliente</Label>
-                  <Input type="search" className="form-control" id="searchCliente" placeholder="Nombre ..." />
+                  {/* <Label htmlFor="searchCliente">Cliente</Label> */}
+                  <SearchBarDrop 
+                    itemSelected={itemSelected}
+                    setItemSelectedList={setItemSelectedList}
+                    /* Data search = la data encontrada en la api */
+                    clienteData={dataSearch}
+                    setNoDataCliente={setNoDataCliente}
+                    noDataCliente={noDataCliente}
+                    /* Estado del input */
+                    searchValueInput={searchValue}
+                    setSearchValueInput={setSearchValue}
+                    handleSearch={handleSearch}
+                    isLoadingSearch={isLoading}
+                  />
+                  {/* <Input type="search" className="form-control" id="searchCliente" placeholder="Nombre ..." /> */}
                   <nav>
                     <Link>Nuevo Cliente</Link>
                   </nav>

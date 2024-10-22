@@ -46,7 +46,7 @@ function Customers(props) {
     setTimeout(() => {
       getData();
       // console.log(dataApi)
-    }, 1000);
+    }, 500);
   }, []); 
 
   // estado para el valor de búsqueda del input
@@ -119,7 +119,6 @@ function Customers(props) {
                   </div>
               </button>
             </Link>
-
           </nav>
         </div>
       </div>

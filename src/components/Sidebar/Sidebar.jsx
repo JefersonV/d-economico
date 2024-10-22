@@ -35,7 +35,14 @@ function Sidebar(props) {
               : "nav-icon-close nav-icon bars"
           }
         >
-          <FaBars onClick={toggle} />
+        <div className="container-svg">  
+          <input className="label-check" id="label-check" type="checkbox" />
+            <label htmlFor="label-check" className="hamburger-label" onClick={toggle}>
+              <div className="line1"></div>
+              <div className="line2"></div>
+              <div className="line3"></div>
+            <label></label></label></div>
+          {/* <FaBars onClick={toggle} /> */}
           <h3 className="page-title">{pageTitle}</h3>
         </div>
         <div className="header-info-user">

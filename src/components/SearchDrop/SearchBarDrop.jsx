@@ -95,7 +95,7 @@ function SearchBarDrop(props) {
               ref={inputRef}
               onChange={props.handleSearch} // Aquí usas handleSearch desde props
               value={props.searchValueInput}
-              placeholder="Nombre o # de platillo del menú"
+              placeholder="Nombre del cliente"
             />
           </InputGroup>
           <AnimatePresence>
@@ -136,7 +136,8 @@ function SearchBarDrop(props) {
                 itemSelected={props.itemSelected}
                 setItemSelectedList={props.setItemSelectedList}
                 key={item?.idcliente}
-                nameCliente={item?.apellido}
+                nameCliente={item?.nombre}
+                apellido={item?.apellido}
                 telefono={item?.telefono}
                 index={index}
                 id={item?.idcliente}

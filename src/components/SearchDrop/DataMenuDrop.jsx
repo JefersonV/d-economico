@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "../../styles/MenuDrop.scss"
 
 function DataMenuDrop(props) {
-  const { nameCliente, index, id, itemSelected, setItemSelectedList, telefono } = props
+  const { nameCliente, apellido, index, id, itemSelected, setItemSelectedList, telefono } = props
   // const [itemSelected, setItemSelected] = useState(null)
   // Función para formatear la fecha en formato día/mes/año hora:[hora]
   const formatDate = (fecha) => {
@@ -30,7 +30,7 @@ function DataMenuDrop(props) {
   return (
     <>
       <button className="DataContainer" onClick={handleClick} title={formatDate(props.fechaRegistro)}>
-        {index + 1}  {nameCliente} <span className="precio">{"  "} Tel: {telefono}</span> 
+        {index + 1}  {nameCliente} {apellido} <span className="precio">{"  "} Tel: {telefono}</span> 
       </button>
     </>
   )

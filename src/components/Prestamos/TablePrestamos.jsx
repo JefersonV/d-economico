@@ -10,6 +10,7 @@ import TabsForms from '../Clientes/Tabs/TabsForms';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
 
 function TablePrestamos(props) {
+  const {dataPrestamosApi} = props;
   const [modal, setModal] = useState(false);
   const { actualizarListaUsuario } = props
   const toggle = () => setModal(!modal);
@@ -50,21 +51,15 @@ function TablePrestamos(props) {
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                {/* {dataPrestamosApi.map((prestamo, index) => (
+                  <tr key={prestamo?.data.idPrestamo}>
+                    <td>{prestamo?.data.C}</td>
+                  </tr> 
+                ))} */}
+                {/* <tr>
                   <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                </tr>
+                </tr> */}
+                
               </tbody>
             </Table>
           </div>
