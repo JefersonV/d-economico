@@ -69,6 +69,12 @@ function ModalAddClient() {
       errores.sexo = 'Por favor selecciona un sexo';
     }
 
+    if(!valores.dpi) {  
+      errores.dpi = 'Por favor ingresa un número de DPI';
+    } else if (!/^\d{13}$/.test(valores.dpi)) {
+      errores.dpi = 'El DPI debe tener 13 dígitos';
+    }
+
     // console.log(errores)
 
     return errores;
@@ -142,6 +148,8 @@ function ModalAddClient() {
               egresos: '',
               profesion: '',
               sexo: '',
+              dpi: '',
+              notasVisita: '',
               usuarioIdusuario: 3,
             }}
             
@@ -271,7 +279,7 @@ function ModalAddClient() {
                     </Input>
                     {touched.sexo && errors.sexo && <div className="error">{errors.sexo}</div>}
                   </Col>
-                  {/*
+                  
                   <Col sm={6}>
                    <Label for="input-dpi" sm={6}>
                     Número de DPI
@@ -284,12 +292,12 @@ function ModalAddClient() {
                     value={values.dpi}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    valid={touched.contrasenia && !errors.contrasenia && values.contrasenia.length > 0}
-                    invalid={touched.contrasenia && !!errors.contrasenia} 
+                    valid={touched.dpi && !errors.dpi && values.dpi.length > 0}
+                    invalid={touched.dpi && !!errors.dpi} 
                   />
-                  </Col> */}
-                    {/* {touched.nombre && errors.nombre && <div className="error">{errors.nombre}</div>} */}
-                    {/* {touched.contrasenia && errors.contrasenia && <div className="error">{errors.contrasenia}</div>} */}
+                    {touched.dpi && errors.dpi && <div className="error">{errors.dpi}</div>}
+                  </Col>
+                    
 
                 </FormGroup>
 
@@ -353,7 +361,7 @@ function ModalAddClient() {
                     {touched.profesion && errors.profesion && <div className="error">{errors.profesion}</div>}
                   </Col>
 
-                  {/* <Col sm={6}>
+                  <Col sm={6}>
                     <Label for="input-referencias" sm={6}>
                       Referencias de la visita
                     </Label>
@@ -364,13 +372,13 @@ function ModalAddClient() {
                       name="referencias"
                       placeholder=""
                       autoComplete="off"
-                      value={values.referencias}
+                      value={values.notasVisita}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                       valid={touched.nombre && !errors.nombre && values.nombre.length > 0}
-                      invalid={touched.nombre && !!errors.nombre} 
+                       valid={touched.notasVisita && !errors.notasVisita && values.notasVisita.length > 0}
+                      invalid={touched.notasVisita && !!errors.notasVisita} 
                     />
-                  </Col> */}
+                  </Col>
                   
                 </FormGroup>
                 {/* {console.log(errors)} */}

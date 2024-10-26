@@ -31,11 +31,6 @@ function CustomerStep1() {
     setSearchValue(e.target.value);
   }
 
-  // useEffect(() => {
-  //   console.info(isLoading)
-  // }, [searchValue])
-
-  // buscador fetch api
   const searchClientDataApi = async () => {
     try {
       // buscar cliente por nombre
@@ -94,7 +89,7 @@ function CustomerStep1() {
     <>
       <div className="container-fluid m-auto">
         <div className="d-flex justify-content-center row">
-          <div className="col-12 col-md-6 col-sm-7">
+          <div className="col-12 col-sm-6">
             
             <SeachBarDrop 
               itemSelected={itemSelected}
@@ -111,7 +106,7 @@ function CustomerStep1() {
             />
 
           </div>
-          <div className="col-12 col-md-6 col-sm-5 mb-4">
+          <div className="col-12 col-sm-6 mt-3">
             <ModalAddClient />
           </div>
           {/* Badge */}
@@ -119,14 +114,14 @@ function CustomerStep1() {
             <Badge 
               // Usar optional chaining para evitar errores
               nombre={clienteSelected[0]?.nombre} 
+              apellido={clienteSelected[0]?.apellido}
               fecha={clienteSelected[0]?.fechaRegistro}
               direccion={clienteSelected[0]?.direccion}
               telefono={clienteSelected[0]?.telefono}
               ingreso={clienteSelected[0]?.ingresos}
               egreso={clienteSelected[0]?.egresos}
-              referencias={clienteSelected[0]?.profesion}
+              referencias={clienteSelected[0]?.notasVisita}
             /> 
-
           </div>
         </div>
       </div>

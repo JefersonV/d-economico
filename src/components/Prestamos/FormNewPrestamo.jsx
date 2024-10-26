@@ -97,8 +97,6 @@ function FormNewPrestamo() {
                   <Input type="date" className="form-control" id="fecha" placeholder="Escoge fecha" />
                 </div>
 
-                <div className="form-group">
-                  {/* <Label htmlFor="searchCliente">Cliente</Label> */}
                   <SearchBarDrop 
                     itemSelected={itemSelected}
                     setItemSelectedList={setItemSelectedList}
@@ -116,7 +114,7 @@ function FormNewPrestamo() {
                   <nav>
                     <Link>Nuevo Cliente</Link>
                   </nav>
-                </div>
+                
 
                 <div className="form-group">
                   <Label htmlFor="monto">Monto solicitado</Label>
@@ -156,19 +154,19 @@ function FormNewPrestamo() {
 
               <div className="col col-md-5 form-top">
                 <div className="form-group">
-                  <label htmlFor="Fecha">Fecha del primer pago</label>
+                  <label htmlFor="Fecha">Fecha del primer pagoss</label>
                   <Input type="date" className="form-control" id="fecha" placeholder="Escoge fecha" />
                 </div>
                 <div className="form-group">
                   <Label htmlFor="Monto">Tasa de Interés</Label>
                   <Input type="number" className="form-control" id="monto" placeholder="cantidad en quetzales" name="monto"/>
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label htmlFor="searchCliente">Mora ????</label>
                   <Input type="search" className="form-control" id="searchCliente" placeholder="Nombre ..." />
-                </div>
+                </div> */}
 
-                <div className="form-group">
+                {/* <div className="form-group">
                   <Label htmlFor="politica">Politica amortización</Label>
                   <Input
                       type="select"
@@ -185,8 +183,8 @@ function FormNewPrestamo() {
                       <option value="Femenino">Quincenal</option>
                       <option value="Femenino">Semanal</option>
                     </Input>
-                    {/* {touched.sexo && errors.sexo && <div className="error">{errors.sexo}</div>} */}
-                </div>
+                    {touched.sexo && errors.sexo && <div className="error">{errors.sexo}</div>}
+                </div> */}
 
                 <div className="form-group">
                   <div>

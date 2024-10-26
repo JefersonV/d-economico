@@ -1,20 +1,23 @@
-.badges {
+#badges {
   // background-color: transparent;
   margin: 0 auto;
   padding: 0;
   color:black;
   border: 1px solid #dcdcdc;
   border-radius: 1.5em;
-  width: 800px !important;
-  display: flex !important;
-  justify-content: center !important;
-  flex-wrap: wrap !important;
+  width: 65%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   overflow: hidden;
   // padding: 1.5em;
   word-wrap: break-word;
-    white-space: normal;
+  white-space: normal;
+}
+
+.badges {
   &-left {
-    /* border: 1px solid #eee;
+    /* border: 1px solid #eee; 
     border-radius: 1em; */
     align-self: center;
     .username {
@@ -100,9 +103,19 @@
   width: 45px;
 }
 
+.filtrado {
+  display: grid;
+}
+
+@media screen and (max-width: 1024px) {
+  #badges {
+    width: 85%;
+  }
+}
+
 @media screen and (max-width: 768px) {
-  .badge {
-    width: 100%;
+  #badges {
+    width: 70%;
     &-left {
       display: none;
     }

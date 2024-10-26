@@ -10,6 +10,7 @@ import { TbFileSpreadsheet } from "react-icons/tb";
 import useDebounce from "../../hooks/useDebounce";
 import SearchBarDrop from '../SearchDrop/SearchBarDrop';
 import Swal from 'sweetalert2';
+import { ca } from 'date-fns/locale';
 
 function NewPrestamo(props) {
   const isOpen = useStore((state) => state.sidebar);
@@ -60,7 +61,6 @@ function NewPrestamo(props) {
     }
     setSearchValue(e.target.value);
   }
-
 
   const searchClientDataApi = async () => {
     try {
@@ -178,6 +178,30 @@ function NewPrestamo(props) {
   }
 
   console.info(prestamoData);
+
+
+  /* Data prestamos con ciente */
+  const [prestamosClienteApi, setPrestamosClienteApi] = useState([]);
+
+  const getDataPrestamosCliente = async () => {
+    try {
+      const response = await fetch(`${VITE_BACKEND_URL}/Prestamo/prestamos}`);
+      const dataResponse = await response.json();
+
+      if (response.ok) {
+        setPrestamosClienteApi(dataResponse);
+        console.info(prestamosClienteApi);
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getDataPrestamosCliente();
+  } , [])
+
   return (
     <>
       <div className={isOpen ? "wrapper" : "side"}>
@@ -201,7 +225,7 @@ function NewPrestamo(props) {
             {({ values, handleChange, handleBlur, handleSubmit, resetForm }) => (
               <Form onSubmit={handleSubmit} id="prestamo">
                 <div className="row form-container">
-                  <div className="col col-md-5 form-top">
+                  <div className="col-9 col-lg-5 form-top">
                     <div className="form-group">
                       <Label htmlFor="fecha">Fecha</Label>
                       <Input
@@ -217,25 +241,26 @@ function NewPrestamo(props) {
                         value={prestamoData?.fecha || ""}
                       />
                     </div>
-                    <div className="form-group">
-                      
+                    <div className="form-control search-input-nombre">
                       <SearchBarDrop 
-                        itemSelected={itemSelected}
-                        setItemSelectedList={setItemSelectedList}
-                        /* Data search = la data encontrada en la api */
-                        clienteData={dataSearch}
-                        setNoDataCliente={setNoDataCliente}
-                        noDataCliente={noDataCliente}
-                        /* Estado del input */
-                        searchValueInput={searchValue}
-                        setSearchValueInput={setSearchValue}
-                        handleSearch={handleSearch}
-                        isLoadingSearch={isLoading}
-                      />  
-                      <nav>
-                        <Link to="/clientes/requisitos">Nuevo Cliente</Link>
-                      </nav>
+                          itemSelected={itemSelected}
+                          setItemSelectedList={setItemSelectedList}
+                          /* Data search = la data encontrada en la api */
+                          clienteData={dataSearch}
+                          setNoDataCliente={setNoDataCliente}
+                          noDataCliente={noDataCliente}
+                          /* Estado del input */
+                          searchValueInput={searchValue}
+                          setSearchValueInput={setSearchValue}
+                          handleSearch={handleSearch}
+                          isLoadingSearch={isLoading}
+                        />
+                        <button>
+                          <Link to="/clientes/requisitos">Nuevo Cliente</Link>
+                        </button>  
+
                     </div>
+                    <br />
                     <div className="form-group">
                       <Label htmlFor="monto">Monto solicitado</Label>
                       <Input
@@ -302,7 +327,7 @@ function NewPrestamo(props) {
                     </div>
                   </div>
 
-                  <div className="col col-md-5 form-top">
+                  <div className="col-9 col-lg-5 form-top">
                     <div className="form-group">
                       <Label htmlFor="fecha_primer_pago">Fecha del primer pago</Label>
                       <Input
@@ -407,7 +432,7 @@ function NewPrestamo(props) {
                   <div className="row">
                     <div className="col-12 col-md-10">
                       <button className="button-v2" type="submit" form="prestamo">
-                        <TbFileSpreadsheet size={25}/> Registrar préstamo
+                        <TbFileSpreadsheet size={25}/> Registrar préstamo sss
                       </button>
 
                     </div>
@@ -426,8 +451,9 @@ function NewPrestamo(props) {
                   tipoPrestamo={prestamoData.tipoPrestamo}
                   tasaInteres={prestamoData.TasaInteres}
                   fechaPrimerPago={prestamoData.fecha_primer_pago}
+                  prestamosCliente={prestamosClienteApi}
                 />
-              </div>
+              </div>s
             </div>
           </div>
         </div>

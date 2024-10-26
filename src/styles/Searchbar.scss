@@ -94,7 +94,7 @@
   flex-direction: column;
   padding: 1em;
   position: absolute;
-  top: 18.5em;
+  top: 14.8em;
   background: #fff;
   overflow-y: auto;
   border-radius: 1em;
@@ -126,6 +126,11 @@
   text-align: center;
 }
 
+.search-input-nombre {
+  display: flex;
+  justify-content: end;
+}
+
 @media screen and (max-width: 1024px) {
   .SearchContent {
     width: 24em;
@@ -137,7 +142,7 @@
 @media screen and (max-width: 768px) {
   .SearchContent {
     width: 15em;
-    top: 11.2em;
+    top: 14.2em;
   }
 }
 

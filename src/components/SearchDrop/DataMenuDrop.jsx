@@ -20,8 +20,6 @@ function DataMenuDrop(props) {
     // console.log(itemSelected)
   }, [itemSelected])
 
-  
-
   const handleClick = (e) => {
     e.preventDefault()
     // Captura el item seleccionado, además ahora está disponible en el componente padre (IndividualSale)

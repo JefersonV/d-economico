@@ -44,6 +44,10 @@ div {
   font-family: var(--font-poppins), sans-serif;
 }
 
+button {
+  outline: none; /* Elimina el contorno por defecto */
+}
+
 .blue-txt {
   color: var(--color-sidebar);
 }
@@ -377,7 +381,7 @@ a .sidebar-arrow-isOpen svg {
 
 /* Cambiamos el fondo y agregamos una sombra cuando est� en hover */
 .container-sidebar aside::-webkit-scrollbar-thumb:hover {
-  background: #b3b3b3;
+  background: #dedede;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 

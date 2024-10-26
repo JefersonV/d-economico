@@ -9,7 +9,7 @@ import { FaCommentDots } from "react-icons/fa";
 /* Componente Badge */
 function Badge(props) {
 
-  const { nombre, fecha, direccion, telefono, ingreso, egreso, referencias } = props;
+  const { nombre,apellido, fecha, direccion, telefono, ingreso, egreso, referencias } = props;
 
   const formatDate = (fecha) => {
     const date = new Date(fecha);
@@ -25,11 +25,11 @@ function Badge(props) {
   // Define tu formulario aquí
   return (
     <>
-      <div className="badges">
+      <div id="badges" className='badges'>
         <div className="col-12 col-md-4 badges-left">
           <FaCircleUser color='#002c65' size={152}/>
           <h6 className='d-block mt-4 username'>
-            {nombre}
+            {nombre} {" "} {apellido}
           </h6>
         </div>
         <div className="col-12 col-md-8 badges-right">

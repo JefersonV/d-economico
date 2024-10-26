@@ -53,15 +53,14 @@ function Customers(props) {
 
   const getDataPrestamos = async () => {
     try {
-      const response = await fetch(`${URL_API}/Prestamo`);
+      const response = await fetch(`${URL_API}/Prestamo/prestamos`);
       const dataApi = await response.json();
       setDataPrestamosApi(dataApi);
+      console.info(dataPrestamosApi)
     } catch (error) {
       console.error(error);
     }
   }
-  
-  
 
   return (
     <>

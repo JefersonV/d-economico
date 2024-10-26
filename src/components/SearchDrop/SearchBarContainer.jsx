@@ -10,10 +10,10 @@ export const SearchBarContainer = forwardRef(({ isExpanded, containerVariants, c
     <motion.div
       ref={ref}
       style={{
-        display: "flex",
+        // display: "flex",
         flexDirection: "column",
-        width: isLargeScreen ? "24em" : "28em",
-        height: "3em",
+        width: isLargeScreen ? "24em" : "90%",
+        height: "0",
         backgroundColor: "#fff",
         borderRadius: "6px",
         boxShadow: "0px 2px 12px 3px rgba(0, 0, 0, 0.14)"

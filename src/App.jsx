@@ -12,6 +12,7 @@ import Pagos from "./pages/Pagos";
 import Usuarios from "./pages/Usuarios";
 import CustomersMulti from "./pages/CustomersMulti";
 import NewPrestamo from "./components/Prestamos/NewPrestamo";
+import PagoCliente from "./components/Pagos/PagoCliente";
 
 function App() {
   const [pageTitle, setPageTitle] = useState("");
@@ -124,6 +125,11 @@ function App() {
               <Route
                 path="/pagos"
                 element={<Pagos setTitle={setTitle} />}
+              />
+
+              <Route
+                path="/pagos/cliente"
+                element={<PagoCliente setTitle={setTitle} />}
               />
 
               <Route
