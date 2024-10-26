@@ -10,6 +10,7 @@ import ModalEditTab from "./ModalEditTab";
 import { TbError404 } from "react-icons/tb";
 
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
+import { FaTrash } from "react-icons/fa";
 
 function TableClient(props) {
   const [modal, setModal] = useState(false);
@@ -124,7 +125,9 @@ function TableClient(props) {
                           idCliente={data?.idcliente}
                           actualizarListaCliente={props.actualizarListaCliente}
                         />
+                        <BsFillTrashFill color="red" size={20}  />
                       </td>
+                     
                     </tr>
                   ))
                 )}

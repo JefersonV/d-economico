@@ -13,6 +13,8 @@ import Usuarios from "./pages/Usuarios";
 import CustomersMulti from "./pages/CustomersMulti";
 import NewPrestamo from "./components/Prestamos/NewPrestamo";
 import PagoCliente from "./components/Pagos/PagoCliente";
+import PagoCuota from "./pages/PagoCuota";
+import Capital from "./pages/Capital";
 
 function App() {
   const [pageTitle, setPageTitle] = useState("");
@@ -132,11 +134,20 @@ function App() {
                 element={<PagoCliente setTitle={setTitle} />}
               />
 
+              <Route 
+                path="/pagos/pago-cuota"
+                element={<PagoCuota setTitle={setTitle} />}
+              />
+              
               <Route
                 path="/usuarios"
                 element={<Usuarios setTitle={setTitle} />}
               />
               
+              <Route 
+                path="/capital"
+                element={<Capital setTitle={setTitle} />}
+              />
             </Route>
             {/* */}
 

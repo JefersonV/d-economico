@@ -1,31 +1,25 @@
-import React, { useEffect } from 'react'
-import { useStore } from '../providers/GlobalProvider'
+import React, { useEffect } from 'react';
+import { useStore } from '../providers/GlobalProvider';
 
 export default function Home(props) {
 	const isOpen = useStore((state) => state.sidebar);
 	useEffect(() => {
-		/* isOpen (globalstate) -> para que el contenido se ajuste según el ancho de la sidebar (navegación) */
-		// Para establecer en el módulo en el que nos encontramos
 		props.setTitle("Inicio");
 	}, []);
 
-  return (
-    <>
-			<div className={isOpen ? "wrapper" : "side"} >
+	return (
+		<>
+			<div className={isOpen ? "wrapper" : "side"}>
 				<div className="container">
 					<div className="row justify-content-center flex-wrap">
-						<div className="col-5 ">
+						<div className="col-5">
 							<div className="card text-center">
 								<div className="card-header">
-									Featured
+									Clientes
 								</div>
 								<div className="card-body">
-									<h5 className="card-title">Special title treatment</h5>
-									<p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-									<a href="#" className="btn btn-primary">Go somewhere</a>
-								</div>
-								<div className="card-footer text-body-secondary">
-									2 days ago
+									<h5 className="card-title">Gestión de Clientes</h5>
+									<p className="card-text">Administración de información detallada de los clientes, incluyendo datos personales y estado de cuentas.</p>
 								</div>
 							</div>
 						</div>
@@ -33,34 +27,26 @@ export default function Home(props) {
 						<div className="col-5">
 							<div className="card text-center">
 								<div className="card-header">
-									Featured
+									Préstamos
 								</div>
 								<div className="card-body">
-									<h5 className="card-title">Special title treatment</h5>
-									<p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-									<a href="#" className="btn btn-primary">Go somewhere</a>
-								</div>
-								<div className="card-footer text-body-secondary">
-									2 days ago
+									<h5 className="card-title">Administración de Préstamos</h5>
+									<p className="card-text">Control de solicitudes de préstamos, seguimiento de pagos y condiciones.</p>
 								</div>
 							</div>
 						</div>
-						
 					</div>
+					
 					{/* Row 2 */}
-					<div className="row  justify-content-center mt-4">
+					<div className="row justify-content-center mt-4">
 						<div className="col-5">
 							<div className="card text-center">
 								<div className="card-header">
-									Featured
+									Pagos / Cobranza
 								</div>
 								<div className="card-body">
-									<h5 className="card-title">Special title treatment</h5>
-									<p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-									<a href="#" className="btn btn-primary">Go somewhere</a>
-								</div>
-								<div className="card-footer text-body-secondary">
-									2 days ago
+									<h5 className="card-title">Gestión de Pagos</h5>
+									<p className="card-text">Control de pagos realizados, gestión de recordatorios de cobro y generación de reportes de cobranza.</p>
 								</div>
 							</div>
 						</div>
@@ -68,34 +54,26 @@ export default function Home(props) {
 						<div className="col-5">
 							<div className="card text-center">
 								<div className="card-header">
-									Featured
+									Capital (Caja)
 								</div>
 								<div className="card-body">
-									<h5 className="card-title">Special title treatment</h5>
-									<p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-									<a href="#" className="btn btn-primary">Go somewhere</a>
-								</div>
-								<div className="card-footer text-body-secondary">
-									2 days ago
+									<h5 className="card-title">Monitoreo de Capital</h5>
+									<p className="card-text">Seguimiento de transacciones de efectivo, ingresos y egresos, y gestión del flujo de caja.</p>
 								</div>
 							</div>
 						</div>
-						
 					</div>
+
 					{/* Row 3 */}
 					<div className="row justify-content-center mt-4">
 						<div className="col-5">
 							<div className="card text-center">
 								<div className="card-header">
-									Featured
+									Usuarios
 								</div>
 								<div className="card-body">
-									<h5 className="card-title">Special title treatment</h5>
-									<p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-									<a href="#" className="btn btn-primary">Go somewhere</a>
-								</div>
-								<div className="card-footer text-body-secondary">
-									2 days ago
+									<h5 className="card-title">Administración de Usuarios</h5>
+									<p className="card-text">Gestión de perfiles de usuario, asignación de roles y seguimiento de actividades.</p>
 								</div>
 							</div>
 						</div>
@@ -103,57 +81,17 @@ export default function Home(props) {
 						<div className="col-5">
 							<div className="card text-center">
 								<div className="card-header">
-									Featured
+									Reportes
 								</div>
 								<div className="card-body">
-									<h5 className="card-title">Special title treatment</h5>
-									<p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-									<a href="#" className="btn btn-primary">Go somewhere</a>
-								</div>
-								<div className="card-footer text-body-secondary">
-									2 days ago
+									<h5 className="card-title">Generación de Reportes</h5>
+									<p className="card-text">Reportes analíticos sobre el desempeño financiero y otros indicadores clave.</p>
 								</div>
 							</div>
 						</div>
-						
-					</div>
-					{/* Row 4 */}
-					<div className="row justify-content-center mt-4">
-						<div className="col-5">
-							<div className="card text-center">
-								<div className="card-header">
-									Featured
-								</div>
-								<div className="card-body">
-									<h5 className="card-title">Special title treatment</h5>
-									<p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-									<a href="#" className="btn btn-primary">Go somewhere</a>
-								</div>
-								<div className="card-footer text-body-secondary">
-									2 days ago
-								</div>
-							</div>
-						</div>
-
-						<div className="col-5">
-							<div className="card text-center">
-								<div className="card-header">
-									Featured
-								</div>
-								<div className="card-body">
-									<h5 className="card-title">Special title treatment</h5>
-									<p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-									<a href="#" className="btn btn-primary">Go somewhere</a>
-								</div>
-								<div className="card-footer text-body-secondary">
-									2 days ago
-								</div>
-							</div>
-						</div>
-						
 					</div>
 				</div>
-			</div>	
-    </>
-  )
+			</div>
+		</>
+	);
 }

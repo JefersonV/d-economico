@@ -14,6 +14,30 @@ function Customers(props) {
 		props.setTitle("Pagos > Historial");
 	}, []);
 
+  const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+
+  const [dataPrestamos, setDataPrestamos] = useState([]);
+  const getDatePrestamos = async () => {
+    try {
+      const response = await fetch(`${VITE_BACKEND_URL}/Prestamo/prestamos`);
+      const data = await response.json();
+      if(response.ok) {
+        setDataPrestamos(data);
+      }
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(() => {
+    getDatePrestamos();
+  }, []);
+
+  useEffect(() => {
+    console.info(dataPrestamos);
+  }, [dataPrestamos]);
+
   // Filtro de búsqueda
   // estado para el valor de búsqueda del input
   const [searchValue, setSearchValue] = useState("");
@@ -125,7 +149,7 @@ function Customers(props) {
           </FormGroup>
 
           <div className="row">
-            <TablePagos />
+            <TablePagos dataApi={dataPrestamos}/>
           </div>
         </div>
       </div>

@@ -44,7 +44,7 @@ function PagoCliente(props) {
         <div className="container">
           <div className="row">
             <div className="col">
-              <Badge />
+              <Badge nombre={dataCuotas?.nombre || ""} apellido={dataCuotas?.apellido || ""}/>
             </div>
             
           </div>

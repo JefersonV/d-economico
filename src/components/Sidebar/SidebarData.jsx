@@ -67,7 +67,7 @@ export const SidebarData = [
   }, */
   {
     title: "Capital",
-    path: "/reports",
+    path: "/capital",
     icon: <VscGraph />,
   },
   {

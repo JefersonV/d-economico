@@ -3,7 +3,7 @@ import { Table } from "reactstrap";
 import { FaEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
-function TablePagos() {
+function TablePagos({ dataApi }) {
 
   return (
     <>
@@ -21,32 +21,25 @@ function TablePagos() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>
-                <Link to="/pagos/cliente">
-                  Navigate
+          {dataApi.map((cliente, index) => (
+          cliente.prestamos.map((prestamo) => (
+            <tr key={prestamo.idPrestamo}>
+              <td>{index + 1}</td>
+              <td>{cliente.nombre} {cliente.apellido}</td>
+              <td>{prestamo.idPrestamo}</td>
+              <td>{new Date(prestamo.fechaVencimiento).toLocaleDateString()}</td>
+              <td>{prestamo.monto}</td>
+              <td>{prestamo.idTipoPrestamo}</td>
+              <td>{prestamo.capitalRecuperado}</td>
+              <td>{prestamo.idUsuario}</td>
+              <td>
+                <Link to="/pagos/cliente/">
+                  <FaEye /> Ver
                 </Link>
-              {/* 
-                <nav>
-                  <Link color="primary" to="/prestamos/new">
-                    <button className="button-v2">
-                      <span className="circle" aria-hidden="true">
-                        <span className="icon arrow"></span>
-                      </span>
-                      <span className="button-text">Registrar préstamo</span>
-                    </button>
-                  </Link>
-                </nav>
-              */}
-            </td>
-          </tr>
+              </td>
+            </tr>
+          ))
+        ))}
          
         </tbody>
       </Table>
