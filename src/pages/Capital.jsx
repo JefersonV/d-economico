@@ -13,7 +13,7 @@ function Capital(props) {
     <>
       <div className={isOpen ? "wrapper" : "side"}>
         <div className="container">
-          <div className="row">
+          <div className="row mb-4">
             <div className="col col-md-5">
               <div className="card">
                 <div className="card-header">
@@ -21,7 +21,7 @@ function Capital(props) {
                 </div>
                 <div className="card-body">
                   <h5 className="card-title">Monitoreo de Capital</h5>
-                  <p className="card-text">Aquí se mostrará el capital disponible en la caja.</p>
+                  <p className="card-text">Q.5,150.00.</p>
                 </div>
               </div>
             </div>
@@ -33,7 +33,7 @@ function Capital(props) {
                 </div>
                 <div className="card-body">
                   <h5 className="card-title">Ingresos</h5>
-                  <p className="card-text">Aquí se mostrarán los ingresos registrados en la caja.</p>
+                  <p className="card-text">Q.7,300.00</p>
                 </div>
               </div>
             </div>

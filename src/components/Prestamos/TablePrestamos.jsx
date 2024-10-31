@@ -79,7 +79,7 @@ function TablePrestamos(props) {
                         ).toLocaleDateString()}
                       </td>{" "}
                       {/* Cambié a prestamo.fechaAprobacion */}
-                      <td>{prestamo.monto}</td>
+                      <td> {prestamo.monto && "Q." + prestamo.monto.toFixed(2)}</td>
                       <td>{prestamo.capitalRecuperado || 0}</td>{" "}
                       {/* Añadido para mostrar monto pendiente */}
                       <td>{prestamo.cantidadCuotas}</td>
@@ -95,7 +95,19 @@ function TablePrestamos(props) {
                           ? "Diario"
                           : "No definido"}
                       </td>
-                      <td>{prestamo.estado ? "Activo" : "Inactivo"}</td>
+                      <td>{prestamo.estado ? 
+                        <Badge
+                          className="text-dark"
+                          color="light"
+                          pill
+                        >
+                          Vigente
+                        </Badge> : <Badge
+                          color="danger"
+                          pill
+                        >
+                          Vencido
+                        </Badge>}</td>
                       <td>
                         {/* Aquí puedes agregar acciones, como botones para editar o eliminar */}
                         

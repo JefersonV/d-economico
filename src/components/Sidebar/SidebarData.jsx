@@ -83,7 +83,7 @@ export const SidebarData = [
     iconOpened: <RiArrowUpSFill />,
     subNav: [
       {
-        title: "Políticas",
+        title: "Tipo préstamo",
         path: "/menu",
         icon: <BiFoodMenu />,
         class: "nav-subItem",

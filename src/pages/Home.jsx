@@ -19,7 +19,7 @@ export default function Home(props) {
 								</div>
 								<div className="card-body">
 									<h5 className="card-title">Gestión de Clientes</h5>
-									<p className="card-text">Administración de información detallada de los clientes, incluyendo datos personales y estado de cuentas.</p>
+									<p className="card-text">Administración de información detallada de los clientes, incluyendo datos personales y requisitos para poder aplicar a un préstamo.</p>
 								</div>
 							</div>
 						</div>
@@ -31,7 +31,7 @@ export default function Home(props) {
 								</div>
 								<div className="card-body">
 									<h5 className="card-title">Administración de Préstamos</h5>
-									<p className="card-text">Control de solicitudes de préstamos, seguimiento de pagos y condiciones.</p>
+									<p className="card-text">Control de solicitudes de préstamos, creación automatizada de cuotas base</p>
 								</div>
 							</div>
 						</div>
@@ -46,7 +46,7 @@ export default function Home(props) {
 								</div>
 								<div className="card-body">
 									<h5 className="card-title">Gestión de Pagos</h5>
-									<p className="card-text">Control de pagos realizados, gestión de recordatorios de cobro y generación de reportes de cobranza.</p>
+									<p className="card-text">Control de pagos realizados, gestión automatizada de fechas y pagos parciales.</p>
 								</div>
 							</div>
 						</div>
@@ -58,7 +58,7 @@ export default function Home(props) {
 								</div>
 								<div className="card-body">
 									<h5 className="card-title">Monitoreo de Capital</h5>
-									<p className="card-text">Seguimiento de transacciones de efectivo, ingresos y egresos, y gestión del flujo de caja.</p>
+									<p className="card-text">Seguimiento de transacciones de efectivo, ingresos y egresos, y gestión de caja.</p>
 								</div>
 							</div>
 						</div>
@@ -73,7 +73,7 @@ export default function Home(props) {
 								</div>
 								<div className="card-body">
 									<h5 className="card-title">Administración de Usuarios</h5>
-									<p className="card-text">Gestión de perfiles de usuario, asignación de roles y seguimiento de actividades.</p>
+									<p className="card-text">Gestión de perfiles de usuario, para determinar los módulos de acceso</p>
 								</div>
 							</div>
 						</div>
@@ -85,7 +85,7 @@ export default function Home(props) {
 								</div>
 								<div className="card-body">
 									<h5 className="card-title">Generación de Reportes</h5>
-									<p className="card-text">Reportes analíticos sobre el desempeño financiero y otros indicadores clave.</p>
+									<p className="card-text">Reportes de los movimientos financieros del día, semana o mes.</p>
 								</div>
 							</div>
 						</div>
