@@ -70,7 +70,7 @@ function TableClient(props) {
                   <th>Fiador</th>
                   <th>Ref Familiares</th>
                   <th>Ref Personales</th>
-                  <th>Documentación</th>
+                  {/* <th>Documentación</th> */}
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -112,13 +112,13 @@ function TableClient(props) {
                           <Badge color="success" pill>Listo</Badge>
                         )}
                       </td>
-                      <td>
+                      {/* <td>
                         {data?.requisitosDocsIdrequisitosDocs === null ? (
                           <Badge color="danger" pill>Pendiente</Badge>
                         ) : (
                           <Badge color="success" pill>Listo</Badge>
                         )}
-                      </td>
+                      </td> */}
                       <td>
                         <ModalEditTab
                           title="Editar información del cliente"

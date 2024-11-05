@@ -25,8 +25,9 @@ function TablePagos({ dataApi }) {
           cliente.prestamos.map((prestamo) => (
             <tr key={prestamo.idPrestamo}>
               <td>{index + 1}</td>
-              <td>{cliente.nombre} {cliente.apellido}</td>
-              <td>{prestamo.idPrestamo}</td>
+              <td>{cliente.nombre} {cliente.apellido} <br /> 
+              Cuotas: {prestamo.cantidadCuotas} </td>
+              {/* <td>{prestamo.idPrestamo}</td> */}
               <td>{new Date(prestamo.fechaVencimiento).toLocaleDateString()}</td>
               <td>{prestamo.monto}</td>
               <td>{prestamo.idTipoPrestamo}</td>

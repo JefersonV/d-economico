@@ -8,7 +8,7 @@ import "../../styles/Searchbar.scss";
 import useDebounce from "../../hooks/useDebounce";
 import SearchResults from '../SearchDrop/SearchResults';
 import SeachBarDrop from '../SearchDrop/SearchBarDrop';
-function CustomerStep1() {
+function CustomerStep1(props) {
 
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
   const [dataApi, setDataApi] = useState([])
@@ -81,8 +81,15 @@ function CustomerStep1() {
     setItemSelected(id);
     // Reemplaza con el nuevo item seleccionado
     setClienteSelected([selectedItem]); 
+
+    // Reemplaza con el nuevo item seleccionado
+    // props.setClienteSeleccionado([selectedItem]); 
  
     console.log('Cliente seleccionado:', selectedItem);
+
+    props.setClienteStep1(selectedItem);
+    
+    // props.setClienteSeleccionado(selectedItem);
   };
   
   return (

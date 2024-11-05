@@ -15,11 +15,13 @@ function Users(props) {
     props.setTitle("Control de Usuarios");
   }, []);
   
+  const backend_url = import.meta.env.VITE_BACKEND_URL;
+
   const [dataApi, setDataApi] = useState([]);
   const getData = async () => {
     try {
       // https://jsonplaceholder.typicode.com/comments
-      const response = await fetch("http://localhost:5103/api/Account", {
+      const response = await fetch(`${backend_url}/Account`, {
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
         },

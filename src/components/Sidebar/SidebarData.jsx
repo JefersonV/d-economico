@@ -84,7 +84,7 @@ export const SidebarData = [
     subNav: [
       {
         title: "Tipo préstamo",
-        path: "/menu",
+        path: "/tipos-prestamos",
         icon: <BiFoodMenu />,
         class: "nav-subItem",
       },

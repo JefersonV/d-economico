@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useStore } from '../../providers/GlobalProvider';
 import TableEstimacion from './TableEstimacion';
 import { Form, Formik } from 'formik';	
@@ -11,6 +11,8 @@ import useDebounce from "../../hooks/useDebounce";
 import SearchBarDrop from '../SearchDrop/SearchBarDrop';
 import Swal from 'sweetalert2';
 import { ca } from 'date-fns/locale';
+// import useForm from '../../hooks/useForm'
+// import { useFormik } from 'formik'
 
 function NewPrestamo(props) {
   const isOpen = useStore((state) => state.sidebar);
@@ -65,7 +67,7 @@ function NewPrestamo(props) {
   const searchClientDataApi = async () => {
     try {
       // buscar cliente por nombre
-      // asegura que el valor de búsqueda no esté vacío
+      // asegura que el input de búsqueda no esté vacío
       if (debouncedInputValue) {
         const response = await fetch(`${VITE_BACKEND_URL}/Cliente/search?nombre=${searchValue}`);
         const resultadoBusqueda = await response.json();
@@ -113,10 +115,13 @@ function NewPrestamo(props) {
     // Reemplaza con el nuevo item seleccionado
     setClienteSelected([selectedItem]); 
  
-    console.log('Cliente seleccionado:', selectedItem);
+    console.info('Cliente seleccionado a-:', selectedItem);
   };
 
 
+  /* useEffect(() => {
+    console.warn('Cliente seleccionado b-:', clienteSelected);
+  }, [clienteSelected]) */
   /* Registrar nuevo préstamo ---- */
   const handleSubmit = async (valores, { resetForm }) => {
 
@@ -139,12 +144,15 @@ function NewPrestamo(props) {
       DiasGracia: valores.dias_gracia,
       FechaPrimerPago: valores.fecha_primer_pago,
       // la fecha de vencimiento debe ser calculada automaticamente
-      FechaVencimiento: "2025-01-01T00:00:00",
+      // FechaVencimiento: "2025-01-01T00:00:00",
       TasaInteres: valores.TasaInteres,
-      IdUsuario: 3,
+      // IdUsuario: "993457f0-5d6a-43b8-9cb4-2b5957ccee59",
       IdCliente: clienteSelected[0].idcliente,
-      IdTipoPrestamo: auxTipoPrestamo
-      
+      IdTipoPrestamo: auxTipoPrestamo,
+      PagoCuota: totalesPrestamo.totalPagos,
+      InteresTotal: totalesPrestamo.interesesTotales,
+      // es el total a recuperar
+      PagoTotal: totalesPrestamo.totalRecuperar,
     }
     console.log(bodyPrestamo);
     try {
@@ -179,7 +187,46 @@ function NewPrestamo(props) {
 
   console.info(prestamoData);
 
+  const [totalesPrestamo, setTotalesPrestamo] = useState({
+    totalPagos: 0,
+    interesesTotales: 0,
+    totalRecuperar: 0,
+  });
 
+  // Calcula los totales del préstamo --------
+  const totalCalculado = useMemo(() => {
+    // pagos por cuotas total = monto + intereses * cuotas
+    // intereses totales = monto * tasaInteres
+    // total a recuperar = monto + intereses totales
+    const monto = parseFloat(prestamoData.monto);
+    const cuotas = parseInt(prestamoData.cuotas);
+    const tasaInteres = parseFloat(prestamoData.TasaInteres);
+
+    if (!isNaN(monto) && !isNaN(cuotas) && !isNaN(tasaInteres)) {
+      const interesesTotales = monto * (tasaInteres / 100);
+      // const totalCuota = monto + tasaInteres;
+      const totalARecuperar = monto + interesesTotales;
+      const totalCuota = totalARecuperar / cuotas;
+
+      return {
+        totalPagos: totalCuota,
+        interesesTotales,
+        interesesTotales: interesesTotales,
+        totalRecuperar: totalARecuperar,
+      };
+    }
+    return {
+      totalPagos: 0,
+      interesesTotales: 0,
+      totalRecuperar: 0,
+    };
+  }, [prestamoData.monto, prestamoData.cuotas, prestamoData.TasaInteres]);
+
+  // useEffect para actualizar el estado con los totales calculados
+  useEffect(() => {
+    setTotalesPrestamo(totalCalculado);
+  }, [totalCalculado]);
+  
   /* Data prestamos con ciente */
   const [prestamosClienteApi, setPrestamosClienteApi] = useState([]);
 
@@ -222,7 +269,13 @@ function NewPrestamo(props) {
             // validate={validate}
             onSubmit={handleSubmit}
           >
-            {({ values, handleChange, handleBlur, handleSubmit, resetForm }) => (
+            {({
+              values,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              resetForm,
+            }) => (
               <Form onSubmit={handleSubmit} id="prestamo">
                 <div className="row form-container">
                   <div className="col-9 col-lg-5 form-top">
@@ -236,42 +289,47 @@ function NewPrestamo(props) {
                         placeholder="Escoge fecha"
                         onChange={(e) => {
                           handleChange(e); // Actualiza el formulario
-                          setPrestamoData({ ...prestamoData, fecha: e.target.value }); // Actualiza prestamoData
+                          setPrestamoData({
+                            ...prestamoData,
+                            fecha: e.target.value,
+                          }); // Actualiza prestamoData
                         }}
                         value={prestamoData?.fecha || ""}
                       />
                     </div>
                     <div className="form-control search-input-nombre">
-                      <SearchBarDrop 
-                          itemSelected={itemSelected}
-                          setItemSelectedList={setItemSelectedList}
-                          /* Data search = la data encontrada en la api */
-                          clienteData={dataSearch}
-                          setNoDataCliente={setNoDataCliente}
-                          noDataCliente={noDataCliente}
-                          /* Estado del input */
-                          searchValueInput={searchValue}
-                          setSearchValueInput={setSearchValue}
-                          handleSearch={handleSearch}
-                          isLoadingSearch={isLoading}
-                        />
-                        <button>
-                          <Link to="/clientes/requisitos">Nuevo Cliente</Link>
-                        </button>  
-
+                      <SearchBarDrop
+                        itemSelected={itemSelected}
+                        setItemSelectedList={setItemSelectedList}
+                        /* Data search = la data encontrada en la api */
+                        clienteData={dataSearch}
+                        setNoDataCliente={setNoDataCliente}
+                        noDataCliente={noDataCliente}
+                        /* Estado del input */
+                        searchValueInput={searchValue}
+                        setSearchValueInput={setSearchValue}
+                        handleSearch={handleSearch}
+                        isLoadingSearch={isLoading}
+                      />
+                      <button>
+                        <Link to="/clientes/requisitos">Nuevo Cliente</Link>
+                      </button>
                     </div>
                     <br />
                     <div className="form-group">
                       <Label htmlFor="monto">Monto solicitado</Label>
                       <Input
                         type="number"
-                        name='monto'
+                        name="monto"
                         className="form-control"
                         id="monto"
                         placeholder="Cantidad..."
                         onChange={(e) => {
                           handleChange(e); // Actualiza el formulario
-                          setPrestamoData({ ...prestamoData, monto: e.target.value }); // Actualiza prestamoData
+                          setPrestamoData({
+                            ...prestamoData,
+                            monto: e.target.value,
+                          }); // Actualiza prestamoData
                         }}
                         value={prestamoData?.monto || ""}
                       />
@@ -285,7 +343,10 @@ function NewPrestamo(props) {
                         id="cant-cuotas"
                         onChange={(e) => {
                           handleChange(e); // Actualiza el formulario
-                          setPrestamoData({ ...prestamoData, cuotas: e.target.value }); // Actualiza prestamoData
+                          setPrestamoData({
+                            ...prestamoData,
+                            cuotas: e.target.value,
+                          }); // Actualiza prestamoData
                         }}
                         value={prestamoData?.cuotas || ""}
                       />
@@ -298,7 +359,10 @@ function NewPrestamo(props) {
                         name="tipoPrestamo"
                         onChange={(e) => {
                           handleChange(e); // Actualiza el formulario
-                          setPrestamoData({ ...prestamoData, tipoPrestamo: e.target.value }); // Actualiza prestamoData
+                          setPrestamoData({
+                            ...prestamoData,
+                            tipoPrestamo: e.target.value,
+                          }); // Actualiza prestamoData
                         }}
                         value={prestamoData?.tipoPrestamo || ""}
                       >
@@ -320,7 +384,10 @@ function NewPrestamo(props) {
                         id="dias-gracia"
                         onChange={(e) => {
                           handleChange(e); // Actualiza el formulario
-                          setPrestamoData({ ...prestamoData, dias_gracia: e.target.value }); // Actualiza prestamoData
+                          setPrestamoData({
+                            ...prestamoData,
+                            dias_gracia: e.target.value,
+                          }); // Actualiza prestamoData
                         }}
                         value={prestamoData?.dias_gracia || ""} // Actualiza prestamoData
                       />
@@ -329,15 +396,20 @@ function NewPrestamo(props) {
 
                   <div className="col-9 col-lg-5 form-top">
                     <div className="form-group">
-                      <Label htmlFor="fecha_primer_pago">Fecha del primer pago</Label>
+                      <Label htmlFor="fecha_primer_pago">
+                        Fecha del primer pago
+                      </Label>
                       <Input
                         type="date"
                         className="form-control"
                         id="fecha_primer_pago"
-                        name='fecha_primer_pago'
+                        name="fecha_primer_pago"
                         onChange={(e) => {
                           handleChange(e); // Actualiza el formulario
-                          setPrestamoData({ ...prestamoData, fecha_primer_pago: e.target.value }); // Actualiza prestamoData
+                          setPrestamoData({
+                            ...prestamoData,
+                            fecha_primer_pago: e.target.value,
+                          }); // Actualiza prestamoData
                         }}
                         value={prestamoData?.fecha_primer_pago || ""}
                       />
@@ -352,7 +424,10 @@ function NewPrestamo(props) {
                         name="TasaInteres"
                         onChange={(e) => {
                           handleChange(e); // Actualiza el formulario
-                          setPrestamoData({ ...prestamoData, TasaInteres: e.target.value }); // Actualiza prestamoData
+                          setPrestamoData({
+                            ...prestamoData,
+                            TasaInteres: e.target.value,
+                          }); // Actualiza prestamoData
                         }}
                         value={prestamoData?.TasaInteres || ""}
                       />
@@ -364,10 +439,13 @@ function NewPrestamo(props) {
                         className="form-control"
                         id="mora"
                         placeholder="Cantidad de mora"
-                        name='mora'
+                        name="mora"
                         onChange={(e) => {
                           handleChange(e); // Actualiza el formulario
-                          setPrestamoData({ ...prestamoData, mora: e.target.value }); // Actualiza prestamoData
+                          setPrestamoData({
+                            ...prestamoData,
+                            mora: e.target.value,
+                          }); // Actualiza prestamoData
                         }}
                         value={prestamoData?.mora || ""}
                       />
@@ -380,7 +458,10 @@ function NewPrestamo(props) {
                         name="politica"
                         onChange={(e) => {
                           handleChange(e); // Actualiza el formulario
-                          setPrestamoData({ ...prestamoData, politica: e.target.value }); // Actualiza prestamoData
+                          setPrestamoData({
+                            ...prestamoData,
+                            politica: e.target.value,
+                          }); // Actualiza prestamoData
                         }}
                         value={prestamoData?.politica || ""}
                       >
@@ -392,30 +473,74 @@ function NewPrestamo(props) {
                         <option value="Semanal">Semanal</option>
                       </Input>
 
+                      <div className="flex-cont border rounded px-4">
+                      <div className="card-header ">
+									      Cliente Asociado al Préstamo:
+                      </div>
+                      {/* <div className="card-body">
+                        <h6 className="card-title">Cliente seleccionado</h6>
+                        <h6 className="card-title">Registrado: </h6>
+                        <h6 className="card-title">Teléfono:  </h6>
+                        <p className="card-text">Control de pagos realizados, gestión automatizada de fechas y pagos parciales.</p>
+                      </div> */}
+                      <h6>
+                        {/* Validacion de nulos para que no se rompa la app */}
+                        Cliente seleccionado: {clienteSelected.length > 0 && clienteSelected[0].nombre ? 
+                          `${clienteSelected[0].nombre} ${clienteSelected[0].apellido || ''}` : 
+                          ""}
+                      </h6>
+                      <h6>
+                        Registrado: {clienteSelected.length > 0 && clienteSelected[0].fechaRegistro ? 
+                          clienteSelected[0].fechaRegistro : 
+                          ""}
+                      </h6>
+                      <h6>
+                        Teléfono(s): {clienteSelected.length > 0 ? 
+                          `${clienteSelected[0].telefono || ''} ${clienteSelected[0].telefono2 || ''}` : 
+                          ""}
+                      </h6>
+                      </div>
                       <div className="flex-cont">
                         <div className="flex-cont-left">
-                          <h6>Pagos por cuotas: </h6>
+                          <h6>
+                            Pagos por cuotas:{" "}
+                            {(totalesPrestamo.totalPagos &&
+                              totalesPrestamo.totalPagos.toFixed(2)) ||
+                              ""}{" "}
+                          </h6>
                           {/* Pagos por cuotas = monto */}
                         </div>
                         <div className="flex-cont-right">
-                          <h6>Intereses totales: </h6>
+                          <h6>
+                            Intereses totales:{" "}
+                            {(totalesPrestamo.interesesTotales &&
+                              totalesPrestamo.interesesTotales.toFixed(2)) ||
+                              ""}{" "}
+                          </h6>
                         </div>
-                       
-                        
                       </div>
                       <div className="flex-bottom">
-                          <h6>Total a recuperar: </h6>
-                        </div>
+                        <h6>
+                          Total a recuperar:{" "}
+                          {(totalesPrestamo.totalRecuperar &&
+                            totalesPrestamo.totalRecuperar.toFixed(2)) ||
+                            ""}{" "}
+                        </h6>
+                      </div>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="container m-auto">
                   <div className="row">
                     <div className="col d-flex justify-content-center">
-                      <button type="button" className="button-v2">
-                        <FcDataSheet size={30} className="svgIcon" />
-                        Estimar préstamo
+                    <button
+                        disabled={totalesPrestamo.totalPagos === 0 && totalesPrestamo.interesesTotales === 0 && totalesPrestamo.totalRecuperar === 0 ? true : false}
+                        className="button-v2"
+                        type="submit"
+                        form="prestamo"
+                      >
+                        <TbFileSpreadsheet size={25} /> Registrar préstamo
                       </button>
                       <button
                         type="button"
@@ -430,11 +555,7 @@ function NewPrestamo(props) {
                 </div>
                 <div className="col">
                   <div className="row">
-                    <div className="col-12 col-md-10">
-                      <button className="button-v2" type="submit" form="prestamo">
-                        <TbFileSpreadsheet size={25}/> Registrar préstamo sss
-                      </button>
-
+                      <div className="col-12 col-md-10">
                     </div>
                   </div>
                 </div>
@@ -444,7 +565,7 @@ function NewPrestamo(props) {
           <div className="container">
             <div className="row">
               <div className="col-12 col-md-10 m-auto">
-                <TableEstimacion 
+                <TableEstimacion
                   monto={prestamoData.monto}
                   cliente={prestamoData.cliente}
                   cuotas={prestamoData.cuotas}
@@ -452,8 +573,10 @@ function NewPrestamo(props) {
                   tasaInteres={prestamoData.TasaInteres}
                   fechaPrimerPago={prestamoData.fecha_primer_pago}
                   prestamosCliente={prestamosClienteApi}
+                  totalesPrestamo={totalesPrestamo}
                 />
-              </div>s
+              </div>
+              
             </div>
           </div>
         </div>

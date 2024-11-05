@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -9,22 +9,33 @@ import CustomerStep1 from './CustomerStep1';
 import CustomerStep2 from './CustomerStep2';
 import CustomerStep3 from './CustomerStep3';
 
-const steps = [
-  // Aquí se agregan más pasos si es necesario
-  { label: 'Registra al cliente, o búscalo si es uno existente', content: <CustomerStep1 /> },
-  { label: 'Registra al fiador o búscalo si ex uno existente', content: <CustomerStep2 /> },
-  { label: 'Registra las referencias', content: <CustomerStep3 /> },
-];
-
 export default function HorizontalLinearStepper() {
+
+  // datos para enviar a la solicitud post
+  const [clienteStep1, setClienteStep1] = useState([]);
+  const [fiadorStep2, setFiadorStep2] = useState([])
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+  
+  const steps = [
+  
+    // Aquí se agregan más pasos si es necesario
+    { label: 'Registra al cliente, o búscalo si es uno existente', content: <CustomerStep1 setClienteStep1={setClienteStep1} /> },
+    { label: 'Registra al fiador o búscalo si ex uno existente', content: <CustomerStep2 /> },
+    { label: 'Registra las referencias', content: <CustomerStep3 /> },
+  ];
+
+  useEffect(() => {
+    console.info(clienteStep1);
+  }, [clienteStep1])
 
   /* Definir pasos opcionales */
   const isStepOptional = (step) => {
     return step === 1;
   };
 
+  // Capturar datos para relacionarlos 
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };

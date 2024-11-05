@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "reactstrap";
 
-function TableEstimacion({ monto, cliente, cuotas, tipoPrestamo, tasaInteres, fechaPrimerPago, prestamosClienteApi }) {
+function TableEstimacion({ monto, cliente, cuotas, tipoPrestamo, tasaInteres, fechaPrimerPago, prestamosClienteApi, totalesPrestamo }) {
   // Validación de entradas
   if (
     cuotas <= 0 || 

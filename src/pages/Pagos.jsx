@@ -16,7 +16,6 @@ function Customers(props) {
 
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-
   const [dataPrestamos, setDataPrestamos] = useState([]);
   const getDatePrestamos = async () => {
     try {

@@ -3,11 +3,29 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, C
 import { Formik, Form } from 'formik';
 import { BiEditAlt, BiFoodMenu } from 'react-icons/bi';
 import Swal from 'sweetalert2';
+/* Custom map */
+import CustomMap from './Maps/CustomMap';
+import { APIProvider } from '@vis.gl/react-google-maps';
 import '../../styles/Formulario.scss';
+import "../../styles/Map.scss";
 
 function ModalAddClient() {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+
+
+  const [nestedModal, setNestedModal] = useState(false);
+  const [closeAll, setCloseAll] = useState(false);
+  // modal anidado para maps
+  const toggleNested = () => {
+    setNestedModal(!nestedModal);
+    setCloseAll(false);
+  };
+  // evento para cerrar todos los modales
+  const toggleAll = () => {
+    setNestedModal(!nestedModal);
+    setCloseAll(true);
+  };
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
@@ -74,6 +92,11 @@ function ModalAddClient() {
     } else if (!/^\d{13}$/.test(valores.dpi)) {
       errores.dpi = 'El DPI debe tener 13 dígitos';
     }
+    if (!valores.notasVisita) {
+      errores.notasVisita = 'Ingresa las referencias de la visita';
+    } else if (!/^(?!.*\s{2})[a-zA-Z0-9À-ÿ\s,.-]{1,100}$/.test(valores.notasVisita)) {
+      errores.notasVisita = 'La referencia debe tener un máximo de 100 caracteres, puede contener letras, números, espacios y los caracteres ,.-, y no puede tener dos espacios seguidos';
+    }
 
     // console.log(errores)
 
@@ -88,8 +111,8 @@ function ModalAddClient() {
       direccion: valores.direccion,
       telefono: parseInt(valores.telefono, 10),
       telefono2: parseInt(valores.telefono2, 10),
-      
-      // dpi: valores.dpi;
+      notasVisita: valores.notasVisita,
+      dpi: valores.dpi,
       ingresos: parseInt(valores.ingresos, 10),
       egresos: parseInt(valores.egresos, 10),
       profesion: valores.profesion,
@@ -286,7 +309,7 @@ function ModalAddClient() {
                   </Label>
 
                   <Input
-                    type="number"
+                    type="text"
                     id="input-dpi"
                     name="dpi"
                     value={values.dpi}
@@ -298,7 +321,6 @@ function ModalAddClient() {
                     {touched.dpi && errors.dpi && <div className="error">{errors.dpi}</div>}
                   </Col>
                     
-
                 </FormGroup>
 
                 <FormGroup row>
@@ -362,22 +384,49 @@ function ModalAddClient() {
                   </Col>
 
                   <Col sm={6}>
-                    <Label for="input-referencias" sm={6}>
-                      Referencias de la visita
-                    </Label>
+                  <Label for="input-notasVisita" sm={6}>
+                    Referencias de la visita
+                  </Label>
+                  <Input
+                    type="text"
+                    id="input-notasVisita" // Cambia el id para reflejar correctamente el campo
+                    name="notasVisita" // Asegúrate de que el nombre sea "notasVisita"
+                    placeholder=""
+                    autoComplete="off"
+                    value={values.notasVisita} // Asegúrate de que se use "notasVisita"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    valid={touched.notasVisita && !errors.notasVisita && values.notasVisita.length > 0}
+                    invalid={touched.notasVisita && !!errors.notasVisita}
+                  />
+                  {touched.notasVisita && errors.notasVisita && <div className="error">{errors.notasVisita}</div>}
+                  {/* Modal anidado */}
+                  <Button color="success" onClick={toggleNested}>
+                    Show Nested Modal
+                  </Button>
 
-                    <Input
-                      type="text"
-                      id="input-referencias"
-                      name="referencias"
-                      placeholder=""
-                      autoComplete="off"
-                      value={values.notasVisita}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                       valid={touched.notasVisita && !errors.notasVisita && values.notasVisita.length > 0}
-                      invalid={touched.notasVisita && !!errors.notasVisita} 
-                    />
+                  <Modal
+                    isOpen={nestedModal}
+                    toggle={toggleNested}
+                    onClosed={closeAll ? toggle : undefined}
+                    size="lg"
+                  >
+                    <ModalHeader>Nested Modal title</ModalHeader>
+                    <ModalBody>
+                      {/* Api de google maps */}
+                      {/* <APIProvider apiKey={import.meta.env.GOOGLE_API}>
+                        <CustomMap />
+                      </APIProvider> */}
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button color="primary" onClick={toggleNested}>
+                        Done
+                      </Button>{' '}
+                      <Button color="secondary" onClick={toggleAll}>
+                        All Done
+                      </Button>
+                    </ModalFooter>
+                  </Modal>
                   </Col>
                   
                 </FormGroup>

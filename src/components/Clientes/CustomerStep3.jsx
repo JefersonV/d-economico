@@ -2,6 +2,7 @@ import React from 'react'
 import Searchbar from '../Searchbar'
 import ModalAddReferencia1 from './ModalAddReferencia1'
 import Badge from './Badge'
+import ModalDocs from './ModalDocs'
 
 function CustomerStep3() {
   return (
@@ -12,7 +13,9 @@ function CustomerStep3() {
             <h5 className="blue-txt m-0">Click para registrar una de las referencias</h5>
           </div>
           <div className="col">
-            <ModalAddReferencia1 />
+
+            <ModalAddReferencia1 /> 
+            <ModalDocs />
           </div>
         </div>
         

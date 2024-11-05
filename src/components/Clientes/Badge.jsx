@@ -36,9 +36,21 @@ function Badge(props) {
           <p className="badge-text"><BsCalendarDate size={27}/>{" "}Fecha registro: {!fecha ? "" : formatDate(fecha)}</p>
           <p className="badge-text"><FaAddressBook size={27} />{" "}Dirección: {direccion} </p>
           <p className="badge-text"><BsPhone size={27} />{" "}Teléfono: {telefono}</p>
-          <p className="badge-text"><FaMoneyBill size={27} />{" "}Ingreso mensual:  Q.{ingreso?.toFixed(2)} </p>
-          <p className="badge-text"><FaMoneyBill size={27} />{" "}Egreso: {egreso} </p>
-          <p className="badge-text"><FaCommentDots size={27} />{" "}Referencias de la visita: {referencias} </p>
+          {ingreso !== undefined && (
+          <p className="badge-text">
+            <FaMoneyBill size={27}/> Ingreso mensual: Q.{ingreso.toFixed(2)}
+          </p>
+        )}
+        {egreso !== undefined && (
+          <p className="badge-text">
+            <FaMoneyBill size={27}/> Egreso: {egreso}
+          </p>
+        )}
+        {referencias && (
+          <p className="badge-text">
+            <FaCommentDots size={27}/> Referencias de la visita: {referencias}
+          </p>
+        )}
         </div>
       </div>
     </>

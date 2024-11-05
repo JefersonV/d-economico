@@ -4,6 +4,8 @@ import { Form, Formik } from 'formik'
 import { Label, Input } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import SearchBarDrop from "../SearchDrop/SearchBarDrop"
+import useForm from '../../hooks/useForm'
+import { useFormik } from 'formik'
 
 function FormNewPrestamo() {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -65,6 +67,30 @@ function FormNewPrestamo() {
  
     console.log('Cliente seleccionado:', selectedItem);
   };
+
+  const { formValues, updateFormValues } = useForm(); // Usa el hook para acceder al estado
+
+  const formik = useFormik({
+      initialValues: formValues,
+      validate: (valores) => {
+          let errores = {};
+          // (tu lógica de validación aquí)
+          return errores;
+      },
+     /*  onSubmit: async (valores) => {
+          // Aquí puedes manejar la lógica de envío si es necesario
+          console.log('Formulario enviado:', valores);
+      }, */
+  });
+
+  // Accede a los valores del formulario directamente desde formik.values
+  const { values, handleChange, handleBlur } = formik;
+
+  // Actualiza el estado global en tiempo real
+  const handleFieldChange = (name) => (e) => {
+    handleChange(e);
+    updateFormValues({ [name]: e.target.value });
+};
   return (
     <>
       <Formik
@@ -93,8 +119,15 @@ function FormNewPrestamo() {
               <div className="col col-md-5 form-top">
                 
                 <div className="form-group">
-                  <Label htmlFor="Fecha">Fecha</Label>
-                  <Input type="date" className="form-control" id="fecha" placeholder="Escoge fecha" />
+                  <Label htmlFor="Fecha">Fechasss</Label>
+                  <Input
+                    type="date"
+                    id="fecha"
+                    name="fecha"
+                    value={values.fecha}
+                    onChange={handleFieldChange('fecha')}
+                    onBlur={handleBlur}
+                />
                 </div>
 
                   <SearchBarDrop 
@@ -118,12 +151,26 @@ function FormNewPrestamo() {
 
                 <div className="form-group">
                   <Label htmlFor="monto">Monto solicitado</Label>
-                  <Input type="search" className="form-control" id="monto" placeholder="Nombre ..." />
+                  <Input
+                    type="number"
+                    id="monto"
+                    name="monto"
+                    value={values.monto}
+                    onChange={handleFieldChange('monto')}
+                    onBlur={handleBlur}
+                />
                 </div>
 
                 <div className="form-group">
-                  <Label htmlFor="cant-cuotas">Cantidad de cuotas</Label>
-                  <Input type="number" className="form-control" name="cuotas" id="cant-cuotas"/>
+                <Label htmlFor="cuotas">Cantidad de cuotas</Label>
+                <Input
+                    type="number"
+                    id="cuotas"
+                    name="cuotas"
+                    value={values.cuotas}
+                    onChange={handleFieldChange('cuotas')}
+                    onBlur={handleBlur}
+                />
                 </div>
 
                 <div className="form-group">
