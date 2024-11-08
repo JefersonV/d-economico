@@ -5,11 +5,18 @@ import "react-toastify/dist/ReactToastify.css";
 import logoDE from "../assets/images/logo-de.png";
 
 function Login() {
-  const api = import.meta.env.VITE_BACKEND_URL;
+    //const api = import.meta.env.VITE_BACKEND_URL;
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const estilosImagen = {
+    height: '100px',
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '20px',
+  };
 
   const estilosDiv = {
     display: "flex",
@@ -39,7 +46,7 @@ function Login() {
       body: JSON.stringify({ usuario: user, contrasenia: password }),
     };
     const response = await fetch(
-      "http://localhost:5103/api/Account/login",
+      `${import.meta.env.VITE_BACKEND_URL}/Account/login`,
       requestOptions
     );
     const data = await response.json();
@@ -63,6 +70,7 @@ function Login() {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
 
   return (
     <>

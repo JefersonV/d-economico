@@ -21,12 +21,12 @@ import Reportes from "./pages/Reportes";
 
 function App() {
   const [pageTitle, setPageTitle] = useState("");
-  const [isAuth, setIsAuth] = useState(true) // Estado para controlar si el usuario está autenticado
+  //const [isAuth, setIsAuth] = useState(false) // Estado para controlar si el usuario está autenticado
 
   //Traemos los datos que necesitemos del estado global
   const datosUsuario = useAuthStore((state) => ({
-    isAuth: true,
-    rol: "Administrador",
+    isAuth: state.isAuth,
+    rol: state.rol,
   }));
 
   //Traemos el método para cambiar los valores del estado
