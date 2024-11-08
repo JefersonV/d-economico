@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Badge } from "reactstrap";	
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
-function TableCuota({ data }) {
+// import PagoCuota from "../../pages/PagoCuota";
+import ModalPagoCuota from "./ModalPagoCuota";
+import Swal from "sweetalert2";
+// import { Badge } from "reactstrap";
+function TableCuota({ data, getDataCuotas}) {
 
   console.info(data)
+
+  /* 
+    {
+    "idCliente": 36,
+    "nombre": "Mario",
+    "apellido": "Test presentacion",
+    "fechaRegistro": "2024-11-06T01:41:23.241327",
+    "telefono": 23982739,
+    "idPrestamo": 19,
+    "cuotas": [
+        {
+            "idPago": 109,
+            "numeroCuota": 2,
+            "montoCuota": 111.11111111111111,
+            "interesCuota": 16.666666666666668,
+            "moraCuota": null,
+            "totalCuota": null,
+            "estadoCuota": false,
+            "estadoPago": false,
+            "fechaVencimientoCuota": "2024-11-08T00:00:00",
+            "fechaPagoCuota": null,
+            "diasAtraso": 0
+        },
+    ]
+}
+  */
   return (
     <>
       <Table hover bordered responsive>
@@ -13,7 +42,7 @@ function TableCuota({ data }) {
           <tr>
             {/* <th>#</th> */}
             <th>Cuota</th>
-            <th>Fecha vencimiento</th>
+            <th>Fechas</th>
             <th>Importe por cuota</th>
             <th>Estado</th>
             <th>Acciones</th>
@@ -28,21 +57,35 @@ function TableCuota({ data }) {
                   color="info"
                   pill
                 >
-                  Cuota {cuota.numeroCuota}
+                  Cuota {cuota.numeroCuota }  
                 </Badge>
               </td>
-              <td>{new Date(cuota.fechaVencimientoCuota).toLocaleDateString()}</td>
+              <td> <b>Vencimiento:</b> <br/> {new Date(cuota.fechaVencimientoCuota).toLocaleDateString()} <br />
+                <b>Pagado:</b> <br /> {cuota.fechaPagoCuota ? new Date(cuota.fechaPagoCuota).toLocaleDateString() : "Pendiente"}
+              </td>
               <td><b>Monto:</b> Q.{cuota?.montoCuota.toFixed(2) || ""} 
                 <br /><b>Intereses:</b> Q.{cuota?.interesCuota.toFixed(2) || ""} 
-                <br /><b>Total:</b> Q.{cuota?.montoCuota + cuota?.interesCuota || ""}  
+                <br /><b>Total:</b> Q.{cuota.montoCuota && (cuota.montoCuota + cuota?.interesCuota).toFixed(2) || ""}  
               </td>
-              <td>{cuota.estadoCuota ? "Pagado" : "Pendiente"}</td>
+              <td>{cuota.estadoPago ? "Pagado" : "Pendiente"}</td>
               <td>
-                <nav>
+                {cuota.estadoPago && cuota.estadoPago ? (
+                  <Badge color="success" pill>
+                    Pagado
+                  </Badge>
+                ) : (
+                  <ModalPagoCuota 
+                    idPago={cuota.idPago}
+                    getDataCuotasApi={getDataCuotas}
+                  />
+                )}
+               
+                {/* <nav>
                   <Link to="/pagos/pago-cuota">
-                    <FaEye /> 
+
+                    <FaEye />
                   </Link>
-                </nav>
+                </nav> */}
               </td>
             </tr>
           ))}

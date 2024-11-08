@@ -16,9 +16,10 @@ function ModalAdd(props) {
   const bodyProvider = {
     nombre: '',
     contrasenia: '',
-    idTipoUsuario: '',
+    IdTipoUsuario: '',
   };
 
+  
   const validate = (valores) => {
     let errores = {};
     if (!valores.nombre) {
@@ -36,13 +37,16 @@ function ModalAdd(props) {
     return errores;
   };
 
+  const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   const handleSubmit = async (valores, { resetForm }) => {
     bodyProvider.nombre = valores.nombre;
     bodyProvider.contrasenia = valores.contrasenia;
-    bodyProvider.idTipoUsuario = valores.idTipoUsuario;
-
+    bodyProvider.IdTipoUsuario = valores.idTipoUsuario;
+    
+    console.info(bodyProvider);
     try {
-      const response = await fetch('http://localhost:5103/api/Account/register', {
+      const response = await fetch(`${VITE_BACKEND_URL}/Account/register`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.token}`,

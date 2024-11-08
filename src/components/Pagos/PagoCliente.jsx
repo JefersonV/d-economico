@@ -2,13 +2,9 @@ import React, { useState, useEffect} from 'react'
 import { useStore } from "../../providers/GlobalProvider";
 import Badge from "../Clientes/Badge";
 import TableCuota from './TableCuota';
-
+/* DEPRECATED  ------------------------------- */
 function PagoCliente(props) {
   const isOpen = useStore((state) => state.sidebar);
-	useEffect(() => {
-    /* isOpen (globalstate) -> para que el contenido se ajuste según el ancho de la sidebar (navegación) */
-		props.setTitle("Pagos > Cuotas");
-	}, []); 
 
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -16,7 +12,7 @@ function PagoCliente(props) {
   
   const getDataCuotas = async () => {
     try {
-      const response = await fetch(`${VITE_BACKEND_URL}/Prestamo/cuotas/10`);
+      const response = await fetch(`${VITE_BACKEND_URL}/Prestamo/cuotas/${idPrestamo}`);
 
       const data = await response.json();
       if(response.ok) {

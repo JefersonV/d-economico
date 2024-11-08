@@ -139,6 +139,8 @@ function NewPrestamo(props) {
     }
 
     const bodyPrestamo = {
+      // Opcional, si no se proporciona se tomará la fecha actual
+      FechaAprobacion: valores.fecha ? valores.fecha : new Date(),  
       Monto: valores.monto,
       CantidadCuotas: valores.cuotas,
       DiasGracia: valores.dias_gracia,
@@ -471,18 +473,14 @@ function NewPrestamo(props) {
                         <option value="Mensual">Mensual</option>
                         <option value="Quincenal">Quincenal</option>
                         <option value="Semanal">Semanal</option>
+                        <option value="Diario">Diario</option>
                       </Input>
 
                       <div className="flex-cont border rounded px-4">
                       <div className="card-header ">
 									      Cliente Asociado al Préstamo:
                       </div>
-                      {/* <div className="card-body">
-                        <h6 className="card-title">Cliente seleccionado</h6>
-                        <h6 className="card-title">Registrado: </h6>
-                        <h6 className="card-title">Teléfono:  </h6>
-                        <p className="card-text">Control de pagos realizados, gestión automatizada de fechas y pagos parciales.</p>
-                      </div> */}
+                      
                       <h6>
                         {/* Validacion de nulos para que no se rompa la app */}
                         Cliente seleccionado: {clienteSelected.length > 0 && clienteSelected[0].nombre ? 

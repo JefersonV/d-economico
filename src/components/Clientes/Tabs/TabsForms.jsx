@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 import TabEditItem1 from './TabEditItem1';
 import TabEditItem2 from './TabEditItem2';
+import ReqDocs from './ReqDocs';
 
 function TabsForms(props) {
   const [activeTab, setActiveTab] = useState('1');
@@ -49,14 +50,14 @@ function TabsForms(props) {
             Referencias
           </NavLink>
         </NavItem>
-        {/* <NavItem>
+        <NavItem>
           <NavLink
             className={activeTab === '4' ? 'active' : ''}
             onClick={() => toggle('4')}
           >
             Documentación
           </NavLink>
-        </NavItem> */}
+        </NavItem>
       </Nav>
       {/* Contenido de las tabs */}
       <TabContent activeTab={activeTab}>
@@ -92,7 +93,10 @@ function TabsForms(props) {
         <TabPane tabId="4">
           <Row>
             <Col sm="12">
-              <h4>Tab 4 Contents</h4>
+              {/* <h4>Tab 4 Contents</h4>
+               */}
+               
+            <ReqDocs />
             </Col>
           </Row>
         </TabPane>

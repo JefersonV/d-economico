@@ -16,6 +16,8 @@ import PagoCliente from "./components/Pagos/PagoCliente";
 import PagoCuota from "./pages/PagoCuota";
 import Capital from "./pages/Capital";
 import TipoPrestamo from "./pages/TipoPrestamo";
+import Empresa from "./pages/Empresa";
+import Reportes from "./pages/Reportes";
 
 function App() {
   const [pageTitle, setPageTitle] = useState("");
@@ -134,6 +136,7 @@ function App() {
                 path="/pagos/cliente"
                 element={<PagoCliente setTitle={setTitle} />}
               />
+              
 
               <Route 
                 path="/pagos/pago-cuota"
@@ -153,6 +156,16 @@ function App() {
               <Route
                 path="/tipos-prestamos"
                 element={<TipoPrestamo setTitle={setTitle} />}
+              />
+
+              <Route
+                path="/info-empresa"
+                element={<Empresa setTitle={setTitle} />}
+              />
+
+              <Route
+                path="/reportes"
+                element={<Reportes setTitle={setTitle} />}
               />
             </Route>
             {/* */}

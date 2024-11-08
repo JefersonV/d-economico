@@ -72,12 +72,12 @@ export const SidebarData = [
   },
   {
     title: "Reportes",
-    path: "/reports",
+    path: "/reportes",
     icon: <VscGraph />,
   },
   {
     title: "Configuración",
-    path: "/config",
+    // path: "",
     icon: <GrConfigure />,
     iconClosed: <RiArrowDownSFill />,
     iconOpened: <RiArrowUpSFill />,
@@ -91,6 +91,12 @@ export const SidebarData = [
       {
         title: "Usuarios",
         path: "/usuarios",
+        icon: <BiFoodMenu />,
+        class: "nav-subItem",
+      },
+      {
+        title: "Info Empresa",
+        path: "/info-empresa",
         icon: <BiFoodMenu />,
         class: "nav-subItem",
       }

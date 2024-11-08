@@ -38,7 +38,7 @@ function TableClient(props) {
     }
   
     // Para depurar la longitud actual de los datos a renderizar
-    console.info("Data a renderizar cliente:", dataToRender?.length);
+    // console.info("Data a renderizar cliente:", dataToRender?.length);
   }, [props.busqueda, props.dataApi]);
 
   return (

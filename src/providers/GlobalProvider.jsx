@@ -17,3 +17,10 @@ export const useTitle = create((set) => ({
   title: '',
   setTitle: () => set((state) => ({title: state.title}))
 }))
+
+
+// Store para manejar el idPrestamo
+export const usePrestamoStore = create((set) => ({
+  idPrestamo: null,
+  setIdPrestamo: (id) => set(() => ({ idPrestamo: id })),
+}));

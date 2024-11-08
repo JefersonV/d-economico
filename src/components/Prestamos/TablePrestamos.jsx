@@ -55,7 +55,7 @@ function TablePrestamos(props) {
                   <th>Cliente</th>
                   <th>Fecha aprobada</th>
                   <th>Monto</th>
-                  <th>Monto pendiente</th>
+                  {/* <th>Monto pendiente</th> */}
                   <th>Cuotas</th>
                   <th>Intereses</th>
                   <th>Tipo préstamo</th>
@@ -80,7 +80,7 @@ function TablePrestamos(props) {
                       </td>{" "}
                       {/* Cambié a prestamo.fechaAprobacion */}
                       <td> {prestamo.monto && "Q." + prestamo.monto.toFixed(2)}</td>
-                      <td>{prestamo.capitalRecuperado || 0}</td>{" "}
+                      {/* <td>{prestamo.capitalRecuperado || 0}</td>{" "} */}
                       {/* Añadido para mostrar monto pendiente */}
                       <td>{prestamo.cantidadCuotas}</td>
                       <td>{prestamo.tasaInteres}</td>

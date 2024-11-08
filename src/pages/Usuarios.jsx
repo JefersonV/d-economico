@@ -76,7 +76,6 @@ function Users(props) {
           </div>
         </div>
         
-
       <TableUsers 
         data={results}
         actualizarListaUsuario={getData}

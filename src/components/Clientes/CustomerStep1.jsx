@@ -9,6 +9,7 @@ import useDebounce from "../../hooks/useDebounce";
 import SearchResults from '../SearchDrop/SearchResults';
 import SeachBarDrop from '../SearchDrop/SearchBarDrop';
 function CustomerStep1(props) {
+  // actualizarRelacionesCliente
 
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
   const [dataApi, setDataApi] = useState([])
@@ -86,8 +87,12 @@ function CustomerStep1(props) {
     // props.setClienteSeleccionado([selectedItem]); 
  
     console.log('Cliente seleccionado:', selectedItem);
-
+    // actualizarRelacionesCliente
     props.setClienteStep1(selectedItem);
+    if (selectedItem) {
+      actualizarRelacionesCliente(selectedItem);
+    }
+    // props.actualizarRelacionesCliente(selectedItem);
     
     // props.setClienteSeleccionado(selectedItem);
   };

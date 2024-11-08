@@ -14,7 +14,7 @@ const generarPDF = () => {
   const textWidth = pageWidth - margin; // Ancho del texto, menos el margen izquierdo
 
   // Agregar el título "CONTRATO DE TRABAJO"
-  const title = "CONTRATO DE TRABAJO";
+  const title = "CONTRATO MUTUO CON GARANTÍA MIXTA";
   const titleWidth = doc.getTextWidth(title);
   const titleX = (pageWidth - titleWidth) / 2; // Calcular la posición X para centrar
   doc.setFontSize(16); // Ajustar el tamaño de la fuente para el título
@@ -24,7 +24,7 @@ const generarPDF = () => {
   // Restablecer el tamaño de la fuente para el contenido del contrato
   doc.setFontSize(12); // Establecer el tamaño de la fuente para el contenido
   // Contrato de trabajo texto
-  const contratoTrabajo = `CONTRATO DE TRABAJO
+  const contratoTrabajo = `
 
   Entre [Nombre del Empleado], con DNI [Número de DNI], y la empresa [Nombre de la Empresa], 
   con CIF [Número de CIF], se acuerda lo siguiente:

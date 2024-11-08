@@ -9,7 +9,7 @@ import CustomerStep1 from './CustomerStep1';
 import CustomerStep2 from './CustomerStep2';
 import CustomerStep3 from './CustomerStep3';
 
-export default function HorizontalLinearStepper() {
+export default function CustomizedStepper( {relacionCliente, actualizarRelacionesCliente} ) {
 
   // datos para enviar a la solicitud post
   const [clienteStep1, setClienteStep1] = useState([]);
@@ -21,9 +21,13 @@ export default function HorizontalLinearStepper() {
   const steps = [
   
     // Aquí se agregan más pasos si es necesario
-    { label: 'Registra al cliente, o búscalo si es uno existente', content: <CustomerStep1 setClienteStep1={setClienteStep1} /> },
-    { label: 'Registra al fiador o búscalo si ex uno existente', content: <CustomerStep2 /> },
-    { label: 'Registra las referencias', content: <CustomerStep3 /> },
+    { label: 'Registra al cliente, o búscalo si es uno existente', content: <CustomerStep1 
+      setClienteStep1={setClienteStep1} relacionCliente={relacionCliente} 
+      actualizarRelacionesCliente={actualizarRelacionesCliente} /> },
+    { label: 'Registra al fiador o búscalo si ex uno existente', content: <CustomerStep2 relacionCliente={relacionCliente} 
+    actualizarRelacionesCliente={actualizarRelacionesCliente} /> },
+    { label: 'Registra las referencias', content: <CustomerStep3 relacionCliente={relacionCliente} 
+    actualizarRelacionesCliente={actualizarRelacionesCliente}/> } ,
   ];
 
   useEffect(() => {
