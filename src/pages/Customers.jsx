@@ -26,21 +26,18 @@ function Customers(props) {
 
    // spinner
    const [isLoading, setIsLoading] = useState(true);
-  const getData = async () => {
+   const getData = async (page = 1) => {
     try {
-      const response = await fetch(`${URL_API}/Cliente`);
+      const response = await fetch(`${URL_API}/Cliente?page=${page}`);
       const data = await response.json();
       setDataApi(data); 
-      // console.log(data);
       if (response.ok) {
-        // console.log("response.ok")
-        // console.log(response.ok)
         setIsLoading(false);
       }
     } catch (error) {
       console.error(error);
     }
-  }
+  };
   
   useEffect(() => {
     setTimeout(() => {
@@ -137,7 +134,11 @@ function Customers(props) {
       </div>
       <div className="row">
         <div className="col d-flex justify-content-center">
-          <PagComponent />
+        <PagComponent 
+            dataApi={dataApi} 
+            getData={getData} // Pasar la función directamente
+          />
+          {/* <PagComponent /> */}
         </div>
       </div>
     </div>
