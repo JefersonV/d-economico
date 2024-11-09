@@ -5,6 +5,8 @@ import ModalAddClient from './ModalAddClient';
 import Badge from "./Badge"
 // import "../../styles/Badge.scss";
 import "../../styles/Searchbar.scss";
+import { useStoreCliente } from '../../providers/ClienteProvider';
+//import UseStore from '../../providers/GlobalProvider';
 import useDebounce from "../../hooks/useDebounce";
 import SearchResults from '../SearchDrop/SearchResults';
 import SeachBarDrop from '../SearchDrop/SearchBarDrop';
@@ -14,6 +16,11 @@ function CustomerStep1(props) {
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
   const [dataApi, setDataApi] = useState([])
 
+   // Usar Zustand para manejar el cliente seleccionado
+   const { clienteSelectedGlobal, setClienteSelectedGlobal } = useStoreCliente();
+
+   console.info("estado global item 2")
+  console.info( clienteSelectedGlobal)
   // Filtro de búsqueda
   // estado para el valor de búsqueda del input
   const [searchValue, setSearchValue] = useState("");
@@ -83,15 +90,14 @@ function CustomerStep1(props) {
     // Reemplaza con el nuevo item seleccionado
     setClienteSelected([selectedItem]); 
 
+    setClienteSelectedGlobal(selectedItem); // Usar el setter de Zustand
+
     // Reemplaza con el nuevo item seleccionado
     // props.setClienteSeleccionado([selectedItem]); 
  
     console.log('Cliente seleccionado:', selectedItem);
     // actualizarRelacionesCliente
     props.setClienteStep1(selectedItem);
-    if (selectedItem) {
-      actualizarRelacionesCliente(selectedItem);
-    }
     // props.actualizarRelacionesCliente(selectedItem);
     
     // props.setClienteSeleccionado(selectedItem);

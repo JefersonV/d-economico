@@ -1,13 +1,48 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 import { useStore } from "../providers/GlobalProvider";
 import { Table } from 'reactstrap';
 
 function Capital(props) {
   const isOpen = useStore((state) => state.sidebar);
-	useEffect(() => {
+
+  useEffect(() => {
     /* isOpen (globalstate) -> para que el contenido se ajuste según el ancho de la sidebar (navegación) */
-		props.setTitle("Capital");
-	}, []); 
+    props.setTitle("Capital");
+  }, [props]); // Agregar props como dependencia para evitar warnings
+
+  const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+  const [dataCapital, setDataCapital] = useState(0); // Inicializar como 0
+  const [dataCapitalRecuperado, setDataCapitalRecuperado] = useState(0); // Inicializar como 0
+
+  const getCapitalPrestado = async () => {
+    try {
+      const response = await fetch(`${VITE_BACKEND_URL}/Prestamo/suma`);
+      const data = await response.json();
+      if (response.ok) {
+        setDataCapital(data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getCapitalRecuperado = async () => {
+    try {
+      const response = await fetch(`${VITE_BACKEND_URL}/Prestamo/suma-capital-recuperado`);
+      const data = await response.json();
+      if (response.ok) {
+        setDataCapitalRecuperado(data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getCapitalPrestado();
+    getCapitalRecuperado();
+  }, []); // Llamar ambas funciones en un solo useEffect
 
   return (
     <>
@@ -20,8 +55,8 @@ function Capital(props) {
                   Capital
                 </div>
                 <div className="card-body">
-                  <h5 className="card-title">Monitoreo de Capital</h5>
-                  <p className="card-text">Q.5,150.00.</p>
+                  <h5 className="card-title">Capital prestado</h5>
+                  <p className="card-text">Q.{dataCapital !== null && dataCapital !== undefined ? dataCapital.toFixed(2) : "0.00"}</p>
                 </div>
               </div>
             </div>
@@ -32,16 +67,14 @@ function Capital(props) {
                   Ingresos
                 </div>
                 <div className="card-body">
-                  <h5 className="card-title">Ingresos</h5>
-                  <p className="card-text">Q.7,300.00</p>
+                  <h5 className="card-title">Capital recuperado</h5>
+                  <p className="card-text">Q.{dataCapitalRecuperado !== null && dataCapitalRecuperado !== undefined ? dataCapitalRecuperado.toFixed(2) : "0.00"}</p>
                 </div>
               </div>
             </div>
           </div>
-
           <div className="row">
             <Table>
-              
               <thead>
                 <tr>
                   <th>Fecha</th>
@@ -53,61 +86,31 @@ function Capital(props) {
                   <th>Saldo Bruto</th>
                 </tr>
               </thead>
-            <tbody>
-             
-              <tr>
-                <td>01/01/2021</td>
-                <td>Q. 1000.00</td>
-                <td>Ingreso</td>
-                <td>Depósito</td>
-                <td>Q. 1000.00</td>
-                <td>Q. 2000.00</td>
-                <td>Q. 2000.00</td>
-              </tr>
-              <tr>
-                <td>01/01/2021</td>
-                <td>Q. 2000.00</td>
-                <td>Egreso</td>
-                <td>Retiro</td>
-                <td>Q. 500.00</td>
-                <td>Q. 1500.00</td>
-                <td>Q. 1500.00</td>
-              </tr>
-              <tr>
-                <td>01/01/2021</td>
-                <td>Q. 1500.00</td>
-                <td>Ingreso</td>
-                <td>Depósito</td>
-                <td>Q. 2000.00</td>
-                <td>Q. 3500.00</td>
-                <td>Q. 3500.00</td>
-              </tr>
-              <tr>
-                <td>01/01/2021</td>
-                <td>Q. 3500.00</td>
-                <td>Egreso</td>
-                <td>Retiro</td>
-                <td>Q. 500.00</td>
-                <td>Q. 3000.00</td>
-                <td>Q. 3000.00</td>
-              </tr>
-              <tr>
-                <td>01/01/2021</td>
-                <td>Q. 3000.00</td>
-                <td>Ingreso</td>
-                <td>Depósito</td>
-                <td>Q. 1000.00</td>
-                <td>Q. 4000.00</td>
-                <td>Q. 4000.00</td>
-              </tr>
-            </tbody>
+              <tbody>
+                {dataCapital && dataCapital.length > 0 ? (
+                  dataCapital.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.fecha || "N/A"}</td>
+                      <td>Q. {item.saldoInicial !== null ? item.saldoInicial.toFixed(2) : "0.00"}</td>
+                      <td>{item.operacion || "N/A"}</td>
+                      <td>{item.accion || "N/A"}</td>
+                      <td>Q. {item.monto !== null ? item.monto.toFixed(2) : "0.00"}</td>
+                      <td>Q. {item.saldoCaja !== null ? item.saldoCaja.toFixed(2) : "0.00"}</td>
+                      <td>Q. {item.saldoBruto !== null ? item.saldoBruto.toFixed(2) : "0.00"}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="text-center">No data available</td>
+                  </tr>
+                )}
+              </tbody>
             </Table>
-
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Capital
+export default Capital;

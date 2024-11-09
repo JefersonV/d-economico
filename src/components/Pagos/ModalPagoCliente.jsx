@@ -33,7 +33,7 @@ function ModalPagoCliente({ idPrestamo, toggleModal}) {
         <div className="container">
           <div className="row">
             <div className="col">
-              <Badge nombre={dataCuotas?.nombre || ""} apellido={dataCuotas?.apellido || ""}/>
+              <Badge nombre={dataCuotas?.nombre || ""} apellido={dataCuotas?.apellido || ""} fechaRegistro={dataCuotas?.fechaRegistro} telefono ={dataCuotas?.telefono} direccion={dataCuotas?.direccion}/>
             </div>
           </div>
           <div className="row mt-4">
@@ -44,12 +44,12 @@ function ModalPagoCliente({ idPrestamo, toggleModal}) {
         </div>
       </ModalBody>
       <ModalFooter>
-        <Button color="primary" onClick={toggleModal}>
+        {/* <Button color="primary" onClick={toggleModal}>
           Do Something
         </Button>
         <Button color="secondary" onClick={toggleModal}>
           Cancel
-        </Button>
+        </Button> */}
       </ModalFooter>
     </Modal>
   );

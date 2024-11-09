@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useStoreCliente } from '../../providers/ClienteProvider';
 
 const UploadDocs = () => {
     const [dpi, setDpi] = useState('');

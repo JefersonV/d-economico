@@ -18,11 +18,11 @@ function Example(args) {
           <UploadDocs />
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>
+          {/* <Button color="primary" onClick={toggle}>
             Do Something
-          </Button>{' '}
+          </Button>{' '} */}
           <Button color="secondary" onClick={toggle}>
-            Cancel
+            Cancelar
           </Button>
         </ModalFooter>
       </Modal>

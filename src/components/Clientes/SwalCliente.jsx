@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { BsFillTrashFill } from 'react-icons/bs';
 
-const SwalDelete = ({ idUsuario, actualizarListaUsuario }) => {
+const SwalCliente = ({ idCliente, actualizarListaCliente }) => {
 
   const [data, setData] = useState({
     tipoUsuario: '',
@@ -10,7 +10,7 @@ const SwalDelete = ({ idUsuario, actualizarListaUsuario }) => {
 
   
   const deleteSweet = () => {
-    getUsuarioData(idUsuario)
+    getUsuarioData(idCliente)
     if (data.tipoUsuario !== 'Administrador') { // Verificar si el usuario no es el administrador
       Swal.fire({
         title: 'Eliminar registro',
@@ -24,7 +24,7 @@ const SwalDelete = ({ idUsuario, actualizarListaUsuario }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire('Eliminado', 'El registro se ha eliminado', 'success');
-          providerDelete(idUsuario);
+          providerDelete(idCliente);
         }
       });
     } else {
@@ -33,12 +33,11 @@ const SwalDelete = ({ idUsuario, actualizarListaUsuario }) => {
   };
   
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-  
   const getUsuarioData = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5103/api/Account/${id}`, {
+      const response = await fetch(`${VITE_BACKEND_URL}/Cliente/${id}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.token}`,
+          // Authorization: `Bearer ${localStorage.token}`,
           'Content-Type': 'application/json'
         }
       });
@@ -53,20 +52,22 @@ const SwalDelete = ({ idUsuario, actualizarListaUsuario }) => {
   };
   
   useEffect(() => {
-    getUsuarioData(idUsuario)
+    getUsuarioData(idCliente)
   }, []);
+
+  // const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const providerDelete = async (id) => {
       try {
-        const response = await fetch(`http://localhost:5103/api/Account/${id}`, {
-          method: 'DELETE',
-          headers: {
+        const response = await fetch(`${VITE_BACKEND_URL}/Cliente/${id}`, {
+        method: 'DELETE',
+        headers: {
             Authorization: `Bearer ${localStorage.token}`,
           },
         });
         if (response.ok) {
           /* Prop para actualizar la tabla en tiempo real después de eliminar el registro */
-          actualizarListaUsuario();
+          actualizarListaCliente();
         } else {
           Swal.fire('Error', 'No se pudo eliminar el registro', 'error');
         }
@@ -85,4 +86,4 @@ const SwalDelete = ({ idUsuario, actualizarListaUsuario }) => {
   );
 };
 
-export default SwalDelete;
+export default SwalCliente;

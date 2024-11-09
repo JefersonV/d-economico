@@ -3,8 +3,9 @@ import { Table, Button } from "reactstrap";
 import { BiEditAlt } from "react-icons/bi";
 import { BsFillTrashFill } from "react-icons/bs";
 import ModalEditUser from "./ModalEditUser";
-import SwalDelete from '../usuarios/SwalDeleteUser'
 import ModalInfoUser from './ModalInfoUser'
+import SwalCliente from "../usuarios/SwalDeleteUser";
+import SwalDelete from "./SwalDeleteUser";
 
 function TableUsers(props) {
   const [modal, setModal] = useState(false);
@@ -43,10 +44,11 @@ function TableUsers(props) {
                         idUsuario={data.idUsuario}
                         actualizarListaUsuario={actualizarListaUsuario}
                       />
-                      <SwalDelete 
+                      <SwalDelete
                         idUsuario={data.idUsuario} 
                         actualizarListaUsuario={actualizarListaUsuario} 
                       />
+
                       <ModalInfoUser>
                         idUsuario={data.idUsuario}
 

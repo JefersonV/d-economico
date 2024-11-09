@@ -9,6 +9,7 @@ import DialogActions from '@mui/material/DialogActions';
 import { Badge, Table } from 'reactstrap';
 import Swal from 'sweetalert2';
 
+
 export default function ModalPagoCuota({ idPago, dataCuotasApi }) {
   const [open, setOpen] = useState(false);
   const [dataPago, setDataPago] = useState(null);
@@ -138,7 +139,7 @@ export default function ModalPagoCuota({ idPago, dataCuotasApi }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleOpen}>Registrar pago</Button>
       <Dialog
         open={open}
         onClose={handleClose}

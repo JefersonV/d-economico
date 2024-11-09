@@ -24,3 +24,9 @@ export const usePrestamoStore = create((set) => ({
   idPrestamo: null,
   setIdPrestamo: (id) => set(() => ({ idPrestamo: id })),
 }));
+
+// export const useStoreCliente = create((set) => ({
+//  clienteSelectedGlobal: null,
+//  setClienteSelectedGlobal: (cliente) => set({ clienteSelectedGlobal: cliente }),
+// }));
+

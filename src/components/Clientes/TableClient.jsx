@@ -9,6 +9,8 @@ import TabsForms from './Tabs/TabsForms';
 import ModalEditTab from "./ModalEditTab";
 import { TbError404 } from "react-icons/tb";
 
+import SwalCliente from "./SwalCliente";
+import Swal from "sweetalert2";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'; 
 import { FaTrash } from "react-icons/fa";
 
@@ -37,6 +39,7 @@ function TableClient(props) {
       setDataToRender([]);
     }
   
+    console.info(dataToRender)
     // Para depurar la longitud actual de los datos a renderizar
     // console.info("Data a renderizar cliente:", dataToRender?.length);
   }, [props.busqueda, props.dataApi]);
@@ -68,9 +71,9 @@ function TableClient(props) {
                   <th>Profesion/Oficio</th>
                   <th>Teléfono</th>
                   <th>Fiador</th>
-                  <th>Ref Familiares</th>
-                  <th>Ref Personales</th>
-                  {/* <th>Documentación</th> */}
+                  {/* <th>Ref Familiares</th> */}
+                  {/* <th>Ref Personales</th> */}
+                  <th>Documentación</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -98,33 +101,38 @@ function TableClient(props) {
                           <Badge color="success" pill>Listo</Badge>
                         )}
                       </td>
-                      <td>
+                      {/* <td>
                         {data?.clienteReferenciasfams.length === 0 ? (
                           <Badge color="danger" pill>Pendiente</Badge>
                         ) : (
                           <Badge color="success" pill>Listo</Badge>
                         )}
-                      </td>
-                      <td>
+                      </td> */}
+                      {/* <td>
                         {data?.clienteReferenciaspers.length === 0 ? (
                           <Badge color="danger" pill>Pendiente</Badge>
                         ) : (
                           <Badge color="success" pill>Listo</Badge>
                         )}
-                      </td>
-                      {/* <td>
+                      </td> */}
+                      
+                      <td>
                         {data?.requisitosDocsIdrequisitosDocs === null ? (
                           <Badge color="danger" pill>Pendiente</Badge>
                         ) : (
                           <Badge color="success" pill>Listo</Badge>
                         )}
-                      </td> */}
+                      </td>
                       <td>
                         <ModalEditTab
                           title="Editar información del cliente"
                           idCliente={data?.idcliente}
                           actualizarListaCliente={props.actualizarListaCliente}
                         />
+                        <SwalCliente 
+                          idCliente={data?.idcliente} 
+                          actualizarListaCliente={props.actualizarListaCliente} 
+                      />
                         <BsFillTrashFill color="red" size={20}  />
                       </td>
                      

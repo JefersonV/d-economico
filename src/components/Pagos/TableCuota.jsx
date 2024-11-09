@@ -5,36 +5,11 @@ import { Link } from "react-router-dom";
 // import PagoCuota from "../../pages/PagoCuota";
 import ModalPagoCuota from "./ModalPagoCuota";
 import Swal from "sweetalert2";
+import Comprobante from "../../pages/Comprobante";
+import ComprobanteSolo from "../../pages/ComprobanteSolo";
 // import { Badge } from "reactstrap";
 function TableCuota({ data, getDataCuotas}) {
 
-  console.info(data)
-
-  /* 
-    {
-    "idCliente": 36,
-    "nombre": "Mario",
-    "apellido": "Test presentacion",
-    "fechaRegistro": "2024-11-06T01:41:23.241327",
-    "telefono": 23982739,
-    "idPrestamo": 19,
-    "cuotas": [
-        {
-            "idPago": 109,
-            "numeroCuota": 2,
-            "montoCuota": 111.11111111111111,
-            "interesCuota": 16.666666666666668,
-            "moraCuota": null,
-            "totalCuota": null,
-            "estadoCuota": false,
-            "estadoPago": false,
-            "fechaVencimientoCuota": "2024-11-08T00:00:00",
-            "fechaPagoCuota": null,
-            "diasAtraso": 0
-        },
-    ]
-}
-  */
   return (
     <>
       <Table hover bordered responsive>
@@ -59,6 +34,7 @@ function TableCuota({ data, getDataCuotas}) {
                 >
                   Cuota {cuota.numeroCuota }  
                 </Badge>
+                <Comprobante idCliente={data.idCliente}/>
               </td>
               <td> <b>Vencimiento:</b> <br/> {new Date(cuota.fechaVencimientoCuota).toLocaleDateString()} <br />
                 <b>Pagado:</b> <br /> {cuota.fechaPagoCuota ? new Date(cuota.fechaPagoCuota).toLocaleDateString() : "Pendiente"}
@@ -70,9 +46,12 @@ function TableCuota({ data, getDataCuotas}) {
               <td>{cuota.estadoPago ? "Pagado" : "Pendiente"}</td>
               <td>
                 {cuota.estadoPago && cuota.estadoPago ? (
+                  <>
                   <Badge color="success" pill>
                     Pagado
                   </Badge>
+                  <ComprobanteSolo idPago={cuota.idPago} />
+                  </>
                 ) : (
                   <ModalPagoCuota 
                     idPago={cuota.idPago}

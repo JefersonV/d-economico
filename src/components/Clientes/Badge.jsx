@@ -9,10 +9,10 @@ import { FaCommentDots } from "react-icons/fa";
 /* Componente Badge */
 function Badge(props) {
 
-  const { nombre,apellido, fecha, direccion, telefono, ingreso, egreso, referencias } = props;
+  const { nombre,apellido, fechaRegistro, direccion, telefono, ingreso, egreso, referencias } = props;
 
-  const formatDate = (fecha) => {
-    const date = new Date(fecha);
+  const formatDate = (fechaRegistro) => {
+    const date = new Date(fechaRegistro);
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Los meses en JavaScript son 0-indexados
     const year = date.getFullYear();
@@ -33,7 +33,7 @@ function Badge(props) {
           </h6>
         </div>
         <div className="col-12 col-md-8 badges-right">
-          <p className="badge-text"><BsCalendarDate size={27}/>{" "}Fecha registro: {!fecha ? "" : formatDate(fecha)}</p>
+          <p className="badge-text"><BsCalendarDate size={27}/>{" "}Fecha registro: { fechaRegistro ? formatDate(fechaRegistro) : ""}</p>
           <p className="badge-text"><FaAddressBook size={27} />{" "}Dirección: {direccion} </p>
           <p className="badge-text"><BsPhone size={27} />{" "}Teléfono: {telefono}</p>
           {ingreso !== undefined && (

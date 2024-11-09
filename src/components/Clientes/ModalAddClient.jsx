@@ -401,9 +401,9 @@ function ModalAddClient() {
                   />
                   {touched.notasVisita && errors.notasVisita && <div className="error">{errors.notasVisita}</div>}
                   {/* Modal anidado */}
-                  <Button color="success" onClick={toggleNested}>
+                  {/* <Button color="success" onClick={toggleNested}>
                     Show Nested Modal
-                  </Button>
+                  </Button> */}
 
                   <Modal
                     isOpen={nestedModal}

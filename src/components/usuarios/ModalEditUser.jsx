@@ -28,9 +28,11 @@ const ModalEditUser = (props) => {
   });
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
 
+  const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   const getUsuarioData = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5103/api/Account/${id}`,
+      const response = await fetch(`${VITE_BACKEND_URL}/Account/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.token}`,
@@ -68,8 +70,8 @@ const ModalEditUser = (props) => {
     resetForm();
 
     try {
-      const response = await fetch(`http://localhost:5103/api/Account/update/${idUsuario}`,
-        {
+      const response = await fetch(`${VITE_BACKEND_URL}Account/update/${idUsuario}`,
+      {
           method: "PUT",
           body: JSON.stringify(bodyTest),
           headers: {

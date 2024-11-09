@@ -4,10 +4,15 @@ import Badge from "./Badge"
 import ModalAddFiador from './ModalAddFiador'
 import SearchBarDrop from '../SearchDrop/SearchBarDrop'
 import useDebounce from "../../hooks/useDebounce"
+// import UseStore from '../../providers/GlobalProvider'
+import { useStoreCliente } from '../../providers/ClienteProvider'
 
 function CustomerStep2() {
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-
+  // Usar Zustand para manejar el cliente seleccionado
+  const { clienteSelectedGlobal, setClienteSelectedGlobal } = useStoreCliente();
+  // Usar Zustand para acceder al cliente seleccionado
+  
   // Filtro de búsqueda
   // estado para el valor de búsqueda del input
   const [searchValue, setSearchValue] = useState("");
@@ -102,6 +107,9 @@ function CustomerStep2() {
           </div>
           <div className="col-12 col-md-6 mb-4">
             <ModalAddFiador />
+
+           
+            
           </div>
           {/* Badge */}
           <Badge 

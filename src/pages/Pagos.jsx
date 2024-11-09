@@ -124,7 +124,7 @@ function Customers(props) {
                 name="estado" 
                 placeholder="Seleccione un estado" 
                 >
-                <option value="1" disabled>click para filtrar</option>
+                <option value="" disabled>click para filtrar</option>
                 <option value="1">Activo</option>
                 <option value="0">Inactivo</option>
                 </Input>
