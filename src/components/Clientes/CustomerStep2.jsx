@@ -7,7 +7,7 @@ import useDebounce from "../../hooks/useDebounce"
 // import UseStore from '../../providers/GlobalProvider'
 import { useStoreCliente } from '../../providers/ClienteProvider'
 
-function CustomerStep2() {
+function CustomerStep2({clienteStep1, setFiadorStep2, fiadorStep2}) {
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
   // Usar Zustand para manejar el cliente seleccionado
   const { clienteSelectedGlobal, setClienteSelectedGlobal } = useStoreCliente();
@@ -81,10 +81,13 @@ function CustomerStep2() {
     // Reemplaza con el nuevo item seleccionado
     setClienteSelected([selectedItem]); 
  
-    console.log('Cliente seleccionado:', selectedItem);
+    // console.log('Cliente seleccionado:', selectedItem);
     
+    setFiadorStep2(selectedItem);
     // props.setClienteSeleccionado(selectedItem);
   };
+  
+  // console.info(clienteStep1);
 
   return (
     <>
@@ -92,6 +95,7 @@ function CustomerStep2() {
         <div className="row">
           <div className="col-12 col-md-6">
           <SearchBarDrop 
+              clienteStep1={clienteStep1}
               itemSelected={itemSelected}
               setItemSelectedList={setItemSelectedList}
               /* Data search = la data encontrada en la api */
@@ -108,17 +112,22 @@ function CustomerStep2() {
           <div className="col-12 col-md-6 mb-4">
             <ModalAddFiador />
 
-           
-            
           </div>
           {/* Badge */}
+          {clienteStep1 && clienteStep1?.fiadorIdfiador ? (
+            <>
+              <div className="col-12 col-md-6">
+                <h5 className="blue-txt text-primary ">Este cliente ya tiene un fiador asociado</h5>
+              </div>
+            </>
+          ) : null }
           <Badge 
               // Usar optional chaining para evitar errores
-              nombre={clienteSelected[0]?.nombre} 
-              apellido={clienteSelected[0]?.apellido}
-              fecha={clienteSelected[0]?.fechaRegistro}
-              direccion={clienteSelected[0]?.direccion}
-              telefono={clienteSelected[0]?.telefono}
+              nombre={fiadorStep2?.nombre} 
+              apellido={fiadorStep2?.apellido}
+              fecha={fiadorStep2?.fechaRegistro}
+              direccion={fiadorStep2?.direccion}
+              telefono={fiadorStep2?.telefono}
               /* ingreso={clienteSelected[0]?.ingresos}
               egreso={clienteSelected[0]?.egresos}
               referencias={clienteSelected[0]?.notasVisita} */

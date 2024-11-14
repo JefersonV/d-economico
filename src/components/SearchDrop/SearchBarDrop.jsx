@@ -90,12 +90,16 @@ function SearchBarDrop(props) {
             </InputGroupText>
             <Input
               type="text"
-              className="SearchInputs"
+              className={props.clienteStep1?.fiadorIdfiador ? "d-none" : "SearchInputs"}
               onFocus={expandContainer}
               ref={inputRef}
               onChange={props.handleSearch} // Aquí usas handleSearch desde props
               value={props.searchValueInput}
-              placeholder="Nombre del cliente"
+              placeholder="Nombre ..."
+              // disabled={ 
+              //   // si tiene un fiador asociado, deshabilita el input
+              //   props.clienteStep1 && props.clienteStep1.fiadorIdfiador ? true : false}
+                disabled={!!(props.clienteStep1?.fiadorIdfiador ? true : false)}
             />
           </InputGroup>
           <AnimatePresence>

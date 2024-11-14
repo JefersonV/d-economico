@@ -3,15 +3,52 @@ import Swal from 'sweetalert2';
 import { BsFillTrashFill } from 'react-icons/bs';
 
 const SwalDelete = ({ idUsuario, actualizarListaUsuario }) => {
+  const [tipoUsuario, setTipoUsuario] = useState('');
 
-  const [data, setData] = useState({
-    tipoUsuario: '',
-  });
+  const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-  
-  const deleteSweet = () => {
-    getUsuarioData(idUsuario)
-    if (data.tipoUsuario !== 'Administrador') { // Verificar si el usuario no es el administrador
+  const getUsuarioData = async (id) => {
+    try {
+      const response = await fetch(`${VITE_BACKEND_URL}/Account/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      const usuarioData = await response.json();
+      setTipoUsuario(usuarioData.tipoUsuario);
+    } catch (error) {
+      console.log('Error Message: ' + error.message);
+    }
+  };
+
+  useEffect(() => {
+    getUsuarioData(idUsuario);
+  }, [idUsuario]);
+
+  const providerDelete = async (id) => {
+    try {
+      const response = await fetch(`${VITE_BACKEND_URL}/api/Account/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      });
+      if (response.ok) {
+        actualizarListaUsuario();
+      } else {
+        Swal.fire('Error', 'No se pudo eliminar el registro', 'error');
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire('Error', 'Ocurrió un error al eliminar el registro', 'error');
+    }
+  };
+
+  const deleteSweet = async () => {
+    // Esperamos a que se cargue el tipo de usuario
+    await getUsuarioData(idUsuario);
+    if (tipoUsuario !== 'Administrador') {
       Swal.fire({
         title: 'Eliminar registro',
         text: '¿Estás seguro que quieres eliminar el registro?',
@@ -23,57 +60,13 @@ const SwalDelete = ({ idUsuario, actualizarListaUsuario }) => {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire('Eliminado', 'El registro se ha eliminado', 'success');
           providerDelete(idUsuario);
+          Swal.fire('Eliminado', 'El registro se ha eliminado', 'success');
         }
       });
     } else {
       Swal.fire('No se puede eliminar', 'Este usuario no puede ser eliminado', 'warning');
     }
-  };
-  
-  const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-  
-  const getUsuarioData = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:5103/api/Account/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      const usuarioData = await response.json();
-      setData({
-        ...data,
-        tipoUsuario: usuarioData.tipoUsuario,
-      });
-    } catch (error) {
-      console.log('Error Message: ' + error.ErrorMessage);
-    }
-  };
-  
-  useEffect(() => {
-    getUsuarioData(idUsuario)
-  }, []);
-
-  const providerDelete = async (id) => {
-      try {
-        const response = await fetch(`http://localhost:5103/api/Account/${id}`, {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${localStorage.token}`,
-          },
-        });
-        if (response.ok) {
-          /* Prop para actualizar la tabla en tiempo real después de eliminar el registro */
-          actualizarListaUsuario();
-        } else {
-          Swal.fire('Error', 'No se pudo eliminar el registro', 'error');
-        }
-      } catch (error) {
-        console.log(error);
-        Swal.fire('Error', 'Ocurrió un error al eliminar el registro', 'error');
-      }
   };
 
   return (

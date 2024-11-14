@@ -14,6 +14,8 @@ import { ca } from 'date-fns/locale';
 // import useForm from '../../hooks/useForm'
 // import { useFormik } from 'formik'
 
+// usuario de local storage
+const idUsuario = localStorage.getItem('userId');
 function NewPrestamo(props) {
   const isOpen = useStore((state) => state.sidebar);
   
@@ -148,7 +150,7 @@ function NewPrestamo(props) {
       // la fecha de vencimiento debe ser calculada automaticamente
       // FechaVencimiento: "2025-01-01T00:00:00",
       TasaInteres: valores.TasaInteres,
-      // IdUsuario: "993457f0-5d6a-43b8-9cb4-2b5957ccee59",
+      // IdUsuario: "993457f0-5d6a-43b8-9cb4-2b5957ccees59",
       IdCliente: clienteSelected[0].idcliente,
       IdTipoPrestamo: auxTipoPrestamo,
       PagoCuota: totalesPrestamo.totalPagos,
@@ -265,8 +267,8 @@ function NewPrestamo(props) {
               dias_gracia: "",
               fecha_primer_pago: "",
               TasaInteres: "",
-              mora: "",
-              politica: "",
+              // mora: "",
+              // politica: "",
             }}
             // validate={validate}
             onSubmit={handleSubmit}
@@ -313,6 +315,9 @@ function NewPrestamo(props) {
                         handleSearch={handleSearch}
                         isLoadingSearch={isLoading}
                       />
+                      <br />
+                      <br />
+                      <br />
                       <button>
                         <Link to="/clientes/requisitos">Nuevo Cliente</Link>
                       </button>
@@ -434,7 +439,7 @@ function NewPrestamo(props) {
                         value={prestamoData?.TasaInteres || ""}
                       />
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <Label htmlFor="mora">Mora</Label>
                       <Input
                         type="number"
@@ -451,9 +456,9 @@ function NewPrestamo(props) {
                         }}
                         value={prestamoData?.mora || ""}
                       />
-                    </div>
+                    </div> */}
                     <div className="form-group">
-                      <Label htmlFor="politica">Política de amortización</Label>
+                      {/* <Label htmlFor="politica">Política de amortización</Label>
                       <Input
                         type="select"
                         id="select-politica"
@@ -474,7 +479,7 @@ function NewPrestamo(props) {
                         <option value="Quincenal">Quincenal</option>
                         <option value="Semanal">Semanal</option>
                         <option value="Diario">Diario</option>
-                      </Input>
+                      </Input> */}
 
                       <div className="flex-cont border rounded px-4">
                       <div className="card-header ">

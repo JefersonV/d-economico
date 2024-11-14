@@ -17,6 +17,13 @@ import TabEditItem2 from './TabEditItem2';
 import ReqDocs from './ReqDocs';
 
 function TabsForms(props) {
+  /* 
+                        idCliente={data?.idcliente}
+                          actualizarListaCliente={props.actualizarListaCliente}
+                          idDocs={data?.requisitosDocsIdrequisitosDocs}
+                          fiadorIdfiador={data?.fiadorIdfiador}
+*/
+
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
@@ -68,7 +75,10 @@ function TabsForms(props) {
                 {/* Tab 1 */}
                 <TabEditItem1 idCliente={props.idCliente} 
                 actualizarListaCliente={props.actualizarListaCliente}/>
-                
+                {/* 
+                      "fiadorIdfiador": 12,
+                      "requisitosDocsIdrequisitosDocs": 2
+                */}
               </Card>
             </Col>
           </Row>
@@ -77,7 +87,9 @@ function TabsForms(props) {
           <Row>
             <Col sm="12">
               <Card body>
-                <TabEditItem2 />
+                <TabEditItem2 
+                  fiadorIdfiador={props.fiadorIdfiador}
+                />
               </Card>
             </Col>
           </Row>
@@ -85,7 +97,7 @@ function TabsForms(props) {
         <TabPane tabId="3">
           <Row>
             <Col sm="12">
-            <TabEditItem2 />
+            {/* <TabEditItem2 /> */}
               {/* <h4>Tab 3 Contents</h4> */}
             </Col>
           </Row>
@@ -96,7 +108,9 @@ function TabsForms(props) {
               {/* <h4>Tab 4 Contents</h4>
                */}
                
-            <ReqDocs />
+            <ReqDocs 
+              idDocs={props.idDocs}
+            />
             </Col>
           </Row>
         </TabPane>

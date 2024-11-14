@@ -13,6 +13,8 @@ function TablePagos({ dataApi }) {
     }
   };
 
+  console.info(dataApi);
+
   return (
     <>
       <Table hover responsive>

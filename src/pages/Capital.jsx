@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from "../providers/GlobalProvider";
 import { Table } from 'reactstrap';
+import ModalAddGasto from "../components/Capital/ModalAddGasto"
+import ModalAddInyeccion from "../components/Capital/ModalAddInyeccion"
 
 function Capital(props) {
   const isOpen = useStore((state) => state.sidebar);
@@ -8,7 +10,7 @@ function Capital(props) {
   useEffect(() => {
     /* isOpen (globalstate) -> para que el contenido se ajuste según el ancho de la sidebar (navegación) */
     props.setTitle("Capital");
-  }, [props]); // Agregar props como dependencia para evitar warnings
+  }, []); // Agregar props como dependencia para evitar warnings
 
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -39,10 +41,28 @@ function Capital(props) {
     }
   };
 
+  const [dataOperaciones, setDataOperaciones] = useState([]);	
+  const getDataOperacioens = async () => {
+    try {
+      const response = await fetch(`${VITE_BACKEND_URL}/Prestamo/operaciones-de-la-semana`);
+      const data = await response.json();
+      if (response.ok) {
+        setDataOperaciones(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getCapitalPrestado();
     getCapitalRecuperado();
-  }, []); // Llamar ambas funciones en un solo useEffect
+  }, []);
+
+  useEffect(() => {
+    getDataOperacioens();
+    console.info(dataOperaciones);
+  }, []);
 
   return (
     <>
@@ -74,6 +94,10 @@ function Capital(props) {
             </div>
           </div>
           <div className="row">
+            <div className="col col-md-6">
+              <ModalAddGasto />
+              <ModalAddInyeccion />
+            </div>
             <Table>
               <thead>
                 <tr>
@@ -82,21 +106,19 @@ function Capital(props) {
                   <th>Operación</th>
                   <th>Acción</th>
                   <th>Monto</th>
-                  <th>Saldo en Caja</th>
-                  <th>Saldo Bruto</th>
+                  {/* <th>Saldo Bruto</th> */}
                 </tr>
               </thead>
               <tbody>
-                {dataCapital && dataCapital.length > 0 ? (
-                  dataCapital.map((item, index) => (
+                {dataOperaciones && dataOperaciones.length > 0 ? (
+                  dataOperaciones.map((item, index) => (
                     <tr key={index}>
                       <td>{item.fecha || "N/A"}</td>
-                      <td>Q. {item.saldoInicial !== null ? item.saldoInicial.toFixed(2) : "0.00"}</td>
-                      <td>{item.operacion || "N/A"}</td>
-                      <td>{item.accion || "N/A"}</td>
+                      <td>Q. {"0.00"}</td> {/* Saldo inicial no está disponible, puedes dejarlo así o eliminar la columna */}
+                      <td>{item.tipoOperacion || "N/A"}</td>
+                      <td>{item.descripcion || "N/A"}</td> {/* Aquí se utiliza 'descripcion', que es null */}
                       <td>Q. {item.monto !== null ? item.monto.toFixed(2) : "0.00"}</td>
-                      <td>Q. {item.saldoCaja !== null ? item.saldoCaja.toFixed(2) : "0.00"}</td>
-                      <td>Q. {item.saldoBruto !== null ? item.saldoBruto.toFixed(2) : "0.00"}</td>
+                      
                     </tr>
                   ))
                 ) : (

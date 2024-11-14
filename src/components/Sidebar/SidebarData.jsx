@@ -15,8 +15,7 @@ import { RiArrowUpSFill } from 'react-icons/ri'
 import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri"
 /* 
   MÓDULOS
-  
-  */
+*/
 
 export const SidebarData = [
   {
@@ -50,6 +49,7 @@ export const SidebarData = [
     path: "/clientes",
     icon: <FaRegUserCircle />,
   },
+  
   {
     title: "Préstamos",
     path: "/prestamos",
@@ -94,12 +94,18 @@ export const SidebarData = [
         icon: <BiFoodMenu />,
         class: "nav-subItem",
       },
-      {
+      /* {
         title: "Info Empresa",
         path: "/info-empresa",
         icon: <BiFoodMenu />,
         class: "nav-subItem",
-      }
+      }, */
+      /* {
+        title: "Documentos de comprobantes",
+        path: "/comprobantes",
+        icon: <GrConfigure />,
+        class: "nav-subItem",
+      } */
     ]
   }
 ];

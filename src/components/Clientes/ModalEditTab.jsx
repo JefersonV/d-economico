@@ -17,7 +17,12 @@ import { RiAccountPinCircleFill } from "react-icons/ri";
 import TabsForms from './Tabs/TabsForms';
 
 function ModalEditTab(props) {
-
+/* 
+                        idCliente={data?.idcliente}
+                          actualizarListaCliente={props.actualizarListaCliente}
+                          idDocs={data?.requisitosDocsIdrequisitosDocs}
+                          fiadorIdfiador={data?.fiadorIdfiador}
+*/
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
   return (
@@ -29,14 +34,19 @@ function ModalEditTab(props) {
         </ModalHeader>
         <ModalBody>
           {/* Componente tabs */}
-          <TabsForms idCliente={props.idCliente} actualizarListaCliente={props.actualizarListaCliente}/>
+          <TabsForms 
+            idCliente={props.idCliente} 
+            actualizarListaCliente={props.actualizarListaCliente}
+            idDocs={props.idDocs}
+            fiadorIdfiador={props.fiadorIdfiador}
+            />
 
         </ModalBody>
 
         <ModalFooter>
-          <Button color="primary" onClick={toggleModal}>
+          {/* <Button color="primary" onClick={toggleModal}>
             Guardar
-          </Button>
+          </Button> */}
           <Button color="secondary" onClick={toggleModal}>
             Cancelar
           </Button>

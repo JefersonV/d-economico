@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStore } from '../providers/GlobalProvider';
 
 export default function Home(props) {
@@ -6,6 +6,28 @@ export default function Home(props) {
 	useEffect(() => {
 		props.setTitle("Inicio");
 	}, []);
+
+	const [dataUsuario, setDataUsuario] = useState({});
+	// id del usuario que se acaba de loguear
+	const userId = localStorage.getItem("userId");
+	// console.info(userId);
+
+	const VITE_BACKEND_URL = import.meta.env;
+	const getDataUsuario = async (userId) => {
+		try {
+			const response = await fetch(`${VITE_BACKEND_URL}/Account/${userId}`);
+			const data = await response.json();
+			setDataUsuario(data);
+		} catch(error) {
+			console.error(error);
+		}
+	}
+
+	useEffect(() => {
+		if(userId) {
+			getDataUsuario(userId);
+		}
+	}, [userId]);
 
 	return (
 		<>
@@ -78,7 +100,7 @@ export default function Home(props) {
 							</div>
 						</div>
 
-						<div className="col-5">
+						{/* <div className="col-5">
 							<div className="card text-center">
 								<div className="card-header">
 									Reportes
@@ -88,7 +110,7 @@ export default function Home(props) {
 									<p className="card-text">Reportes de los movimientos financieros del día, semana o mes.</p>
 								</div>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>

@@ -5,12 +5,14 @@ const useAuthStore = create((set) => ({
     token: "",
     nombreUsuario: "",
     rol: "",
-    setUser: (nesAuth, newToken, newNombreUsuario, newRol) =>
+    userId: "", // Agregar ID del usuario
+    setUser: (nesAuth, newToken, newNombreUsuario, newRol, newUserId) => // Añadir newUserId
         set(() => ({
             isAuth: nesAuth,
             token: newToken,
             nombreUsuario: newNombreUsuario,
             rol: newRol,
+            userId: newUserId, // Almacenar el ID del usuario
         })),
 }));
 

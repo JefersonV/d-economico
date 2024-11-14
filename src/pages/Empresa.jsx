@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../providers/GlobalProvider';
 import BadgeEmpresa from '../components/Prestamos/BadgeEmpresa';
+import Swal from 'sweetalert2';
 
 const Empresa = (props) => {
     const isOpen = useStore((state) => state.sidebar);
     useEffect(() => {
       // Para establecer en el módulo en el que nos encontramos
-      props.setTitle("Control de Usuarios");
+      props.setTitle("Empresa");
     }, []);
 
 
@@ -22,6 +23,8 @@ const Empresa = (props) => {
             console.error(error);
         }
     }
+
+    
 
     useEffect(() => {
       getDataMicro();
@@ -51,8 +54,8 @@ const Empresa = (props) => {
         };
 
         try {
-            const response = await fetch(`${VITE_BACKEND_URL}/Empresa`, {
-                method: 'POST',
+            const response = await fetch(`${VITE_BACKEND_URL}/Empresa/1`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -62,6 +65,14 @@ const Empresa = (props) => {
             const data = await response.json();
             if (response.ok) {
                 setMessage("actualizado correctamente");
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Registro actualizado correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                getDataMicro();
             } else {
                 setMessage(data.message || 'Error al subir la información de la empresa.');
             }

@@ -49,10 +49,10 @@ function TableUsers(props) {
                         actualizarListaUsuario={actualizarListaUsuario} 
                       />
 
-                      <ModalInfoUser>
+                      {/* <ModalInfoUser>
                         idUsuario={data.idUsuario}
 
-                      </ModalInfoUser>
+                      </ModalInfoUser> */}
                    
                     </td>
 

@@ -16,6 +16,9 @@ function Sidebar(props) {
   const toggle = useStore((state) => state.showSidebar);
   const subNav = useSubItem((state) => state.subNav);
 
+  // const userId = localStorage.getItem("userId");
+  const usuarioLoggeado = localStorage.getItem("user");
+  const rolUsuario = localStorage.getItem("rol");
   // console.log(isOpen);
 
   const cerrarSesion = () => {
@@ -46,8 +49,8 @@ function Sidebar(props) {
           <h3 className="page-title">{pageTitle}</h3>
         </div>
         <div className="header-info-user">
-          <span>Rigoberto</span>
-          <span>Admin</span>
+          <span>{usuarioLoggeado || ""}</span>
+          <span>{rolUsuario || ""}</span>
         </div>
         <div>
           <img
@@ -55,7 +58,7 @@ function Sidebar(props) {
             src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
             width="50px"
             height="50px"
-            alt="Perfil del usuario"
+            alt="Imagen del perfil del usuario"
           />
         </div>
       </header>

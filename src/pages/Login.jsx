@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,28 +38,40 @@ function Login() {
       theme: "colored",
     });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ usuario: user, contrasenia: password }),
-    };
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/Account/login`,
-      requestOptions
-    );
-    const data = await response.json();
-    setResponse(data);
-    if (data.token !== undefined) {
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", data.nombreUsuario);
-      localStorage.setItem("rol", data.rol);
-      window.location.href = "/";
-    } else {
-      notification(data.mensaje);
-    }
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usuario: user, contrasenia: password }),
+      };
+  
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/Account/login`,
+          requestOptions
+        );
+        const data = await response.json();
+        setResponse(data);
+  
+        if (response.ok) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", data.nombreUsuario);
+          localStorage.setItem("rol", data.rol);
+          localStorage.setItem("userId", data.id); // Almacenar ID del usuario
+          setUser(true, data.token, data.nombreUsuario, data.rol, data.id); // Actualizar el estado global
+          window.location.href = "/";
+        } else {
+          notification(data.mensaje || "Error al iniciar sesión.");
+        }
+      } catch (error) {
+        notification("Error en la conexión. Inténtalo de nuevo.");
+      }
   };
+
+  useEffect(() => {
+    console.info(response)
+  }, [response]);
 
   const handleUserChange = (event) => {
     const lowercaseValue = event.target.value.toLowerCase();

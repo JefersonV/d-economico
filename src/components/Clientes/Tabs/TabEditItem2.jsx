@@ -20,7 +20,7 @@ function TabEditItem1(props) {
 
   const getclienteData = async (id) => {
     try {
-      const response = await fetch(`${VITE_BACKEND_URL}/Cliente/${id}`,
+      const response = await fetch(`${VITE_BACKEND_URL}/Fiador/${props.fiadorIdfiador}`,
         {
           headers: {
             // Authorization: `Bearer ${localStorage.token}`,
@@ -30,6 +30,17 @@ function TabEditItem1(props) {
       );
       const clienteData = await response.json();
       // console.info(clienteData);
+
+      /* 
+        {
+    "Idfiador": 1,
+    "Nombre": "Juan",
+    "Apellido": "Pérez",
+    "Direccion": "Calle 123, Zona 1",
+    "Telefono": "12345678",
+    "Estado": true
+}
+      */
       setData({
         ...data,
         nombre: clienteData.nombre || "",
@@ -43,9 +54,8 @@ function TabEditItem1(props) {
   };
 
   useEffect(() => {
-    if (props.idCliente) {
+    if (props.fiadorIdfiador) {
       getclienteData(props.idCliente);
-      
     }
   }, [props.idCliente]);
 
@@ -53,18 +63,27 @@ function TabEditItem1(props) {
 
     /* Para la solicitud put */
     const bodyFiador = {
-      nombre: values.nombre || "",
-      apellido: values.apellido || "",
-      direccion: values.direccion || "",
-      telefono: values.telefono || "",
+      Idfiador: props.fiadorIdfiador,
+      Nombre: values.nombre || "",
+      Apellido: values.apellido || "",
+      Direccion: values.direccion || "",
+      Telefono: values.telefono || "",
+      
     };
 
-    cambiarFormularioEnviado(true);
-    setTimeout(() => cambiarFormularioEnviado(false), 5000);
-    resetForm();
+    /* 
+    
+      {
+    "nombre": "Victor oropov",
+    "apellido": "Pér",
+    "direccion": "Calle 123, Ciudad",
+    "telefono": "555123456"
+}
+    */
+    console.info(bodyFiador)
 
     try {
-      const response = await fetch(`${VITE_BACKEND_URL}/Fiador/${props.idCliente}`,
+      const response = await fetch(`${VITE_BACKEND_URL}/Fiador/${props.fiadorIdfiador}`,
         {
           method: "PUT",
           body: JSON.stringify(bodyFiador),
@@ -91,8 +110,9 @@ function TabEditItem1(props) {
         resetForm();
         /* Prop para actualizar la data de la tabla */
         // actualizarListaUsuario();
-        props.actualizarListaCliente();
-      }
+        // props.actualizarListaCliente();
+        getclienteData(props.idCliente);
+      } 
     } catch (error) {
       console.log(error);
     }

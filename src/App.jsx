@@ -18,15 +18,18 @@ import Capital from "./pages/Capital";
 import TipoPrestamo from "./pages/TipoPrestamo";
 import Empresa from "./pages/Empresa";
 import Reportes from "./pages/Reportes";
+import ComprobantesDocs from "./pages/ComprobantesDocs";
 
 function App() {
   const [pageTitle, setPageTitle] = useState("");
   //const [isAuth, setIsAuth] = useState(false) // Estado para controlar si el usuario está autenticado
 
   //Traemos los datos que necesitemos del estado global
+  // Traemos los datos que necesitemos del estado global
   const datosUsuario = useAuthStore((state) => ({
     isAuth: state.isAuth,
     rol: state.rol,
+    userId: state.userId, // Agregar userId aquí
   }));
 
   //Traemos el método para cambiar los valores del estado
@@ -39,13 +42,15 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("token"); // Obtener el token almacenado en el navegador
+    const userId = localStorage.getItem("userId"); // Obtener el ID del usuario
     if (token) {
       setUser(
         true,
-        localStorage.getItem("token"),
+        token,
         localStorage.getItem("user"),
-        localStorage.getItem("rol")
-      ); // Si el token existe, el usuario está autenticado
+        localStorage.getItem("rol"),
+        userId // Almacenar ID del usuario en el estado global
+      );
     }
   }, []);
 
@@ -167,6 +172,11 @@ function App() {
                 path="/reportes"
                 element={<Reportes setTitle={setTitle} />}
               />
+
+              {/* <Route
+                path="/comprobantes"
+                element={<ComprobantesDocs setTitle={setTitle} />}
+              /> */}
             </Route>
             {/* */}
 

@@ -49,7 +49,7 @@ const ComprobanteDePago = ({ idCliente }) => {
     // Agregar título
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 255);
-    doc.text('Comprobante de Pago', 90, 30);
+    doc.text('Estado de cuenta', 90, 30);
 
     // Agregar información del cliente
     doc.setFontSize(12);
@@ -63,6 +63,7 @@ const ComprobanteDePago = ({ idCliente }) => {
     doc.text(`Modalidad de Pago: ${paymentData.modalidadPago}`, 20, 95);
     doc.text(`Fecha de Registro del Préstamo: ${new Date(paymentData.fechaRegistroPrestamo).toLocaleDateString()}`, 20, 105);
     doc.text(`Número Total de Cuotas: ${paymentData.cuotas.length}`, 20, 115);
+    doc.text(`Monto Prestado: Q.${paymentData.monto.toFixed(2)}`, 20, 125);
 
     // Agregar tabla de cuotas
     const cuotaRows = paymentData.cuotas.map(cuota => [

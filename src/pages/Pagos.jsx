@@ -17,6 +17,8 @@ function Customers(props) {
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const [dataPrestamos, setDataPrestamos] = useState([]);
+  const [filteredPrestamos, setFilteredPrestamos] = useState([]);
+  const [tipoPrestamo, setTipoPrestamo] = useState(""); // Estado para tipo de préstamo
   const getDatePrestamos = async () => {
     try {
       const response = await fetch(`${VITE_BACKEND_URL}/Prestamo/prestamos`);
@@ -109,6 +111,28 @@ function Customers(props) {
     console.log('Cliente seleccionado:', selectedItem);
   };
 
+  // filtro select option
+  useEffect(() => {
+    // Filtrar préstamos según el tipo de préstamo seleccionado
+    if (tipoPrestamo) {
+        const prestamosFiltrados = dataPrestamos.filter(cliente =>
+            cliente.prestamos && cliente.prestamos.some(prestamo => prestamo.idTipoPrestamo === tipoPrestamo)
+        ).map(cliente => ({
+            ...cliente,
+            prestamos: cliente.prestamos.filter(prestamo => prestamo.idTipoPrestamo === tipoPrestamo)
+        }));
+
+        setFilteredPrestamos(prestamosFiltrados);
+    } else {
+        // Si no hay tipo seleccionado, mostrar todos los préstamos
+        setFilteredPrestamos(dataPrestamos); 
+    }
+}, [tipoPrestamo, dataPrestamos]);
+
+  const handleTipoChange = (event) => {
+    setTipoPrestamo(event.target.value); // Actualiza el tipo de préstamo seleccionado
+  };
+
   return (
     <>
       <div className={isOpen ? "wrapper" : "side"}>
@@ -116,39 +140,41 @@ function Customers(props) {
           <FormGroup row>
             <Col sm={4}>
             <Label for="input-nombre" sm={2}>
-                Nombre
+                Tipo
               </Label>
               <Input 
                 type="select" 
-                id="input-estado" 
-                name="estado" 
-                placeholder="Seleccione un estado" 
-                >
-                <option value="" disabled>click para filtrar</option>
-                <option value="1">Activo</option>
-                <option value="0">Inactivo</option>
-                </Input>
+                id="input-tipo" 
+                name="tipo" 
+                onChange={handleTipoChange}
+              >
+                <option value="" disabled>Seleccione un tipo de préstamo</option>
+                <option value="1">Diario</option>
+                <option value="2">Semanal</option>
+                <option value="3">Quincenal</option>
+                <option value="4">Mensual</option>
+              </Input>
             </Col>
 
-            <Col sm={5}>
+            {/* <Col sm={5}>
               <SeachBarDrop 
                 itemSelected={itemSelected}
                 setItemSelectedList={setItemSelectedList}
-                /* Data search = la data encontrada en la api */
+                // Data search = la data encontrada en la api
                 clienteData={dataSearch}
                 setNoDataCliente={setNoDataCliente}
                 noDataCliente={noDataCliente}
-                /* Estado del input */
+                // Estado del input
                 searchValueInput={searchValue}
                 setSearchValueInput={setSearchValue}
                 handleSearch={handleSearch}
                 isLoadingSearch={isLoading}
               />
-            </Col>
+            </Col> */}
           </FormGroup>
 
           <div className="row">
-            <TablePagos dataApi={dataPrestamos}/>
+            <TablePagos dataApi={filteredPrestamos} />
           </div>
         </div>
       </div>

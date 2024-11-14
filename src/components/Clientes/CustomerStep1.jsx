@@ -15,12 +15,7 @@ function CustomerStep1(props) {
 
   const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
   const [dataApi, setDataApi] = useState([])
-
-   // Usar Zustand para manejar el cliente seleccionado
-   const { clienteSelectedGlobal, setClienteSelectedGlobal } = useStoreCliente();
-
-   console.info("estado global item 2")
-  console.info( clienteSelectedGlobal)
+ 
   // Filtro de búsqueda
   // estado para el valor de búsqueda del input
   const [searchValue, setSearchValue] = useState("");
@@ -90,12 +85,10 @@ function CustomerStep1(props) {
     // Reemplaza con el nuevo item seleccionado
     setClienteSelected([selectedItem]); 
 
-    setClienteSelectedGlobal(selectedItem); // Usar el setter de Zustand
-
     // Reemplaza con el nuevo item seleccionado
     // props.setClienteSeleccionado([selectedItem]); 
  
-    console.log('Cliente seleccionado:', selectedItem);
+    // console.log('Cliente seleccionado:', selectedItem);
     // actualizarRelacionesCliente
     props.setClienteStep1(selectedItem);
     // props.actualizarRelacionesCliente(selectedItem);
@@ -131,14 +124,14 @@ function CustomerStep1(props) {
           <div className="mt-4">
             <Badge 
               // Usar optional chaining para evitar errores
-              nombre={clienteSelected[0]?.nombre} 
-              apellido={clienteSelected[0]?.apellido}
-              fecha={clienteSelected[0]?.fechaRegistro}
-              direccion={clienteSelected[0]?.direccion}
-              telefono={clienteSelected[0]?.telefono}
-              ingreso={clienteSelected[0]?.ingresos}
-              egreso={clienteSelected[0]?.egresos}
-              referencias={clienteSelected[0]?.notasVisita}
+              nombre={props.clienteStep1?.nombre} 
+              apellido={props.clienteStep1?.apellido}
+              fecha={props.clienteStep1?.fechaRegistro}
+              direccion={props.clienteStep1?.direccion}
+              telefono={props.clienteStep1?.telefono}
+              ingreso={props.clienteStep1?.ingresos}
+              egreso={props.clienteStep1?.egresos}
+              referencias={props.clienteStep1?.notasVisita}
             /> 
           </div>
         </div>

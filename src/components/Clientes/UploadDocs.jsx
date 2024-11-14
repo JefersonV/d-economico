@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import { useStoreCliente } from '../../providers/ClienteProvider';
+import Swal from 'sweetalert2';
 
-const UploadDocs = () => {
-    const [dpi, setDpi] = useState('');
+const UploadDocs = ( {setDocsStep3} ) => {
     const [imageDpi, setImageDpi] = useState(null);
     const [imageRecibo, setImageRecibo] = useState(null);
-    const [noRecibo, setNoRecibo] = useState('');
-    const [parentescoId, setParentescoId] = useState(0);
     const [message, setMessage] = useState('');
+    const [idRegistro, setIdRegistro] = useState(null); // Estado para almacenar el ID
 
     const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+    const handleFileChange = (event, setImage) => {
+        setImage(event.target.files[0]);
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const formData = new FormData();
-        formData.append('dpi', dpi);
         formData.append('imageDpi', imageDpi);
         formData.append('imageRecibo', imageRecibo);
-        formData.append('noRecibo', noRecibo);
-        formData.append('parentescoId', parentescoId);
 
         try {
             const response = await fetch(`${VITE_BACKEND_URL}/Requisito`, {
@@ -29,7 +28,16 @@ const UploadDocs = () => {
 
             const data = await response.json();
             if (response.ok) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Registro agregado correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 setMessage(data.message);
+                // Almacenar el ID en el estado
+                setIdRegistro(data.id); // Cambiado de response.data.id a data.id
             } else {
                 setMessage(data.message || 'Error al subir las imágenes.');
             }
@@ -42,43 +50,20 @@ const UploadDocs = () => {
         <form onSubmit={handleSubmit}>
             <div>
                 <label>
-                    DPI:
-                    <input type="text" value={dpi} onChange={(e) => setDpi(e.target.value)} required />
-                </label>
-            </div>
-            <div>
-                <label>
                     Imagen DPI:
-                    <input type="file" accept="image/*" onChange={(e) => setImageDpi(e.target.files[0])} required />
                 </label>
+                <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, setImageDpi)} required />
             </div>
             <div>
                 <label>
                     Imagen Recibo:
-                    <input type="file" accept="image/*" onChange={(e) => setImageRecibo(e.target.files[0])} />
                 </label>
+                <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, setImageRecibo)} />
             </div>
-            <div>
-                <label>
-                    Número de Recibo:
-                    <input type="text" value={noRecibo} onChange={(e) => setNoRecibo(e.target.value)} required />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Parentesco:
-                    <select value={parentescoId} onChange={(e) => setParentescoId(Number(e.target.value))} required>
-                        <option value="0">Seleccione un parentesco</option>
-                        <option value="1">Padre/Madre</option>
-                        <option value="2">Hermano/Hermana</option>
-                        <option value="3">Cónyuge</option>
-                        <option value="4">Hijo/Hija</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
-                </label>
-            </div>
-            <button className="btn btn-primary" type="submit">Registrar docs</button>
+            <br />
+            <button className="btn btn-primary" type="submit">Adjuntar documentos</button>
             {message && <p>{message}</p>}
+            {idRegistro && <p>ID del registro: {setDocsStep3(idRegistro)}</p>} {/* Muestra el ID del registro */}
         </form>
     );
 };

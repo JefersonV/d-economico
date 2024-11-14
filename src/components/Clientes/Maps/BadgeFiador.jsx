@@ -9,7 +9,7 @@ import { FaCommentDots } from "react-icons/fa";
 /* Componente Badge */
 function Badge(props) {
 
-  const { nombre,apellido, fechaRegistro, direccion, telefono, ingreso, egreso, referencias } = props;
+  const {  } = props;
 
   const formatDate = (fechaRegistro) => {
     const date = new Date(fechaRegistro);

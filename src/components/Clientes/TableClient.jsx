@@ -126,14 +126,17 @@ function TableClient(props) {
                       <td>
                         <ModalEditTab
                           title="Editar información del cliente"
+                          /* Relacione de datos */
                           idCliente={data?.idcliente}
                           actualizarListaCliente={props.actualizarListaCliente}
+                          idDocs={data?.requisitosDocsIdrequisitosDocs}
+                          fiadorIdfiador={data?.fiadorIdfiador}
                         />
                         <SwalCliente 
                           idCliente={data?.idcliente} 
                           actualizarListaCliente={props.actualizarListaCliente} 
                       />
-                        <BsFillTrashFill color="red" size={20}  />
+                        {/* <BsFillTrashFill color="red" size={20}  /> */}
                       </td>
                      
                     </tr>

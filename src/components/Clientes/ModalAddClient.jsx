@@ -104,7 +104,8 @@ function ModalAddClient() {
   };
 
   const handleSubmit = async (valores, { resetForm }) => {
-    
+    // id del usuario logueado
+    const userId = localStorage.getItem("userId");
     const bodyCliente = {
       nombre: valores.nombre,
       apellido: valores.apellido,
